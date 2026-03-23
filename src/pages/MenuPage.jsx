@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { products, categories, packs } from '../data/menu';
+import { products as staticProducts, categories, packs } from '../data/menu';
+import { db } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 
 function ProductRow({ product }) {
@@ -95,6 +96,34 @@ export default function MenuPage({ onNavigate }) {
   const [activeCategory, setActiveCategory] = useState('todo');
   const [search, setSearch] = useState('');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [products, setProducts] = useState(staticProducts);
+
+  useEffect(() => {
+    db.getMenu()
+      .then(data => {
+        if (data && data.length > 0) {
+          setProducts(data.map(d => ({
+            ...staticProducts.find(p => p.id === d.id),
+            ...d,
+            badgeColor: d.badge_color,
+            available: d.available,
+            price: parseFloat(d.price),
+          })).filter(Boolean));
+        }
+      })
+      .catch(() => {
+        try {
+          const saved = localStorage.getItem('omg_menu');
+          if (saved) {
+            const savedItems = JSON.parse(saved);
+            setProducts(staticProducts.map(p => {
+              const s = savedItems.find(i => i.id === p.id);
+              return s ? { ...p, price: s.price, available: s.available } : p;
+            }));
+          }
+        } catch(e) {}
+      });
+  }, []);
 
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);

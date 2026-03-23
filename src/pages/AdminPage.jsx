@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { products as initialProducts, packs as initialPacks, categories } from '../data/menu';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/supabase';
 
 // ── Mock orders for demo ───────────────────────────────────────────────────────
 const mockOrders = [
@@ -159,16 +159,11 @@ function MenuEditor() {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState('');
 
-  // Load from localStorage, fall back to static
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('omg_menu');
-      if (saved) setMenuItems(JSON.parse(saved));
-      else setMenuItems(initialProducts);
-    } catch(e) {
-      setMenuItems(initialProducts);
-    }
-    setLoading(false);
+    db.getMenu()
+      .then(data => { if (data && data.length > 0) setMenuItems(data.map(d => ({...d, badgeColor: d.badge_color}))); else setMenuItems(initialProducts); })
+      .catch(() => { try { const s = localStorage.getItem("omg_menu"); setMenuItems(s ? JSON.parse(s) : initialProducts); } catch(e) { setMenuItems(initialProducts); } })
+      .finally(() => setLoading(false));
   }, []);
 
   const handleToggle = async (id) => {
@@ -176,7 +171,7 @@ function MenuEditor() {
     const newVal = !item.available;
     // Optimistic update
     setMenuItems(items => items.map(i => i.id === id ? { ...i, available: newVal } : i));
-    // Save toggle to localStorage immediately
+    db.updateItem(id, { available: newVal }).catch(console.error);
     setMenuItems(prev => {
       const updated = prev.map(i => i.id === id ? { ...i, available: newVal } : i);
       localStorage.setItem('omg_menu', JSON.stringify(updated));
@@ -193,6 +188,7 @@ function MenuEditor() {
     setSaveError('');
     try {
       // Upsert all items at once
+      await Promise.all(menuItems.map(i => db.updateItem(i.id, { price: parseFloat(i.price), available: i.available })));
       localStorage.setItem('omg_menu', JSON.stringify(menuItems));
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
@@ -386,7 +382,7 @@ export default function AdminPage() {
 
   const handleStatusChange = async (id, newStatus) => {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, status: newStatus } : o));
-    await supabase.from('orders').update({ status: newStatus, updated_at: new Date().toISOString() }).eq('id', id);
+    await db.updateOrder(id, { status: newStatus }).catch(console.error);
   };
 
   const filteredOrders = useMemo(() => {
