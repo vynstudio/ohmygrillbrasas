@@ -35,9 +35,9 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
       </div>
       <nav style={{ position:'sticky', top:0, zIndex:100, background: scrolled ? 'rgba(255,255,255,0.97)' : '#fff', backdropFilter: scrolled ? 'blur(12px)' : 'none', borderBottom:'1px solid #EDE9E3', transition:'all 0.2s ease', boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.06)' : 'none' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 20px', display:'flex', alignItems:'center', justifyContent:'space-between', height:60 }}>
-          <button onClick={() => handleNav('home')} style={{ background:'none', border:'none', cursor:'pointer', padding:0, fontFamily:"'Fraunces',serif", fontSize: isMobile ? 20 : 22, fontWeight:600, color:'#1C1A14', letterSpacing:'-0.5px' }}>
-            Oh<em style={{ color:'#E85820', fontStyle:'italic' }}>My</em>Grill
-            {!isMobile && <span style={{ fontSize:13, fontWeight:300, color:'#9A8F85', marginLeft:6, fontFamily:"'Outfit',sans-serif" }}>Brasas</span>}
+          <button onClick={() => handleNav('home')} style={{ background:'none', border:'none', cursor:'pointer', padding:0, display:'flex', alignItems:'center', gap:8 }}>
+            <img src="/logo.png" alt="OhMyGrill Brasas" style={{ height: isMobile ? 44 : 50, width: 'auto', objectFit:'contain' }} />
+            {!isMobile && <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C1A14', letterSpacing:'-0.3px' }}>Oh<em style={{ color:'#E85820', fontStyle:'italic' }}>My</em>Grill <span style={{ fontSize:12, fontWeight:300, color:'#9A8F85', fontFamily:"'Outfit',sans-serif" }}>Brasas</span></span>}
           </button>
 
           {!isMobile && (
