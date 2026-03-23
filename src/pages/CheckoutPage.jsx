@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 import { deliveryZones } from '../data/menu';
 
@@ -297,7 +297,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       if (stripeError) throw new Error(stripeError.message);
 
       // Save order to Supabase
-      await supabase.from('orders').insert({
+      await db.insertOrder({
         id: orderId,
         customer_name: contactData.name,
         customer_email: contactData.email,
@@ -309,8 +309,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
         address: contactData.address || null,
         notes: notes || null,
         status: 'pending',
-        stripe_payment_id: paymentIntent?.id || null,
-      });
+      }).catch(console.error);
       clearCart();
       onSuccess({ orderId, contact: contactData, total });
     } catch (err) {

@@ -317,10 +317,9 @@ export default function AdminPage() {
   useEffect(() => {
     if (!authed) return;
     setOrdersLoading(true);
-    supabase.from('orders').select('*').order('created_at', { ascending: false })
-      .then(({ data, error }) => {
+    db.getOrders()
+      .then(data => {
         if (data && data.length > 0) {
-          // Map DB columns to component format
           setOrders(data.map(o => ({
             id: o.id,
             customer: o.customer_name,
@@ -337,29 +336,23 @@ export default function AdminPage() {
           })));
         }
         setOrdersLoading(false);
-      });
+      }).catch(() => setOrdersLoading(false));
 
-    // Realtime subscription
-    const channel = supabase.channel('orders-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, (payload) => {
-        if (payload.eventType === 'INSERT') {
-          const o = payload.new;
-          setOrders(prev => [{
-            id: o.id, customer: o.customer_name, phone: o.customer_phone || '',
+    // Realtime: poll every 30s for new orders
+    const interval = setInterval(() => {
+      db.getOrders().then(data => {
+        if (data && data.length > 0) {
+          setOrders(data.map(o => ({
+            id: o.id, customer: o.customer_name, phone: o.customer_phone || '+34 976 000 000',
             email: o.customer_email, items: o.items || [], total: parseFloat(o.total),
             deliveryType: o.delivery_type, zone: o.delivery_zone || '',
             address: o.address || '', notes: o.notes || '',
             status: o.status, createdAt: new Date(o.created_at),
-          }, ...prev]);
+          })));
         }
-        if (payload.eventType === 'UPDATE') {
-          setOrders(prev => prev.map(order =>
-            order.id === payload.new.id ? { ...order, status: payload.new.status } : order
-          ));
-        }
-      }).subscribe();
-
-    return () => supabase.removeChannel(channel);
+      }).catch(() => {});
+    }, 30000);
+    return () => clearInterval(interval);
   }, [authed]);
   const [filterStatus, setFilterStatus] = useState('all');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
