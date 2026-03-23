@@ -3,6 +3,7 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
 import HomePage from './pages/HomePage';
+import MenuPage from './pages/MenuPage';
 
 // Placeholder pages - to be built out
 function ComingSoon({ title }) {
@@ -32,7 +33,7 @@ function AppContent() {
   const renderPage = () => {
     switch (page) {
       case 'home': return <HomePage onNavigate={navigate} />;
-      case 'menu': return <ComingSoon title="Carta completa" />;
+      case 'menu': return <MenuPage onNavigate={navigate} />;
       case 'packs': return <ComingSoon title="Packs y promociones" />;
       case 'about': return <ComingSoon title="Sobre nosotros" />;
       case 'contact': return <ComingSoon title="Contacto" />;
