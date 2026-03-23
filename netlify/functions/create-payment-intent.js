@@ -19,13 +19,22 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid amount' }) };
     }
 
-    // Create payment intent — goes straight to YOUR Stripe account
+    const orderId = 'OMG-' + Date.now().toString(36).toUpperCase();
+    const amountInCents = Math.round(amount);
+    const platformFee = Math.round(amountInCents * 0.05); // 5% to VynStudio
+
+    // Stripe Connect — 95% to OhMyGrill Brasas, 5% to VynStudio
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(amount), // already in cents from frontend
+      amount: amountInCents,
       currency,
       automatic_payment_methods: { enabled: true },
+      // ── CONNECT: split payments ──────────────────────────────
+      application_fee_amount: platformFee,          // 5% stays with VynStudio
+      transfer_data: {
+        destination: 'acct_1TEG5QSlmSMd37',         // OH MY GRILL SL account
+      },
+      // ────────────────────────────────────────────────────────
       metadata: {
-        // Order details stored in metadata for your records
         contact_name: contact?.name || '',
         contact_email: contact?.email || '',
         contact_phone: contact?.phone || '',
@@ -33,10 +42,11 @@ exports.handler = async (event) => {
         delivery_zone: deliveryZone?.name || '',
         notes: notes || '',
         items_summary: items?.map(i => `${i.qty}x ${i.name}`).join(', ') || '',
-        // Commission tracking
         platform_fee_pct: '5',
+        platform_fee_eur: (platformFee / 100).toFixed(2),
+        restaurant_receives_eur: ((amountInCents - platformFee) / 100).toFixed(2),
         restaurant: 'OhMyGrill Brasas',
-        order_id: 'OMG-' + Date.now().toString(36).toUpperCase(),
+        order_id: orderId,
       },
       receipt_email: contact?.email,
       description: `OhMyGrill Brasas · ${items?.length} plato${items?.length !== 1 ? 's' : ''} · ${deliveryType === 'pickup' ? 'Recogida' : deliveryZone?.name || 'Entrega'}`,
