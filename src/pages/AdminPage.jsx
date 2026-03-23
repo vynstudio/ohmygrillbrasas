@@ -217,13 +217,17 @@ function MenuEditor() {
         )
       );
       const errors = results.filter(r => r.error);
-      if (errors.length > 0) { console.error('Save errors:', errors); throw new Error('Some items failed to save'); }
+      if (errors.length > 0) { 
+        const errMsg = errors[0].error?.message || JSON.stringify(errors[0].error);
+        console.error('Save error detail:', errMsg, errors[0]);
+        throw new Error(errMsg);
+      }
       const error = null;
       if (error) throw error;
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } catch (err) {
-      setSaveError('Error al guardar. Inténtalo de nuevo.');
+      setSaveError(err.message || 'Error al guardar. Inténtalo de nuevo.');
       console.error(err);
     } finally {
       setSaving(false);
