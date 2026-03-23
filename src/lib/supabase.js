@@ -51,3 +51,4 @@ export const db = {
 
 // Keep supabase export for any remaining references
 export const supabase = { from: () => ({ select: () => ({ order: () => ({ data: [], error: null }) }) }) };
+// force redeploy Mon Mar 23 18:53:53 UTC 2026
