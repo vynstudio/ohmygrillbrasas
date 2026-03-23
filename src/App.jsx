@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import CheckoutPage from './pages/CheckoutPage';
 import PacksPage from './pages/PacksPage';
+import AboutPage from './pages/AboutPage';
 
 // Placeholder pages - to be built out
 function ComingSoon({ title }) {
@@ -37,8 +38,8 @@ function AppContent() {
       case 'home': return <HomePage onNavigate={navigate} />;
       case 'menu': return <MenuPage onNavigate={navigate} />;
       case 'packs': return <PacksPage onNavigate={navigate} />;
-      case 'about': return <ComingSoon title="Sobre nosotros" />;
-      case 'contact': return <ComingSoon title="Contacto" />;
+      case 'about': return <AboutPage onNavigate={navigate} />;
+      case 'contact': return <AboutPage onNavigate={navigate} />;
       case 'checkout': return <CheckoutPage onNavigate={navigate} />;
       default: return <HomePage onNavigate={navigate} />;
     }
