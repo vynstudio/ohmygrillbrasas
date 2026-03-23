@@ -250,28 +250,55 @@ function StepPayment({ contactData, onBack, onSuccess }) {
     setLoading(true);
     setError('');
     try {
-      // Call backend Stripe endpoint
-      // In production: POST /api/create-payment-intent
-      // Then confirm with stripe.confirmCardPayment()
-      // For now we simulate the flow with a 2s delay
-      await new Promise(r => setTimeout(r, 2000));
+      // Step 1 — create payment intent on your Stripe account
+      const res = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: Math.round(total * 100), // cents
+          currency: 'eur',
+          items,
+          contact: contactData,
+          deliveryType,
+          deliveryZone,
+          notes,
+        }),
+      });
 
-      // In production this would be:
-      // const res = await fetch('/api/create-payment-intent', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ amount: Math.round(total * 100), currency: 'eur', items, contact: contactData })
-      // });
-      // const { clientSecret } = await res.json();
-      // const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
-      //   payment_method: { card: cardElement, billing_details: { name: cardData.name, email: contactData.email } }
-      // });
-      // if (stripeError) throw new Error(stripeError.message);
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error || 'Error al conectar con el servidor de pagos');
+      }
+
+      const { clientSecret, orderId } = await res.json();
+
+      // Step 2 — confirm card payment with Stripe.js
+      // Stripe.js loaded via script tag in index.html
+      const stripe = window.Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+      const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: {
+            // Manual card data — for production use Stripe Elements for PCI compliance
+            // This is a simplified integration; upgrade to Elements before launch
+            number: cardData.number.replace(/\s/g, ''),
+            exp_month: parseInt(cardData.expiry.split('/')[0]),
+            exp_year: parseInt('20' + cardData.expiry.split('/')[1]),
+            cvc: cardData.cvc,
+          },
+          billing_details: {
+            name: cardData.name,
+            email: contactData.email,
+            phone: contactData.phone,
+          },
+        },
+      });
+
+      if (stripeError) throw new Error(stripeError.message);
 
       clearCart();
-      onSuccess({ orderId: 'OMG-' + Date.now().toString(36).toUpperCase(), contact: contactData, total });
+      onSuccess({ orderId, contact: contactData, total });
     } catch (err) {
-      setError('Error al procesar el pago. Inténtalo de nuevo.');
+      setError(err.message || 'Error al procesar el pago. Inténtalo de nuevo.');
     } finally {
       setLoading(false);
     }
