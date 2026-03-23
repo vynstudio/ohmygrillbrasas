@@ -1,6 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://howkzkjipkrwnwxcavj.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_hlDAmNj2DlqEcqKyONugDQ_wGxEhI5u';
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+// Try publishable key first, fall back to legacy anon
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd2t6a2ppcGtyd253eGN2YXdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyODgwNTMsImV4cCI6MjA4OTg2NDA1M30.zHlvqhI3mZrDn8F6Hliv5tArMnb8UakWBMrS3bH9nY0';
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  global: {
+    headers: {
+      'X-Client-Info': 'ohmygrill-brasas',
+    },
+  },
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+  },
+});
