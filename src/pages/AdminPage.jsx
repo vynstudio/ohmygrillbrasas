@@ -159,28 +159,16 @@ function MenuEditor() {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState('');
 
-  // Load menu — try Supabase first, fall back to static
+  // Load from localStorage, fall back to static
   useEffect(() => {
-    const load = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('menu_items')
-          .select('*')
-          .order('sort_order');
-        if (!error && data && data.length > 0) {
-          setMenuItems(data.map(d => ({
-            ...d,
-            badgeColor: d.badge_color,
-          })));
-        } else {
-          setMenuItems(initialProducts);
-        }
-      } catch(e) {
-        setMenuItems(initialProducts);
-      }
-      setLoading(false);
-    };
-    load();
+    try {
+      const saved = localStorage.getItem('omg_menu');
+      if (saved) setMenuItems(JSON.parse(saved));
+      else setMenuItems(initialProducts);
+    } catch(e) {
+      setMenuItems(initialProducts);
+    }
+    setLoading(false);
   }, []);
 
   const handleToggle = async (id) => {
@@ -188,15 +176,12 @@ function MenuEditor() {
     const newVal = !item.available;
     // Optimistic update
     setMenuItems(items => items.map(i => i.id === id ? { ...i, available: newVal } : i));
-    const { error } = await supabase
-      .from('menu_items')
-      .update({ available: newVal, updated_at: new Date().toISOString() })
-      .eq('id', id);
-    if (error) {
-      // Revert on error
-      setMenuItems(items => items.map(i => i.id === id ? { ...i, available: !newVal } : i));
-      console.error('Toggle error:', error);
-    }
+    // Save toggle to localStorage immediately
+    setMenuItems(prev => {
+      const updated = prev.map(i => i.id === id ? { ...i, available: newVal } : i);
+      localStorage.setItem('omg_menu', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const handlePriceChange = (id, price) => {
@@ -208,21 +193,7 @@ function MenuEditor() {
     setSaveError('');
     try {
       // Upsert all items at once
-      // Update each item individually — simpler and avoids upsert conflicts
-      const results = await Promise.all(
-        menuItems.map(i =>
-          supabase.from('menu_items')
-            .update({ price: parseFloat(i.price), available: i.available, updated_at: new Date().toISOString() })
-            .eq('id', i.id)
-        )
-      );
-      const errors = results.filter(r => r.error);
-      if (errors.length > 0) { 
-        const errMsg = errors[0].error?.message || JSON.stringify(errors[0].error);
-        console.error('Save error detail:', errMsg, errors[0]);
-        throw new Error(errMsg);
-      }
-      const error = null;
+      localStorage.setItem('omg_menu', JSON.stringify(menuItems));
       if (error) throw error;
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
