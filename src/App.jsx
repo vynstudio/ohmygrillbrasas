@@ -8,12 +8,12 @@ import PacksPage from './pages/PacksPage';
 import CheckoutPage from './pages/CheckoutPage';
 import AboutPage from './pages/AboutPage';
 import AdminPage from './pages/AdminPage';
+import OrderTrackerPage from './pages/OrderTrackerPage';
 
 function AppContent() {
   const getInitialPage = () => {
     const hash = window.location.hash.replace('#', '');
-    const path = window.location.pathname.replace('/', '');
-    return hash || path || 'home';
+    return hash || 'home';
   };
 
   const [page, setPage] = useState(getInitialPage);
@@ -25,7 +25,6 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Listen for back/forward browser navigation
   useEffect(() => {
     const onHashChange = () => {
       const hash = window.location.hash.replace('#', '');
@@ -35,18 +34,19 @@ function AppContent() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  // Admin runs standalone — no navbar, no cart
+  // Standalone pages — no navbar/cart
   if (page === 'admin') return <AdminPage onNavigate={navigate} />;
 
   const renderPage = () => {
     switch (page) {
-      case 'home':     return <HomePage onNavigate={navigate} />;
-      case 'menu':     return <MenuPage onNavigate={navigate} />;
-      case 'packs':    return <PacksPage onNavigate={navigate} />;
-      case 'checkout': return <CheckoutPage onNavigate={navigate} />;
-      case 'about':    return <AboutPage onNavigate={navigate} />;
-      case 'contact':  return <AboutPage onNavigate={navigate} />;
-      default:         return <HomePage onNavigate={navigate} />;
+      case 'home':    return <HomePage onNavigate={navigate} />;
+      case 'menu':    return <MenuPage onNavigate={navigate} />;
+      case 'packs':   return <PacksPage onNavigate={navigate} />;
+      case 'checkout':return <CheckoutPage onNavigate={navigate} />;
+      case 'about':   return <AboutPage onNavigate={navigate} />;
+      case 'contact': return <AboutPage onNavigate={navigate} />;
+      case 'tracker': return <OrderTrackerPage onNavigate={navigate} />;
+      default:        return <HomePage onNavigate={navigate} />;
     }
   };
 

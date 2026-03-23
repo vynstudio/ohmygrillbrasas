@@ -467,7 +467,10 @@ export default function CheckoutPage({ onNavigate }) {
             </p>
           </div>
 
-          <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'#1C1A14', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+          <button onClick={() => onNavigate('tracker')} style={{ width:'100%', background:'#E85820', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', marginBottom:10 }}>
+            🛵 Seguir mi pedido en tiempo real
+          </button>
+          <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'#9A8F85', border:'none', padding:'12px', fontFamily:"'Outfit',sans-serif", fontSize:14, cursor:'pointer' }}>
             Volver al inicio
           </button>
         </div>
