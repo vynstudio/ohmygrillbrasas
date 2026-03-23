@@ -208,15 +208,17 @@ function MenuEditor() {
     setSaveError('');
     try {
       // Upsert all items at once
-      const updates = menuItems.map(i => ({
-        id: i.id,
-        price: parseFloat(i.price),
-        available: i.available,
-        updated_at: new Date().toISOString(),
-      }));
-      const { error } = await supabase
-        .from('menu_items')
-        .upsert(updates, { onConflict: 'id' });
+      // Update each item individually — simpler and avoids upsert conflicts
+      const results = await Promise.all(
+        menuItems.map(i =>
+          supabase.from('menu_items')
+            .update({ price: parseFloat(i.price), available: i.available, updated_at: new Date().toISOString() })
+            .eq('id', i.id)
+        )
+      );
+      const errors = results.filter(r => r.error);
+      if (errors.length > 0) { console.error('Save errors:', errors); throw new Error('Some items failed to save'); }
+      const error = null;
       if (error) throw error;
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
