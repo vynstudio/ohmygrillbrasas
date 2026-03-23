@@ -194,7 +194,6 @@ function MenuEditor() {
     try {
       // Upsert all items at once
       localStorage.setItem('omg_menu', JSON.stringify(menuItems));
-      if (error) throw error;
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } catch (err) {
