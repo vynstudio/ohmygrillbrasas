@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { db } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 import { deliveryZones } from '../data/menu';
@@ -222,94 +222,82 @@ function StepContact({ data, onChange, onNext, onBack }) {
   );
 }
 
-// ─── Step 3: Payment (Stripe) ──────────────────────────────────────────────────
+// ─── Step 3: Payment (Stripe Elements) ────────────────────────────────────────
 function StepPayment({ contactData, onBack, onSuccess }) {
-  const { items, total, subtotal, deliveryFee, deliveryType, deliveryZone, notes, clearCart } = useCart();
+  const { items, total, deliveryType, deliveryZone, notes, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [cardData, setCardData] = useState({ number:'', expiry:'', cvc:'', name:'' });
-  const [cardErrors, setCardErrors] = useState({});
+  const [cardReady, setCardReady] = useState(false);
+  const cardElementRef = useRef(null);
+  const stripeRef = useRef(null);
+  const elementsRef = useRef(null);
 
-  // Format card number with spaces
-  const formatCard = (v) => v.replace(/\D/g, '').slice(0,16).replace(/(.{4})/g, '$1 ').trim();
-  // Format expiry MM/YY
-  const formatExpiry = (v) => { const d = v.replace(/\D/g,'').slice(0,4); return d.length > 2 ? d.slice(0,2)+'/'+d.slice(2) : d; };
+  useEffect(() => {
+    // Initialize Stripe Elements
+    const stripe = window.Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+    stripeRef.current = stripe;
+    const elements = stripe.elements();
+    elementsRef.current = elements;
 
-  const validateCard = () => {
-    const e = {};
-    const num = cardData.number.replace(/\s/g,'');
-    if (!num || num.length < 16) e.number = 'Número de tarjeta inválido';
-    if (!cardData.expiry || cardData.expiry.length < 5) e.expiry = 'Fecha inválida';
-    if (!cardData.cvc || cardData.cvc.length < 3) e.cvc = 'CVC inválido';
-    if (!cardData.name?.trim()) e.name = 'Introduce el nombre';
-    setCardErrors(e);
-    return Object.keys(e).length === 0;
-  };
+    const card = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: '15px',
+          color: '#1C1A14',
+          '::placeholder': { color: '#B8AFA8' },
+          iconColor: '#E85820',
+        },
+        invalid: { color: '#E24B4A', iconColor: '#E24B4A' },
+      },
+      hidePostalCode: true,
+    });
+
+    card.mount(cardElementRef.current);
+    card.on('ready', () => setCardReady(true));
+    card.on('change', (e) => { if (e.error) setError(e.error.message); else setError(''); });
+
+    return () => card.destroy();
+  }, []);
 
   const handlePay = async () => {
-    if (!validateCard()) return;
     setLoading(true);
     setError('');
     try {
-      // Step 1 — create payment intent on your Stripe account
       const res = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: Math.round(total * 100), // cents
+          amount: Math.round(total * 100),
           currency: 'eur',
-          items,
-          contact: contactData,
-          deliveryType,
-          deliveryZone,
-          notes,
+          items, contact: contactData, deliveryType, deliveryZone, notes,
         }),
       });
-
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error || 'Error al conectar con el servidor de pagos');
-      }
-
+      if (!res.ok) { const { error } = await res.json(); throw new Error(error || 'Error del servidor'); }
       const { clientSecret, orderId } = await res.json();
 
-      // Step 2 — confirm card payment with Stripe.js
-      // Stripe.js loaded via script tag in index.html
-      const stripe = window.Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-      const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
+      const cardElement = elementsRef.current.getElement('card');
+      const { error: stripeError, paymentIntent } = await stripeRef.current.confirmCardPayment(clientSecret, {
         payment_method: {
-          card: {
-            // Manual card data — for production use Stripe Elements for PCI compliance
-            // This is a simplified integration; upgrade to Elements before launch
-            number: cardData.number.replace(/\s/g, ''),
-            exp_month: parseInt(cardData.expiry.split('/')[0]),
-            exp_year: parseInt('20' + cardData.expiry.split('/')[1]),
-            cvc: cardData.cvc,
-          },
-          billing_details: {
-            name: cardData.name,
-            email: contactData.email,
-            phone: contactData.phone,
-          },
+          card: cardElement,
+          billing_details: { name: contactData.name, email: contactData.email, phone: contactData.phone },
         },
       });
 
       if (stripeError) throw new Error(stripeError.message);
 
-      // Save order to Supabase
       await db.insertOrder({
         id: orderId,
         customer_name: contactData.name,
         customer_email: contactData.email,
         customer_phone: contactData.phone,
         items: items.map(i => ({ name: i.name, qty: i.qty, price: i.price, emoji: i.emoji })),
-        total: total,
-        delivery_type: deliveryType,
+        total, delivery_type: deliveryType,
         delivery_zone: deliveryZone?.name || null,
         address: contactData.address || null,
-        notes: notes || null,
-        status: 'pending',
+        notes: notes || null, status: 'pending',
       }).catch(console.error);
+
       clearCart();
       onSuccess({ orderId, contact: contactData, total });
     } catch (err) {
@@ -318,12 +306,6 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       setLoading(false);
     }
   };
-
-  const inputStyle = (hasError) => ({
-    width:'100%', padding:'11px 14px', border:`1.5px solid ${hasError ? '#E24B4A' : '#EDE9E3'}`,
-    borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14',
-    boxSizing:'border-box', outline:'none', background:'#fff',
-  });
 
   return (
     <div>
@@ -338,43 +320,11 @@ function StepPayment({ contactData, onBack, onSuccess }) {
         <span style={{ fontSize:12, color:'#9A8F85' }}>+ Bizum próximamente</span>
       </div>
 
-      {/* Card form */}
+      {/* Stripe Elements card */}
       <div style={{ background:'#FAFAF7', border:'1px solid #EDE9E3', borderRadius:16, padding:'20px', marginBottom:20 }}>
-        <div style={{ marginBottom:14 }}>
-          <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>Número de tarjeta</label>
-          <div style={{ position:'relative' }}>
-            <input type="text" placeholder="1234 5678 9012 3456" value={cardData.number} onChange={e => setCardData(d => ({ ...d, number: formatCard(e.target.value) }))}
-              style={inputStyle(cardErrors.number)} maxLength={19}
-              onFocus={e => e.target.style.borderColor='#E85820'} onBlur={e => e.target.style.borderColor = cardErrors.number ? '#E24B4A' : '#EDE9E3'} />
-            <span style={{ position:'absolute', right:14, top:'50%', transform:'translateY(-50%)', fontSize:18 }}>💳</span>
-          </div>
-          {cardErrors.number && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{cardErrors.number}</p>}
-        </div>
-
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:14 }}>
-          <div>
-            <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>Caducidad</label>
-            <input type="text" placeholder="MM/AA" value={cardData.expiry} onChange={e => setCardData(d => ({ ...d, expiry: formatExpiry(e.target.value) }))}
-              style={inputStyle(cardErrors.expiry)} maxLength={5}
-              onFocus={e => e.target.style.borderColor='#E85820'} onBlur={e => e.target.style.borderColor = cardErrors.expiry ? '#E24B4A' : '#EDE9E3'} />
-            {cardErrors.expiry && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{cardErrors.expiry}</p>}
-          </div>
-          <div>
-            <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>CVC</label>
-            <input type="text" placeholder="123" value={cardData.cvc} onChange={e => setCardData(d => ({ ...d, cvc: e.target.value.replace(/\D/g,'').slice(0,4) }))}
-              style={inputStyle(cardErrors.cvc)} maxLength={4}
-              onFocus={e => e.target.style.borderColor='#E85820'} onBlur={e => e.target.style.borderColor = cardErrors.cvc ? '#E24B4A' : '#EDE9E3'} />
-            {cardErrors.cvc && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{cardErrors.cvc}</p>}
-          </div>
-        </div>
-
-        <div>
-          <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>Nombre en la tarjeta</label>
-          <input type="text" placeholder="Como aparece en la tarjeta" value={cardData.name} onChange={e => setCardData(d => ({ ...d, name: e.target.value }))}
-            style={inputStyle(cardErrors.name)}
-            onFocus={e => e.target.style.borderColor='#E85820'} onBlur={e => e.target.style.borderColor = cardErrors.name ? '#E24B4A' : '#EDE9E3'} />
-          {cardErrors.name && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{cardErrors.name}</p>}
-        </div>
+        <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:10 }}>Datos de tarjeta</label>
+        <div ref={cardElementRef} style={{ background:'#fff', border:'1.5px solid #EDE9E3', borderRadius:12, padding:'13px 14px', minHeight:44 }} />
+        {!cardReady && <p style={{ fontSize:12, color:'#9A8F85', marginTop:6 }}>Cargando formulario seguro...</p>}
       </div>
 
       {/* Error message */}
