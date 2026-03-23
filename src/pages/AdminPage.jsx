@@ -166,8 +166,10 @@ function MenuEditor() {
         .from('menu_items')
         .select('*')
         .order('sort_order');
-      if (data) setMenuItems(data);
-      if (error) console.error('Error loading menu:', error);
+      console.log('Supabase menu response:', { data, error });
+      if (error) { console.error('Supabase error:', error); setLoading(false); return; }
+      if (data && data.length > 0) { setMenuItems(data); }
+      else { console.warn('No data returned, falling back to static'); setMenuItems(initialProducts); }
       setLoading(false);
     };
     load();
