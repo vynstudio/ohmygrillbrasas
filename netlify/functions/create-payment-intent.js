@@ -23,17 +23,12 @@ exports.handler = async (event) => {
     const amountInCents = Math.round(amount);
     const platformFee = Math.round(amountInCents * 0.05); // 5% to VynStudio
 
-    // Stripe Connect — 95% to OhMyGrill Brasas, 5% to VynStudio
+    // Payments go to VynStudio account for now
+    // Connect split will be activated once her account is fully verified
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
       currency,
       automatic_payment_methods: { enabled: true },
-      // ── CONNECT: split payments ──────────────────────────────
-      application_fee_amount: platformFee,          // 5% stays with VynStudio
-      transfer_data: {
-        destination: 'acct_1TEG5QSlmSMd37',         // OH MY GRILL SL account
-      },
-      // ────────────────────────────────────────────────────────
       metadata: {
         contact_name: contact?.name || '',
         contact_email: contact?.email || '',
