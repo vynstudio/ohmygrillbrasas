@@ -113,7 +113,7 @@ export default function MenuPage({ onNavigate }) {
       })
       .catch(() => {
         try {
-          const saved = localStorage.getItem('omg_menu');
+          const saved = localStorage.getItem('omg_menu_v1');
           if (saved) {
             const savedItems = JSON.parse(saved);
             setProducts(staticProducts.map(p => {

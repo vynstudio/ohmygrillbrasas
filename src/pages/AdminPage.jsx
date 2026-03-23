@@ -188,8 +188,7 @@ function MenuEditor() {
     setSaveError('');
     try {
       // Upsert all items at once
-      await Promise.all(menuItems.map(i => db.updateItem(i.id, { price: parseFloat(i.price), available: i.available })));
-      localStorage.setItem('omg_menu', JSON.stringify(menuItems));
+      await db.saveMenu(menuItems);
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } catch (err) {
@@ -476,6 +475,15 @@ export default function AdminPage() {
           <div>
             <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#1C1A14', margin: '0 0 20px' }}>Resumen de actividad</h3>
 
+            {orders.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '48px', color: '#9A8F85' }}>
+                <div style={{ fontSize: 40, marginBottom: 12 }}>📊</div>
+                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#1C1A14', marginBottom: 6 }}>Sin datos todavía</p>
+                <p style={{ fontSize: 13 }}>Las estadísticas aparecerán cuando haya pedidos completados.</p>
+              </div>
+            )}
+
+            {orders.length > 0 && <>
             {/* Revenue by zone */}
             <div style={{ background: '#fff', border: '1px solid #EDE9E3', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
               <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#1C1A14', margin: '0 0 16px' }}>Ingresos por zona</h4>
@@ -486,8 +494,9 @@ export default function AdminPage() {
                   return acc;
                 }, {})
               ).sort((a, b) => b[1] - a[1]).map(([zone, rev]) => {
-                const max = Math.max(...orders.reduce((acc, o) => { const z = o.zone || 'Recogida en local'; acc[z] = (acc[z]||0)+o.total; return acc; }, {}), 1);
-                const pct = (rev / Object.values(orders.reduce((acc,o) => { const z=o.zone||'Recogida en local'; acc[z]=(acc[z]||0)+o.total; return acc; }, {})).reduce((a,b)=>Math.max(a,b),1)) * 100;
+                const zoneRevs = Object.values(orders.reduce((acc,o) => { const z=o.zone||'Recogida en local'; acc[z]=(acc[z]||0)+o.total; return acc; }, {}));
+                const maxRev = zoneRevs.length > 0 ? Math.max(...zoneRevs) : 1;
+                const pct = (rev / maxRev) * 100;
                 return (
                   <div key={zone} style={{ marginBottom: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
@@ -518,6 +527,7 @@ export default function AdminPage() {
                 </div>
               ))}
             </div>
+            </>}
           </div>
         )}
       </div>

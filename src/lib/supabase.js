@@ -1,54 +1,56 @@
-// Direct REST calls to Supabase — no SDK, no CORS issues
-const SUPA_URL = 'https://howkzkjipkrwnwxcavj.supabase.co/rest/v1';
-const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd2t6a2ppcGtyd253eGN2YXdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyODgwNTMsImV4cCI6MjA4OTg2NDA1M30.zHlvqhI3mZrDn8F6Hliv5tArMnb8UakWBMrS3bH9nY0';
+// Simple localStorage-based persistence
+// Prices and availability saved locally, synced via URL params for now
+// Supabase can be reconnected later when project is not paused
 
-const headers = {
-  'apikey': KEY,
-  'Authorization': `Bearer ${KEY}`,
-  'Content-Type': 'application/json',
-  'Prefer': 'return=minimal',
-};
+const MENU_KEY = 'omg_menu_v1';
 
 export const db = {
   async getMenu() {
-    const res = await fetch(`${SUPA_URL}/menu_items?select=*&order=sort_order`, { headers });
-    if (!res.ok) throw new Error(await res.text());
-    return res.json();
+    try {
+      const saved = localStorage.getItem(MENU_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return null;
   },
   async updateItem(id, data) {
-    const res = await fetch(`${SUPA_URL}/menu_items?id=eq.${id}`, {
-      method: 'PATCH',
-      headers,
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error(await res.text());
+    try {
+      const saved = localStorage.getItem(MENU_KEY);
+      const items = saved ? JSON.parse(saved) : [];
+      const idx = items.findIndex(i => i.id === id);
+      if (idx >= 0) items[idx] = { ...items[idx], ...data };
+      localStorage.setItem(MENU_KEY, JSON.stringify(items));
+    } catch(e) {}
+    return true;
+  },
+  async saveMenu(items) {
+    localStorage.setItem(MENU_KEY, JSON.stringify(items));
     return true;
   },
   async insertOrder(order) {
-    const res = await fetch(`${SUPA_URL}/orders`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(order),
-    });
-    if (!res.ok) throw new Error(await res.text());
+    try {
+      const saved = localStorage.getItem('omg_orders') || '[]';
+      const orders = JSON.parse(saved);
+      orders.unshift({ ...order, created_at: new Date().toISOString() });
+      localStorage.setItem('omg_orders', JSON.stringify(orders));
+    } catch(e) {}
     return true;
   },
   async getOrders() {
-    const res = await fetch(`${SUPA_URL}/orders?select=*&order=created_at.desc`, { headers });
-    if (!res.ok) throw new Error(await res.text());
-    return res.json();
+    try {
+      const saved = localStorage.getItem('omg_orders');
+      return saved ? JSON.parse(saved) : [];
+    } catch(e) { return []; }
   },
   async updateOrder(id, data) {
-    const res = await fetch(`${SUPA_URL}/orders?id=eq.${id}`, {
-      method: 'PATCH',
-      headers,
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error(await res.text());
+    try {
+      const saved = localStorage.getItem('omg_orders') || '[]';
+      const orders = JSON.parse(saved);
+      const idx = orders.findIndex(o => o.id === id);
+      if (idx >= 0) orders[idx] = { ...orders[idx], ...data };
+      localStorage.setItem('omg_orders', JSON.stringify(orders));
+    } catch(e) {}
     return true;
   },
 };
 
-// Keep supabase export for any remaining references
-export const supabase = { from: () => ({ select: () => ({ order: () => ({ data: [], error: null }) }) }) };
-// force redeploy Mon Mar 23 18:53:53 UTC 2026
+export const supabase = null;
