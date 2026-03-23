@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { products as initialProducts, packs as initialPacks, categories } from '../data/menu';
+import { supabase } from '../lib/supabase';
 
 // ── Mock orders for demo ───────────────────────────────────────────────────────
 const mockOrders = [
@@ -152,22 +153,69 @@ function OrderCard({ order, onStatusChange }) {
 
 // ── Menu editor ────────────────────────────────────────────────────────────────
 function MenuEditor() {
-  const [menuItems, setMenuItems] = useState(initialProducts);
-  const [editing, setEditing] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
-  const handleToggle = (id) => {
-    setMenuItems(items => items.map(i => i.id === id ? { ...i, available: !i.available } : i));
+  // Load from Supabase on mount
+  useEffect(() => {
+    const load = async () => {
+      const { data, error } = await supabase
+        .from('menu_items')
+        .select('*')
+        .order('sort_order');
+      if (data) setMenuItems(data);
+      if (error) console.error('Error loading menu:', error);
+      setLoading(false);
+    };
+    load();
+  }, []);
+
+  const handleToggle = async (id) => {
+    const item = menuItems.find(i => i.id === id);
+    const newVal = !item.available;
+    // Optimistic update
+    setMenuItems(items => items.map(i => i.id === id ? { ...i, available: newVal } : i));
+    const { error } = await supabase
+      .from('menu_items')
+      .update({ available: newVal, updated_at: new Date().toISOString() })
+      .eq('id', id);
+    if (error) {
+      // Revert on error
+      setMenuItems(items => items.map(i => i.id === id ? { ...i, available: !newVal } : i));
+      console.error('Toggle error:', error);
+    }
   };
 
   const handlePriceChange = (id, price) => {
     setMenuItems(items => items.map(i => i.id === id ? { ...i, price: parseFloat(price) || i.price } : i));
   };
 
-  const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-    // In production: POST /api/update-menu with menuItems
+  const handleSave = async () => {
+    setSaving(true);
+    setSaveError('');
+    try {
+      // Upsert all items at once
+      const updates = menuItems.map(i => ({
+        id: i.id,
+        price: parseFloat(i.price),
+        available: i.available,
+        updated_at: new Date().toISOString(),
+      }));
+      const { error } = await supabase
+        .from('menu_items')
+        .upsert(updates, { onConflict: 'id' });
+      if (error) throw error;
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } catch (err) {
+      setSaveError('Error al guardar. Inténtalo de nuevo.');
+      console.error(err);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const grouped = menuItems.reduce((acc, p) => {
@@ -178,6 +226,13 @@ function MenuEditor() {
 
   const catLabels = { carnes: 'Carnes', aves: 'Aves', verduras: 'Verduras', salsas: 'Salsas y extras' };
 
+  if (loading) return (
+    <div style={{ textAlign: 'center', padding: '48px 20px', color: '#9A8F85' }}>
+      <div style={{ width: 32, height: 32, border: '3px solid #EDE9E3', borderTopColor: '#E85820', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+      <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14 }}>Cargando carta desde Supabase...</p>
+    </div>
+  );
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -185,9 +240,12 @@ function MenuEditor() {
           <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#1C1A14', margin: 0 }}>Editor de carta</h3>
           <p style={{ fontSize: 13, color: '#9A8F85', margin: '3px 0 0' }}>Activa/desactiva platos y actualiza precios</p>
         </div>
-        <button onClick={handleSave} style={{ background: saved ? '#1a7a4a' : '#E85820', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'background 0.2s' }}>
-          {saved ? '✓ Guardado' : 'Guardar cambios'}
-        </button>
+<div style={{ display:'flex', alignItems:'center', gap:10 }}>
+          {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
+          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#1a7a4a' : '#E85820', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+            {saving ? <><span style={{ width:14, height:14, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite', display:'inline-block' }} />Guardando...</> : saved ? '✓ Guardado en Supabase' : 'Guardar cambios'}
+          </button>
+        </div>
       </div>
 
       {Object.entries(grouped).map(([cat, items]) => (
@@ -271,6 +329,56 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('omg_admin') === 'true');
   const [tab, setTab] = useState('orders');
   const [orders, setOrders] = useState(mockOrders);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+
+  // Load real orders from Supabase when authed
+  useEffect(() => {
+    if (!authed) return;
+    setOrdersLoading(true);
+    supabase.from('orders').select('*').order('created_at', { ascending: false })
+      .then(({ data, error }) => {
+        if (data && data.length > 0) {
+          // Map DB columns to component format
+          setOrders(data.map(o => ({
+            id: o.id,
+            customer: o.customer_name,
+            phone: o.customer_phone || '+34 976 000 000',
+            email: o.customer_email,
+            items: o.items || [],
+            total: parseFloat(o.total),
+            deliveryType: o.delivery_type,
+            zone: o.delivery_zone || '',
+            address: o.address || '',
+            notes: o.notes || '',
+            status: o.status,
+            createdAt: new Date(o.created_at),
+          })));
+        }
+        setOrdersLoading(false);
+      });
+
+    // Realtime subscription
+    const channel = supabase.channel('orders-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, (payload) => {
+        if (payload.eventType === 'INSERT') {
+          const o = payload.new;
+          setOrders(prev => [{
+            id: o.id, customer: o.customer_name, phone: o.customer_phone || '',
+            email: o.customer_email, items: o.items || [], total: parseFloat(o.total),
+            deliveryType: o.delivery_type, zone: o.delivery_zone || '',
+            address: o.address || '', notes: o.notes || '',
+            status: o.status, createdAt: new Date(o.created_at),
+          }, ...prev]);
+        }
+        if (payload.eventType === 'UPDATE') {
+          setOrders(prev => prev.map(order =>
+            order.id === payload.new.id ? { ...order, status: payload.new.status } : order
+          ));
+        }
+      }).subscribe();
+
+    return () => supabase.removeChannel(channel);
+  }, [authed]);
   const [filterStatus, setFilterStatus] = useState('all');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -290,8 +398,9 @@ export default function AdminPage() {
     setAuthed(false);
   };
 
-  const handleStatusChange = (id, newStatus) => {
+  const handleStatusChange = async (id, newStatus) => {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, status: newStatus } : o));
+    await supabase.from('orders').update({ status: newStatus, updated_at: new Date().toISOString() }).eq('id', id);
   };
 
   const filteredOrders = useMemo(() => {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 import { deliveryZones } from '../data/menu';
 
@@ -295,6 +296,21 @@ function StepPayment({ contactData, onBack, onSuccess }) {
 
       if (stripeError) throw new Error(stripeError.message);
 
+      // Save order to Supabase
+      await supabase.from('orders').insert({
+        id: orderId,
+        customer_name: contactData.name,
+        customer_email: contactData.email,
+        customer_phone: contactData.phone,
+        items: items.map(i => ({ name: i.name, qty: i.qty, price: i.price, emoji: i.emoji })),
+        total: total,
+        delivery_type: deliveryType,
+        delivery_zone: deliveryZone?.name || null,
+        address: contactData.address || null,
+        notes: notes || null,
+        status: 'pending',
+        stripe_payment_id: paymentIntent?.id || null,
+      });
       clearCart();
       onSuccess({ orderId, contact: contactData, total });
     } catch (err) {
