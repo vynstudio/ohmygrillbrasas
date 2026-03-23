@@ -30,7 +30,7 @@ exports.handler = async (event) => {
       automatic_payment_methods: { enabled: true },
       application_fee_amount: platformFee,
       transfer_data: {
-        destination: 'acct_1TEHzJRv2G0BsXkm',
+        destination: 'acct_1TEHzJRv2GOBsXkm',
       },
       metadata: {
         contact_name: contact?.name || '',
