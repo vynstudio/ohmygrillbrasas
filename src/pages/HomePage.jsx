@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import { products, packs, restaurantInfo } from '../data/menu';
 import ProductCard from '../components/ProductCard';
+import HeroVideo from '../components/HeroVideo';
 import { useCart } from '../context/CartContext';
 
-const featured = products.filter(p => p.badge || ['chuleta-buey','costillas-iberico','pollo-corral'].includes(p.id));
+const featured = products.filter(p => ['chuleta-buey','costillas-iberico','pollo-corral'].includes(p.id));
 
 export default function HomePage({ onNavigate }) {
   const { addItem } = useCart();
   const [heroVisible, setHeroVisible] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
 
   useEffect(() => {
     const t = setTimeout(() => setHeroVisible(true), 80);
-    return () => clearTimeout(t);
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', onResize);
+    return () => { clearTimeout(t); window.removeEventListener('resize', onResize); };
   }, []);
 
   const isOpen = () => {
@@ -23,186 +27,133 @@ export default function HomePage({ onNavigate }) {
     if (day === 0) return h >= 13 && h < 21;
     return false;
   };
+  const open = isOpen();
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAFAF7', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAFAF7' }}>
 
-      {/* HERO */}
+      {/* ── HERO — full bleed video desktop, dark mobile ── */}
       <section style={{
-        maxWidth: 1200, margin: '0 auto', padding: '64px 24px 72px',
-        display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center',
+        position: 'relative',
+        minHeight: isDesktop ? '92vh' : 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'hidden',
+        background: '#0C0A06',
       }}>
+        {isDesktop && (
+          <HeroVideo src="/videos/brasa.mp4" poster="/videos/brasa-poster.jpg" />
+        )}
+
         <div style={{
-          opacity: heroVisible ? 1 : 0,
-          transform: heroVisible ? 'translateY(0)' : 'translateY(24px)',
-          transition: 'all 0.7s cubic-bezier(0.4,0,0.2,1)',
+          position: 'relative', zIndex: 2,
+          maxWidth: 1200, margin: '0 auto',
+          padding: isDesktop ? '80px 64px' : '48px 24px',
+          display: 'grid',
+          gridTemplateColumns: isDesktop ? '1fr 420px' : '1fr',
+          gap: isDesktop ? 64 : 40,
+          alignItems: 'center',
+          width: '100%',
         }}>
-          {/* Open/closed badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: isOpen() ? '#EDFBF3' : '#FEF3EE',
-              color: isOpen() ? '#1a7a4a' : '#E85820',
-              fontSize: 12, fontWeight: 500, padding: '5px 12px', borderRadius: 20,
-            }}>
-              <span style={{
-                width: 7, height: 7, borderRadius: '50%',
-                background: isOpen() ? '#1a7a4a' : '#E85820',
-                display: 'inline-block',
-                boxShadow: isOpen() ? '0 0 0 3px rgba(26,122,74,0.2)' : 'none',
-              }} />
-              {isOpen() ? 'Abierto ahora' : 'Cerrado ahora'}
-            </span>
-            <span style={{ fontSize: 12, color: '#9A8F85' }}>· Zaragoza</span>
-          </div>
 
-          <h1 style={{
-            fontFamily: "'Fraunces', serif",
-            fontSize: 58, fontWeight: 600, lineHeight: 1.0,
-            color: '#1C1A14', margin: '0 0 20px',
-            letterSpacing: '-1px',
-          }}>
-            A la brasa,<br />
-            <em style={{ color: '#E85820', fontStyle: 'italic' }}>como tiene<br />que ser.</em>
-          </h1>
-
-          <p style={{
-            fontSize: 16, color: '#7A6E63', lineHeight: 1.7,
-            maxWidth: 420, margin: '0 0 36px',
-          }}>
-            Carnes premium asadas a la brasa de leña de encina. Recetas directas, sin artificios. Pedidos online para toda Zaragoza.
-          </p>
-
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <button
-              onClick={() => onNavigate('menu')}
-              style={{
-                background: '#E85820', color: '#fff', border: 'none',
-                borderRadius: 28, padding: '14px 28px',
-                fontSize: 15, fontWeight: 500, cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 4px 20px rgba(232,88,32,0.3)',
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              Ver la carta →
-            </button>
-            <button
-              onClick={() => onNavigate('packs')}
-              style={{
-                background: 'transparent', color: '#1C1A14',
-                border: '1.5px solid #D4CFC9', borderRadius: 28, padding: '14px 28px',
-                fontSize: 15, fontWeight: 500, cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#1C1A14'; e.currentTarget.style.background = '#F5F1EC'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#D4CFC9'; e.currentTarget.style.background = 'transparent'; }}
-            >
-              Ver packs
-            </button>
-          </div>
-
-          {/* Trust badges */}
-          <div style={{ display: 'flex', gap: 20, marginTop: 40, flexWrap: 'wrap' }}>
-            {[
-              { icon: '🔥', text: 'Leña de encina' },
-              { icon: '⏱', text: 'Entrega en 90 min' },
-              { icon: '🌿', text: 'Ingredientes frescos' },
-            ].map(b => (
-              <div key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontSize: 16 }}>{b.icon}</span>
-                <span style={{ fontSize: 13, color: '#9A8F85' }}>{b.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Hero visual */}
-        <div style={{
-          opacity: heroVisible ? 1 : 0,
-          transform: heroVisible ? 'translateY(0) scale(1)' : 'translateY(24px) scale(0.97)',
-          transition: 'all 0.8s cubic-bezier(0.4,0,0.2,1) 0.15s',
-        }}>
+          {/* Left — headline */}
           <div style={{
-            background: '#1C1A14',
-            borderRadius: 24,
-            padding: 32,
-            position: 'relative',
-            overflow: 'hidden',
-            minHeight: 380,
+            opacity: heroVisible ? 1 : 0,
+            transform: heroVisible ? 'translateY(0)' : 'translateY(28px)',
+            transition: 'all 0.8s cubic-bezier(0.4,0,0.2,1)',
           }}>
-            {/* Decorative text */}
-            <div style={{
-              position: 'absolute', bottom: -20, right: -16,
-              fontFamily: "'Fraunces', serif",
-              fontSize: 110, fontWeight: 600,
-              color: 'rgba(255,255,255,0.04)',
-              lineHeight: 1, userSelect: 'none', letterSpacing: '-3px',
-            }}>BRASA</div>
-
-            {/* Today's special card */}
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#E85820', marginBottom: 16, fontWeight: 500, textTransform: 'uppercase' }}>
-                Especial del día
-              </p>
-
-              <div style={{
-                background: 'rgba(255,255,255,0.06)',
-                borderRadius: 16, padding: '20px 20px 16px', marginBottom: 12,
-                border: '1px solid rgba(255,255,255,0.1)',
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 }}>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                background: open ? 'rgba(26,122,74,0.25)' : 'rgba(232,88,32,0.2)',
+                color: open ? '#4ade80' : '#fb923c',
+                border: `1px solid ${open ? 'rgba(74,222,128,0.3)' : 'rgba(251,146,60,0.3)'}`,
+                fontSize: 12, fontWeight: 500, padding: '5px 14px', borderRadius: 20,
+                backdropFilter: 'blur(8px)',
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                  <span style={{ fontSize: 36 }}>🥩</span>
-                  <div>
-                    <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#F0EBE3', margin: 0 }}>
-                      Chuletón de buey
-                    </p>
-                    <p style={{ fontSize: 12, color: 'rgba(240,235,227,0.5)', margin: '2px 0 0' }}>
-                      1 kg · Madurado 45 días · Sal Maldon
-                    </p>
-                  </div>
-                  <span style={{ marginLeft: 'auto', fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#E85820' }}>
-                    €48
-                  </span>
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: open ? '#4ade80' : '#fb923c', boxShadow: open ? '0 0 8px #4ade80' : 'none', display: 'inline-block' }} />
+                {open ? 'Abierto ahora' : 'Cerrado ahora'}
+              </span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>· Zaragoza</span>
+            </div>
+
+            <h1 style={{
+              fontFamily: "'Fraunces', serif",
+              fontSize: isDesktop ? 72 : 48,
+              fontWeight: 600, lineHeight: 0.95,
+              color: '#F5EFE6', margin: '0 0 24px',
+              letterSpacing: '-2px',
+            }}>
+              A la brasa,<br />
+              <em style={{ color: '#E85820', fontStyle: 'italic' }}>como tiene<br />que ser.</em>
+            </h1>
+
+            <p style={{ fontSize: isDesktop ? 17 : 15, color: 'rgba(245,239,230,0.60)', lineHeight: 1.75, maxWidth: 440, margin: '0 0 40px' }}>
+              Carnes premium asadas a la brasa de leña de encina. Pedidos online para toda Zaragoza.
+            </p>
+
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background: '#E85820', color: '#fff', border: 'none', borderRadius: 32, padding: '15px 32px', fontSize: 15, fontWeight: 500, cursor: 'pointer', boxShadow: '0 4px 28px rgba(232,88,32,0.45)', transition: 'all 0.2s', fontFamily: "'Outfit', sans-serif" }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 36px rgba(232,88,32,0.55)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 28px rgba(232,88,32,0.45)'; }}>
+                Ver la carta →
+              </button>
+              <button onClick={() => onNavigate('packs')} style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(245,239,230,0.85)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 32, padding: '15px 32px', fontSize: 15, fontWeight: 500, cursor: 'pointer', backdropFilter: 'blur(8px)', transition: 'all 0.2s', fontFamily: "'Outfit', sans-serif" }}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.14)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}>
+                Ver packs
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', gap: 28, marginTop: 48, flexWrap: 'wrap' }}>
+              {[{ icon: '🔥', text: 'Leña de encina' }, { icon: '⏱', text: 'Entrega en 90 min' }, { icon: '🌿', text: 'Ingredientes frescos' }].map(b => (
+                <div key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+                  <span style={{ fontSize: 15 }}>{b.icon}</span>
+                  <span style={{ fontSize: 13, color: 'rgba(245,239,230,0.45)' }}>{b.text}</span>
                 </div>
-                <button
-                  onClick={() => addItem(products[0])}
-                  style={{
-                    width: '100%', background: '#E85820', color: '#fff',
-                    border: 'none', borderRadius: 10, padding: '10px',
-                    fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500,
-                    cursor: 'pointer',
-                  }}
-                >
+              ))}
+            </div>
+          </div>
+
+          {/* Right — glassmorphism order card */}
+          <div style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? 'translateY(0)' : 'translateY(32px)', transition: 'all 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s' }}>
+            <div style={{ background: 'rgba(20,16,10,0.75)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 24, padding: 28, boxShadow: '0 32px 80px rgba(0,0,0,0.5)' }}>
+              <p style={{ fontSize: 11, letterSpacing: '2.5px', color: '#E85820', marginBottom: 18, fontWeight: 600, textTransform: 'uppercase' }}>Especial del día</p>
+              <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '18px 20px', marginBottom: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 14 }}>
+                  <span style={{ fontSize: 38 }}>🥩</span>
+                  <div>
+                    <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#F5EFE6', margin: 0 }}>Chuletón de buey</p>
+                    <p style={{ fontSize: 12, color: 'rgba(245,239,230,0.40)', margin: '3px 0 0' }}>1 kg · Madurado 45 días · Sal Maldon</p>
+                  </div>
+                  <span style={{ marginLeft: 'auto', fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: '#E85820' }}>€48</span>
+                </div>
+                <button onClick={() => addItem(products[0])} style={{ width: '100%', background: '#E85820', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer', transition: 'opacity 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
                   Añadir al pedido
                 </button>
               </div>
-
-              {/* Stats row */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
-                {[
-                  { num: '+4 años', label: 'en Zaragoza' },
-                  { num: '100%', label: 'leña encina' },
-                  { num: '4.9 ★', label: 'Google Maps' },
-                ].map(stat => (
-                  <div key={stat.label} style={{
-                    background: 'rgba(255,255,255,0.05)',
-                    borderRadius: 10, padding: '12px 10px', textAlign: 'center',
-                    border: '1px solid rgba(255,255,255,0.07)',
-                  }}>
-                    <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#F0EBE3', margin: 0 }}>
-                      {stat.num}
-                    </p>
-                    <p style={{ fontSize: 11, color: 'rgba(240,235,227,0.45)', margin: '3px 0 0' }}>
-                      {stat.label}
-                    </p>
+                {[{ num: '+4 años', label: 'en Zaragoza' }, { num: '100%', label: 'leña encina' }, { num: '4.9 ★', label: 'Google Maps' }].map(stat => (
+                  <div key={stat.label} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 10px', textAlign: 'center' }}>
+                    <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#F5EFE6', margin: 0 }}>{stat.num}</p>
+                    <p style={{ fontSize: 11, color: 'rgba(245,239,230,0.35)', margin: '3px 0 0' }}>{stat.label}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
+
+        {/* Scroll hint */}
+        {isDesktop && (
+          <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, opacity: 0.4, zIndex: 2, animation: 'bounce 2s ease-in-out infinite' }}>
+            <span style={{ fontSize: 11, letterSpacing: '2px', color: '#fff', textTransform: 'uppercase' }}>Explorar</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        )}
+        <style>{`@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}`}</style>
       </section>
 
       {/* FEATURED PRODUCTS */}
