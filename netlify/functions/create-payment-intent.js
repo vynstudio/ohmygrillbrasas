@@ -23,10 +23,15 @@ exports.handler = async (event) => {
     const amountInCents = Math.round(amount);
     const platformFee = Math.round(amountInCents * 0.05); // 5% to VynStudio
 
+    // Stripe Connect — 95% to OH MY GRILL (Spain), 5% to VynStudio
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
       currency,
       automatic_payment_methods: { enabled: true },
+      application_fee_amount: platformFee,
+      transfer_data: {
+        destination: 'acct_1TEHzJRv2G0BsXkm',
+      },
       metadata: {
         contact_name: contact?.name || '',
         contact_email: contact?.email || '',
