@@ -234,7 +234,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
 
   useEffect(() => {
     // Initialize Stripe Elements
-    const stripe = window.Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+    const stripe = window.Stripe('pk_live_51TAdsM2MGngch1SFzn2tfwUFA5BTsXggXzDnLed5h25MrtrM4EkrnPgjvFC0YCmSQcbDR63ztB5WKC79dTGmbZGi00nyqC2obZ');
     stripeRef.current = stripe;
     const elements = stripe.elements();
     elementsRef.current = elements;
