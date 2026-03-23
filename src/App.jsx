@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 // Placeholder pages - to be built out
 function ComingSoon({ title }) {
@@ -37,7 +38,7 @@ function AppContent() {
       case 'packs': return <ComingSoon title="Packs y promociones" />;
       case 'about': return <ComingSoon title="Sobre nosotros" />;
       case 'contact': return <ComingSoon title="Contacto" />;
-      case 'checkout': return <ComingSoon title="Finalizar pedido" />;
+      case 'checkout': return <CheckoutPage onNavigate={navigate} />;
       default: return <HomePage onNavigate={navigate} />;
     }
   };
