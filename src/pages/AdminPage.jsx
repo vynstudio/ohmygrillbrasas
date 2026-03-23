@@ -159,17 +159,25 @@ function MenuEditor() {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState('');
 
-  // Load from Supabase on mount
+  // Load menu — try Supabase first, fall back to static
   useEffect(() => {
     const load = async () => {
-      const { data, error } = await supabase
-        .from('menu_items')
-        .select('*')
-        .order('sort_order');
-      console.log('Supabase menu response:', { data, error });
-      if (error) { console.error('Supabase error:', error); setLoading(false); return; }
-      if (data && data.length > 0) { setMenuItems(data); }
-      else { console.warn('No data returned, falling back to static'); setMenuItems(initialProducts); }
+      try {
+        const { data, error } = await supabase
+          .from('menu_items')
+          .select('*')
+          .order('sort_order');
+        if (!error && data && data.length > 0) {
+          setMenuItems(data.map(d => ({
+            ...d,
+            badgeColor: d.badge_color,
+          })));
+        } else {
+          setMenuItems(initialProducts);
+        }
+      } catch(e) {
+        setMenuItems(initialProducts);
+      }
       setLoading(false);
     };
     load();
