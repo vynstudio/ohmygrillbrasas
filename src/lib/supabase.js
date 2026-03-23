@@ -1,5 +1,5 @@
 // Direct REST calls to Supabase — no SDK, no CORS issues
-const URL = 'https://howkzkjipkrwnwxcavj.supabase.co/rest/v1';
+const SUPA_URL = 'https://howkzkjipkrwnwxcavj.supabase.co/rest/v1';
 const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd2t6a2ppcGtyd253eGN2YXdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyODgwNTMsImV4cCI6MjA4OTg2NDA1M30.zHlvqhI3mZrDn8F6Hliv5tArMnb8UakWBMrS3bH9nY0';
 
 const headers = {
@@ -11,12 +11,12 @@ const headers = {
 
 export const db = {
   async getMenu() {
-    const res = await fetch(`${URL}/menu_items?select=*&order=sort_order`, { headers });
+    const res = await fetch(`${SUPA_URL}/menu_items?select=*&order=sort_order`, { headers });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
   async updateItem(id, data) {
-    const res = await fetch(`${URL}/menu_items?id=eq.${id}`, {
+    const res = await fetch(`${SUPA_URL}/menu_items?id=eq.${id}`, {
       method: 'PATCH',
       headers,
       body: JSON.stringify(data),
@@ -25,7 +25,7 @@ export const db = {
     return true;
   },
   async insertOrder(order) {
-    const res = await fetch(`${URL}/orders`, {
+    const res = await fetch(`${SUPA_URL}/orders`, {
       method: 'POST',
       headers,
       body: JSON.stringify(order),
@@ -34,12 +34,12 @@ export const db = {
     return true;
   },
   async getOrders() {
-    const res = await fetch(`${URL}/orders?select=*&order=created_at.desc`, { headers });
+    const res = await fetch(`${SUPA_URL}/orders?select=*&order=created_at.desc`, { headers });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
   async updateOrder(id, data) {
-    const res = await fetch(`${URL}/orders?id=eq.${id}`, {
+    const res = await fetch(`${SUPA_URL}/orders?id=eq.${id}`, {
       method: 'PATCH',
       headers,
       body: JSON.stringify(data),
