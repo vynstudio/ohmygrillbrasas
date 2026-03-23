@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
@@ -10,13 +10,30 @@ import AboutPage from './pages/AboutPage';
 import AdminPage from './pages/AdminPage';
 
 function AppContent() {
-  const [page, setPage] = useState('home');
+  const getInitialPage = () => {
+    const hash = window.location.hash.replace('#', '');
+    const path = window.location.pathname.replace('/', '');
+    return hash || path || 'home';
+  };
+
+  const [page, setPage] = useState(getInitialPage);
   const [cartOpen, setCartOpen] = useState(false);
 
   const navigate = (p) => {
     setPage(p);
+    window.location.hash = p === 'home' ? '' : p;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Listen for back/forward browser navigation
+  useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      setPage(hash || 'home');
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   // Admin runs standalone — no navbar, no cart
   if (page === 'admin') return <AdminPage onNavigate={navigate} />;
