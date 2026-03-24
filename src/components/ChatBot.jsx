@@ -62,6 +62,7 @@ export default function ChatBot({ onNavigate }) {
   const [input, setInput]         = useState('');
   const [loading, setLoading]     = useState(false);
   const [unread, setUnread]       = useState(0);
+  const [quickReplies, setQuickReplies] = useState([]);
 
   const [isMobile, setIsMobile]   = useState(window.innerWidth < 768);
   const msgRef  = useRef(null);
