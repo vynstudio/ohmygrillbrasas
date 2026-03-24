@@ -1,5 +1,31 @@
 const Stripe = require('stripe');
-const { sendOrderNotification } = require('./notify-order');
+
+async function sendWhatsApp(sid, token, to, body) {
+  const res = await fetch(
+    `https://api.twilio.com/2010-04-01/Accounts/${sid}/Messages.json`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + Buffer.from(`${sid}:${token}`).toString('base64'),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({ To: to, From: 'whatsapp:+14155238886', Body: body }).toString(),
+    }
+  );
+  return res.json();
+}
+
+async function notifyOrder(order) {
+  const sid   = process.env.TWILIO_ACCOUNT_SID;
+  const token = process.env.TWILIO_AUTH_TOKEN;
+  if (!sid || !token) return;
+  const { orderId, items, total, deliveryType, deliveryZone, contact, address } = order;
+  const itemsList = items.map(i => `• ${i.qty}x ${i.name} €${(i.price*i.qty).toFixed(2)}`).join('\n');
+  const delivery = deliveryType === 'pickup' ? 'Recogida en local' : `Entrega · ${deliveryZone?.name || ''} · ${address?.address || ''}`;
+  const msg = `🔥 NUEVO PEDIDO OhMyGrill\n\n📦 ${orderId}\n👤 ${contact?.name} · ${contact?.phone}\n\n${itemsList}\n\n💰 Total: €${total.toFixed(2)}\n${delivery}`;
+  const numbers = ['whatsapp:+13217580094', 'whatsapp:+34631089479'];
+  await Promise.allSettled(numbers.map(n => sendWhatsApp(sid, token, n, msg)));
+}
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -36,7 +62,7 @@ exports.handler = async (event) => {
     // ── 5% platform fee to VynStudio, 95% to OhMyGrill ─────────────────────
     // application_fee_amount = what Vyn Studio keeps (5%)
     // Stripe automatically routes the rest (95%) to the destination account
-    const applicationFeeCents = Math.max(50, Math.round(totalCents * 0.05)); // min €0.50
+    const applicationFeeCents = Math.max(50, Math.round(totalCents * 0.05)); // 5% with €0.50 floor
 
     const piParams = {
       amount:   totalCents,
@@ -113,7 +139,7 @@ exports.handler = async (event) => {
     }
 
     // Send WhatsApp notifications (non-blocking)
-    sendOrderNotification({
+    notifyOrder({
       orderId,
       items,
       total: totalCents / 100,
