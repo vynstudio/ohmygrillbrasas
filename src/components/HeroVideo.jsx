@@ -15,7 +15,7 @@ export default function HeroVideo({ src, poster }) {
   }, []);
 
   return (
-    <div style={{ position:'absolute', inset:0, overflow:'hidden', background:'#0F0800' }}>
+    <div style={{ position:'absolute', inset:0, overflow:'hidden', background:'#1a1008' }}>
       {/* Poster shown instantly while video loads */}
       {poster && (
         <img

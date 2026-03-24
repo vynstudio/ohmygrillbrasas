@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const STAGES = [
   { id: 'confirmed',  icon: '✅', label: 'Pedido confirmado',   desc: 'Hemos recibido tu pedido y lo estamos revisando.' },
-  { id: 'preparing',  icon: '🔥', label: 'Preparando en brasa', desc: 'Tu pedido está en la brasa. La magia está pasando.' },
+  { id: 'preparing',  icon: '◈', label: 'Preparando en brasa', desc: 'Tu pedido está en la brasa. La magia está pasando.' },
   { id: 'ready',      icon: '📦', label: 'Listo para salir',    desc: 'Tu pedido está listo y empaquetado.' },
   { id: 'on_the_way', icon: '🛵', label: 'En camino',           desc: 'Tu pedido va de camino. ¡Prepara la mesa!' },
   { id: 'delivered',  icon: '🏠', label: 'Entregado',           desc: '¡Que lo disfrutes! Esperamos que esté perfecto.' },
@@ -10,7 +10,7 @@ const STAGES = [
 
 const PICKUP_STAGES = [
   { id: 'confirmed',  icon: '✅', label: 'Pedido confirmado',   desc: 'Hemos recibido tu pedido.' },
-  { id: 'preparing',  icon: '🔥', label: 'Preparando en brasa', desc: 'Tu pedido está en la brasa.' },
+  { id: 'preparing',  icon: '◈', label: 'Preparando en brasa', desc: 'Tu pedido está en la brasa.' },
   { id: 'ready',      icon: '📦', label: 'Listo para recoger',  desc: '¡Tu pedido está listo! Puedes venir a recogerlo.' },
   { id: 'delivered',  icon: '✨', label: 'Recogido',            desc: '¡Gracias! Esperamos verte pronto.' },
 ];
@@ -20,7 +20,7 @@ const mockOrders = {
   'OMG-K4X9A': {
     id: 'OMG-K4X9A',
     customer: 'Carlos Martínez',
-    items: [{ name: 'Chuletón de buey', qty: 1, price: 48, emoji: '🥩' }, { name: 'Chimichurri artesano', qty: 2, price: 3.5, emoji: '🫙' }],
+    items: [{ name: 'Chuletón de buey', qty: 1, price: 48, emoji: '' }, { name: 'Chimichurri artesano', qty: 2, price: 3.5, emoji: '' }],
     total: 55,
     deliveryType: 'delivery',
     zone: 'Centro / Casco Histórico',
@@ -33,7 +33,7 @@ const mockOrders = {
   'OMG-R7L3C': {
     id: 'OMG-R7L3C',
     customer: 'Luis Torres',
-    items: [{ name: 'Pollo de corral', qty: 2, price: 18, emoji: '🍗' }, { name: 'Patatas a las brasas', qty: 1, price: 8, emoji: '🥔' }],
+    items: [{ name: 'Pollo de corral', qty: 2, price: 18, emoji: '' }, { name: 'Patatas a las brasas', qty: 1, price: 8, emoji: '' }],
     total: 44,
     deliveryType: 'pickup',
     zone: '',
@@ -77,8 +77,8 @@ function ProgressBar({ stages, currentStatus }) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
               <div style={{
                 width: 44, height: 44, borderRadius: '50%',
-                background: done ? '#1A1000' : active ? '#0F0800' : '#1A1000',
-                border: `2px solid ${done ? '#FFD43A' : active ? '#0F0800' : '#2A1A00'}`,
+                background: done ? '#F2EDE4' : active ? '#1a1008' : '#F2EDE4',
+                border: `2px solid ${done ? '#F5C842' : active ? '#1a1008' : 'rgba(26,16,8,0.1)'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: active ? 20 : 16,
                 transition: 'all 0.4s ease',
@@ -86,14 +86,14 @@ function ProgressBar({ stages, currentStatus }) {
                 position: 'relative',
               }}>
                 {done ? (
-                  <span style={{ color: '#FFD43A', fontSize: 18 }}>✓</span>
+                  <span style={{ color: '#F5C842', fontSize: 18 }}>✓</span>
                 ) : (
                   <span style={{ filter: upcoming ? 'grayscale(1) opacity(0.4)' : 'none' }}>{stage.icon}</span>
                 )}
                 {active && (
                   <span style={{
                     position: 'absolute', inset: -4, borderRadius: '50%',
-                    border: '2px solid #FFD43A',
+                    border: '2px solid #F5C842',
                     animation: 'pulse 1.8s ease-in-out infinite',
                   }} />
                 )}
@@ -101,7 +101,7 @@ function ProgressBar({ stages, currentStatus }) {
               {idx < stages.length - 1 && (
                 <div style={{
                   width: 2, flex: 1, minHeight: 32,
-                  background: done ? '#FFD43A' : '#2A1A00',
+                  background: done ? '#F5C842' : 'rgba(26,16,8,0.1)',
                   margin: '4px 0',
                   transition: 'background 0.4s ease',
                 }} />
@@ -114,7 +114,7 @@ function ProgressBar({ stages, currentStatus }) {
                 fontFamily: "'Fraunces', serif",
                 fontSize: active ? 17 : 15,
                 fontWeight: active ? 600 : 400,
-                color: done ? '#FFD43A' : active ? '#0F0800' : 'rgba(255,255,255,0.45)',
+                color: done ? '#F5C842' : active ? '#1a1008' : 'rgba(26,16,8,0.45)',
                 margin: '0 0 3px',
                 transition: 'all 0.3s',
               }}>
@@ -187,13 +187,13 @@ export default function OrderTrackerPage({ onNavigate }) {
   const isReady = order?.status === 'ready' && order?.deliveryType === 'pickup';
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAF5EC', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAF6EF', minHeight: '100vh' }}>
 
       {/* Header */}
-      <div style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px 40px' : '64px 0 56px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: '#FAF6EF', padding: isMobile ? '48px 20px 40px' : '64px 0 56px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', bottom: -20, right: -10, fontFamily: "'Fraunces', serif", fontSize: 160, fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none' }}>TRACK</div>
         <div style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative', zIndex: 1 }}>
-          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 32 : 44, fontWeight: 600, color: '#0F0800', margin: '0 0 10px', letterSpacing: '-1px' }}>
+          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 32 : 44, fontWeight: 600, color: '#1a1008', margin: '0 0 10px', letterSpacing: '-1px' }}>
             Seguimiento de pedido
           </h1>
           <p style={{ fontSize: 15, color: 'rgba(15,8,0,0.45)', margin: '0 0 28px', lineHeight: 1.6 }}>
@@ -211,21 +211,21 @@ export default function OrderTrackerPage({ onNavigate }) {
               onKeyDown={e => e.key === 'Enter' && handleSearch()}
               style={{
                 flex: 1, padding: '13px 16px',
-                background: '#FAF5EC',
+                background: '#FAF6EF',
                 border: '1.5px solid rgba(255,255,255,0.12)',
-                borderRadius: 0, color: '#0F0800',
+                borderRadius: 0, color: '#1a1008',
                 fontFamily: "'Outfit', sans-serif",
                 fontSize: 16, letterSpacing: '2px',
                 outline: 'none', boxSizing: 'border-box',
               }}
-              onFocus={e => e.target.style.borderColor = '#FFD43A'}
+              onFocus={e => e.target.style.borderColor = '#F5C842'}
               onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
             />
             <button
               onClick={() => handleSearch()}
               disabled={loading}
               style={{
-                background: '#FFD43A',
+                background: '#F5C842',
                 color: '#fff', border: 'none', borderRadius: 0,
                 padding: '13px 24px', fontFamily: "'Outfit', sans-serif",
                 fontSize: 14, fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer',
@@ -241,7 +241,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {error && <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.5)', marginTop: 10 }}>⚠️ {error}</p>}
 
           {/* Demo hint */}
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 12 }}>
+          <p style={{ fontSize: 11, color: 'rgba(26,16,8,0.25)', marginTop: 12 }}>
             Demo: prueba con <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(15,8,0,0.4)' }} onClick={() => { setOrderId('OMG-K4X9A'); handleSearch('OMG-K4X9A'); }}>OMG-K4X9A</span> o <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(15,8,0,0.4)' }} onClick={() => { setOrderId('OMG-R7L3C'); handleSearch('OMG-R7L3C'); }}>OMG-R7L3C</span>
           </p>
         </div>
@@ -253,8 +253,8 @@ export default function OrderTrackerPage({ onNavigate }) {
 
           {/* Status hero card */}
           <div style={{
-            background: isDelivered ? '#1A1000' : isReady ? '#1A1000' : '#fff',
-            border: `1px solid ${isDelivered ? '#FFD43A' : isReady ? '#FFD43A' : '#2A1A00'}`,
+            background: isDelivered ? '#F2EDE4' : isReady ? '#F2EDE4' : '#fff',
+            border: `1px solid ${isDelivered ? '#F5C842' : isReady ? '#F5C842' : 'rgba(26,16,8,0.1)'}`,
             borderRadius: 0, padding: '24px', marginBottom: 20,
             display: 'flex', alignItems: 'center', gap: 16,
           }}>
@@ -262,10 +262,10 @@ export default function OrderTrackerPage({ onNavigate }) {
               {stages[currentStageIdx]?.icon}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: 11, color: '#FFD43A', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', margin: '0 0 4px' }}>
+              <p style={{ fontSize: 11, color: '#F5C842', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', margin: '0 0 4px' }}>
                 {order.id}
               </p>
-              <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 900, color: isDelivered ? '#FFD43A' : '#0F0800', margin: '0 0 4px' }}>
+              <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 900, color: isDelivered ? '#F5C842' : '#1a1008', margin: '0 0 4px' }}>
                 {stages[currentStageIdx]?.label}
               </h2>
               <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: 0 }}>
@@ -278,7 +278,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#FFD43A', margin: 0 }}>€{order.total.toFixed(2)}</p>
+              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#F5C842', margin: 0 }}>€{order.total.toFixed(2)}</p>
               <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '3px 0 0' }}>
                 <TimeAgo date={order.createdAt} />
               </p>
@@ -288,7 +288,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16, marginBottom: 20 }}>
 
             {/* Progress tracker */}
-            <div style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '24px' }}>
+            <div style={{ background: '#FAF6EF', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '24px' }}>
               <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 20px' }}>Estado del pedido</p>
               <ProgressBar stages={stages} currentStatus={order.status} />
             </div>
@@ -296,36 +296,36 @@ export default function OrderTrackerPage({ onNavigate }) {
             {/* Order summary */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {/* Items */}
-              <div style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '20px', flex: 1 }}>
+              <div style={{ background: '#FAF6EF', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '20px', flex: 1 }}>
                 <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 12px' }}>Artículos</p>
                 {order.items.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: i < order.items.length - 1 ? '1px solid #1A1000' : 'none' }}>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: i < order.items.length - 1 ? '1px solid #F2EDE4' : 'none' }}>
                     <div style={{ width: 36, height: 36, background: '#1a1008', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x=".5" y=".5" width="15" height="11" stroke="rgba(255,255,255,.15)" strokeWidth="1"/><circle cx="4.5" cy="4" r="1.5" stroke="rgba(255,255,255,.15)"/><path d="M.5 9l3.5-3 3 2 3-3.5 5.5 4.5" stroke="rgba(255,255,255,.15)" strokeLinejoin="round"/></svg></div>
                     <div style={{ flex: 1 }}>
-                      <p style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.qty}× {item.name}</p>
+                      <p style={{ fontSize: 13, fontWeight: 500, color: '#1a1008', margin: 0 }}>{item.qty}× {item.name}</p>
                     </div>
                     <span style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)' }}>€{(item.price * item.qty).toFixed(2)}</span>
                   </div>
                 ))}
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid rgba(15,8,0,0.12)', marginTop: 8 }}>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#0F0800' }}>Total</span>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#FFD43A' }}>€{order.total.toFixed(2)}</span>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#1a1008' }}>Total</span>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#F5C842' }}>€{order.total.toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Delivery info */}
-              <div style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '16px 18px' }}>
+              <div style={{ background: '#FAF6EF', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '16px 18px' }}>
                 <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 10px' }}>
                   {order.deliveryType === 'pickup' ? 'Recogida' : 'Entrega'}
                 </p>
                 {order.deliveryType === 'delivery' ? (
                   <>
-                    <p style={{ fontSize: 13, color: '#0F0800', fontWeight: 500, margin: '0 0 3px' }}>📍 {order.address}</p>
+                    <p style={{ fontSize: 13, color: '#1a1008', fontWeight: 500, margin: '0 0 3px' }}>📍 {order.address}</p>
                     <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{order.zone}</p>
                   </>
                 ) : (
                   <>
-                    <p style={{ fontSize: 13, color: '#0F0800', fontWeight: 500, margin: '0 0 3px' }}>🏪 Recogida en local</p>
+                    <p style={{ fontSize: 13, color: '#1a1008', fontWeight: 500, margin: '0 0 3px' }}>🏪 Recogida en local</p>
                     <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)', margin: 0 }}>Calle de las Brasas, 12 · Zaragoza</p>
                   </>
                 )}
@@ -334,16 +334,16 @@ export default function OrderTrackerPage({ onNavigate }) {
           </div>
 
           {/* Help bar */}
-          <div style={{ background: '#FAF5EC', borderRadius: 0, padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <div style={{ background: '#FAF6EF', borderRadius: 0, padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div>
-              <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: '0 0 2px' }}>¿Tienes algún problema?</p>
+              <p style={{ fontSize: 14, fontWeight: 500, color: '#1a1008', margin: '0 0 2px' }}>¿Tienes algún problema?</p>
               <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.4)', margin: 0 }}>Estamos disponibles durante el horario de reparto</p>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FAF5EC', color: '#0F0800', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 0, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FAF6EF', color: '#1a1008', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 0, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 📞 Llamar
               </a>
-              <a href={`https://wa.me/34600000000`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FAF5EC', color: '#fff', border: 'none', borderRadius: 0, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <a href={`https://wa.me/34600000000`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FAF6EF', color: '#fff', border: 'none', borderRadius: 0, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 💬 WhatsApp
               </a>
             </div>
@@ -353,7 +353,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {isDelivered && (
             <div style={{ marginTop: 20, textAlign: 'center' }}>
               <p style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', marginBottom: 12 }}>¿Te ha gustado? ¡Repite!</p>
-              <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background: '#F5C842', color: '#1a1008', border: 'none', borderRadius: 0, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
                 Hacer otro pedido →
               </button>
             </div>
@@ -365,7 +365,7 @@ export default function OrderTrackerPage({ onNavigate }) {
       {!order && !loading && !error && (
         <div style={{ maxWidth: 680, margin: '0 auto', padding: isMobile ? '40px 20px' : '56px 24px', textAlign: 'center' }}>
           <div style={{ fontSize: 56, marginBottom: 16 }}>🛵</div>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: '#0F0800', margin: '0 0 10px' }}>
+          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 24, fontWeight: 600, color: '#1a1008', margin: '0 0 10px' }}>
             Encuentra tu pedido
           </h2>
           <p style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', lineHeight: 1.65, maxWidth: 380, margin: '0 auto 28px' }}>
@@ -377,7 +377,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               { icon: '💬', text: 'WhatsApp del local' },
               { icon: '🧾', text: 'Empieza por OMG-' },
             ].map(item => (
-              <div key={item.text} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '14px 10px', textAlign: 'center' }}>
+              <div key={item.text} style={{ background: '#FAF6EF', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '14px 10px', textAlign: 'center' }}>
                 <div style={{ fontSize: 22, marginBottom: 6 }}>{item.icon}</div>
                 <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: 0, lineHeight: 1.4 }}>{item.text}</p>
               </div>
