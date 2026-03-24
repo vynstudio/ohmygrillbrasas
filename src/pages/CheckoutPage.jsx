@@ -254,7 +254,7 @@ function StepPayment({ onBack, onSubmit, total, loading, stripeError }) {
         </button>
       </div>
       <p style={{ fontSize:11, color:S.faint, textAlign:'center', marginTop:12 }}>
-        Bizum · Apple Pay · Google Pay · Tarjeta · Procesado por Stripe
+        Apple Pay · Google Pay · Tarjeta · Link · Procesado por Stripe
       </p>
       <style>{`@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`}</style>
     </div>
@@ -308,7 +308,7 @@ export default function CheckoutPage({ onNavigate }) {
         clientSecret: data.clientSecret,
         locale: 'es',
         appearance: {
-          theme: 'flat',
+          theme: 'stripe',
           variables: {
             colorPrimary: '#1a1008',
             colorBackground: '#ffffff',
@@ -317,21 +317,34 @@ export default function CheckoutPage({ onNavigate }) {
             fontFamily: 'Outfit, sans-serif',
             borderRadius: '10px',
             spacingUnit: '4px',
+            fontSizeBase: '14px',
           },
           rules: {
-            '.Input': { border: '1.5px solid rgba(26,16,8,.1)', padding: '13px 16px' },
-            '.Input:focus': { border: '1.5px solid #1a1008' },
-            '.Tab': { border: '1.5px solid rgba(26,16,8,.1)', borderRadius: '10px' },
+            '.Input': { border: '1.5px solid rgba(26,16,8,.12)', padding: '12px 14px', boxShadow: 'none' },
+            '.Input:focus': { border: '1.5px solid #1a1008', boxShadow: 'none' },
+            '.Tab': { border: '1.5px solid rgba(26,16,8,.12)', borderRadius: '10px', boxShadow: 'none' },
             '.Tab--selected': { border: '1.5px solid #1a1008', boxShadow: '0 0 0 1px #1a1008' },
-            '.Tab:hover': { border: '1.5px solid rgba(26,16,8,.3)' },
+            '.Tab--selected .TabIcon': { color: '#1a1008' },
+            '.Tab--selected .TabLabel': { color: '#1a1008', fontWeight: '600' },
+            '.Tab:hover': { border: '1.5px solid rgba(26,16,8,.3)', boxShadow: 'none' },
+            '.Block': { border: '1.5px solid rgba(26,16,8,.12)', borderRadius: '10px', boxShadow: 'none' },
           },
         },
       });
       elementsRef.current = elements;
 
       const paymentEl = elements.create('payment', {
-        layout: { type: 'tabs', defaultCollapsed: false },
+        layout: {
+          type: 'tabs',
+          defaultCollapsed: false,
+          radios: false,
+          spacedAccordionItems: false,
+        },
+        defaultValues: {
+          billingDetails: { address: { country: 'ES' } }
+        },
         wallets: { applePay: 'auto', googlePay: 'auto' },
+        fields: { billingDetails: { address: { country: 'never' } } },
       });
       paymentEl.mount('#stripe-payment-element');
       cardRef.current = paymentEl;
