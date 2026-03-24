@@ -23,8 +23,7 @@ exports.handler = async (event) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: finalAmount,
       currency,
-      // Enable all relevant payment methods for Spain
-      payment_method_types: ['card', 'bizum'],
+      automatic_payment_methods: { enabled: true },
       capture_method: 'automatic',
     });
 
