@@ -8,19 +8,41 @@ const S = {
   sub:'rgba(26,16,8,.5)', faint:'rgba(26,16,8,.3)',
 };
 
-function fmt(text) {
-  return text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,'<em>$1</em>')
-    .replace(/\n/g,'<br/>');
-}
-const hhMM = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+const fmt = t => t
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+  .replace(/\*(.+?)\*/g,'<em>$1</em>')
+  .replace(/\n/g,'<br/>');
 
-// ── Order summary card ─────────────────────────────────────────────────────────
+const hhmm = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+
+// ── Guided flow stages ────────────────────────────────────────────────────────
+// Each stage defines what quick replies to show BEFORE the user sends anything
+const STAGE_REPLIES = {
+  welcome:    ['Para 1 persona','Para 2','Para 3–4','Para 5 o más','Ver la carta'],
+  size_done:  ['Sí, lo quiero','Ver otras opciones','Quiero elegir yo'],
+  upsell:     ['Sí, añádelo','No gracias, así está bien'],
+  delivery:   ['A domicilio','Recojo yo (~25 min, gratis)'],
+  zone:       ['1. Centro €3','2. Delicias €3.50','3. Oliver €3.50','4. Las Fuentes €4','5. Torrero €4','6. Casablanca €4.50'],
+  free:       [], // free text, no guided replies
+};
+
+// Detect which stage we're at based on bot response
+function detectStage(text) {
+  const t = text.toLowerCase();
+  if (t.includes('para cuántos') || t.includes('cuántos coméis')) return 'welcome';
+  if (t.includes('sí, lo quiero') || t.includes('ver otras opciones') || t.includes('quiero elegir')) return 'size_done';
+  if (t.includes('le añadimos') || t.includes('pan de cristal') || t.includes('chimichurri')) return 'upsell';
+  if (t.includes('a domicilio o recog') || t.includes('domicilio o recog') || t.includes('recoges en el local')) return 'delivery';
+  if (t.includes('1. centro') || t.includes('qué zona') || t.includes('zona de zaragoza')) return 'zone';
+  if (t.includes('__order__') || t.includes('resumen') || t.includes('confirmar')) return 'free';
+  return null; // keep previous stage
+}
+
+// ── Order card ────────────────────────────────────────────────────────────────
 function OrderCard({ order, onCheckout }) {
-  const shipping = order.subtotal >= 35 ? 0 : 2.5;
-  const total = order.subtotal + shipping;
+  const fee = order.deliveryFee ?? (order.subtotal >= 35 ? 0 : 3);
+  const total = order.subtotal + fee;
   return (
     <div style={{ background:S.surface, borderRadius:12, padding:14, marginTop:6, border:`1px solid ${S.border}` }}>
       <div style={{ fontFamily:"'Fraunces',serif", fontSize:13, fontWeight:600, color:S.dark, marginBottom:8 }}>Resumen del pedido</div>
@@ -31,32 +53,34 @@ function OrderCard({ order, onCheckout }) {
         </div>
       ))}
       <div style={{ display:'flex', justifyContent:'space-between', padding:'5px 0', fontSize:11, color:S.sub }}>
-        <span>Envío{shipping===0?' (gratis +€35)':''}</span>
-        <span>{shipping===0?'Gratis':'€'+shipping.toFixed(2)}</span>
+        <span>{order.zone ? `Envío · ${order.zone}` : 'Envío'}{fee===0?' (gratis)':''}</span>
+        <span>{fee===0?'Gratis':'€'+fee.toFixed(2)}</span>
       </div>
       <div style={{ display:'flex', justifyContent:'space-between', paddingTop:8, marginTop:3, borderTop:'1px solid rgba(26,16,8,.15)' }}>
         <span style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:S.dark }}>Total</span>
         <span style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:S.dark }}>€{total.toFixed(2)}</span>
       </div>
       <button onClick={() => onCheckout(order)}
-        style={{ width:'100%', background:S.yellow, color:S.dark, border:'none', borderRadius:10, padding:11, fontSize:13, fontWeight:700, cursor:'pointer', fontFamily:'inherit', marginTop:10 }}>
+        style={{ width:'100%', background:S.yellow, color:S.dark, border:'none', borderRadius:10, padding:12, fontSize:14, fontWeight:700, cursor:'pointer', fontFamily:'inherit', marginTop:10, transition:'opacity .15s' }}
+        onMouseEnter={e=>e.currentTarget.style.opacity='.85'}
+        onMouseLeave={e=>e.currentTarget.style.opacity='1'}>
         Confirmar y pagar →
       </button>
     </div>
   );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────────
-export default function ChatBot({ onNavigate, activePage }) {
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [unread, setUnread] = useState(0);
-  const [quickReplies, setQuickReplies] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const messagesRef = useRef(null);
+// ── Main ──────────────────────────────────────────────────────────────────────
+export default function ChatBot({ onNavigate }) {
+  const [open, setOpen]           = useState(false);
+  const [messages, setMessages]   = useState([]);
+  const [history, setHistory]     = useState([]);
+  const [input, setInput]         = useState('');
+  const [loading, setLoading]     = useState(false);
+  const [unread, setUnread]       = useState(0);
+  const [stage, setStage]         = useState('welcome');
+  const [isMobile, setIsMobile]   = useState(window.innerWidth < 768);
+  const msgRef  = useRef(null);
   const inputRef = useRef(null);
   const { addItem } = useCart();
 
@@ -66,69 +90,49 @@ export default function ChatBot({ onNavigate, activePage }) {
     return () => window.removeEventListener('resize', fn);
   }, []);
 
-  // Welcome on first open
+  // First open — welcome + first guided question
   useEffect(() => {
     if (open && messages.length === 0) {
-      const welcome = {
-        role:'bot', time:hhMM(),
-        text:'¡Oh my! Soy **OMG**, el asistente de OhMyGrill. Dime qué quieres pedir o pregúntame lo que sea.',
-      };
-      setMessages([welcome]);
-      setQuickReplies(['Pollo de corral','Pack Carnívoro','¿Qué me recomiendas?','Zonas de entrega']);
-      setTimeout(scrollBottom, 80);
+      setMessages([{
+        role:'bot', time:hhmm(),
+        text:'¡Oh my! Soy **OMG**, el asistente de OhMyGrill. Vamos a hacerte el pedido perfecto. ¿Para cuántos coméis hoy?',
+      }]);
+      setStage('welcome');
+      setTimeout(scrollBot, 80);
     }
     if (open) { setUnread(0); setTimeout(() => inputRef.current?.focus(), 200); }
   }, [open]);
 
-  useEffect(scrollBottom, [messages, loading]);
+  useEffect(scrollBot, [messages, loading]);
 
-  function scrollBottom() {
-    if (messagesRef.current) messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  function scrollBot() {
+    if (msgRef.current) msgRef.current.scrollTop = msgRef.current.scrollHeight;
   }
 
-  // Smart quick replies based on bot response context
-  function nextReplies(text) {
-    const t = text.toLowerCase();
-    if (t.includes('pack familiar'))   return ['Añadir Pack Familiar al pedido','¿Qué lleva exactamente?','Ver otros packs'];
-    if (t.includes('pack pareja'))     return ['Añadir Pack Pareja al pedido','¿Qué lleva exactamente?','Ver otros packs'];
-    if (t.includes('pack carnívoro') || t.includes('pack carnivoro')) return ['Añadir Pack Carnívoro al pedido','¿Qué lleva exactamente?','Ver otros packs'];
-    if (t.includes('pollo'))           return ['Añadir pollo al pedido','+ Patatas a las brasas','+ Chimichurri artesano'];
-    if (t.includes('chuletón'))        return ['Añadir chuletón al pedido','+ Pan de cristal','+ Chimichurri artesano'];
-    if (t.includes('costilla'))        return ['Añadir costillas al pedido','+ Mojo picón','¿Para cuántos somos?'];
-    if (t.includes('entrecot'))        return ['Añadir entrecot al pedido','+ Patatas a las brasas','+ Salsa'];
-    if (t.includes('1.') || t.includes('2.') || t.includes('elige tu número') || t.includes('elige tu numero') || (t.includes('zona') && t.includes('€')))
-      return ['1. Centro','2. Delicias','3. Oliver','4. Las Fuentes','5. Torrero','6. Casablanca','Recogida en local'];
-    if (t.includes('entrega') || t.includes('zona') || t.includes('domicilio')) return ['¿Cuánto cuesta el envío?','¿Hacéis recogida?','Quiero hacer un pedido'];
-    if (t.includes('horario') || t.includes('abierto'))  return ['Hacer un pedido ahora','Ver la carta'];
-    if (t.includes('resumen') || t.includes('pedido'))   return ['Confirmar pedido','Añadir algo más','Cambiar algo'];
-    return [];
-  }
-
-  // Checkout handoff
+  // Checkout handoff — adds items to cart, navigates to checkout
   function handleCheckout(order) {
     order.items.forEach(item => {
       const match = products.find(p =>
-        p.name.toLowerCase().includes(item.name.toLowerCase().split(' ').slice(0,2).join(' '))
-      );
-      const product = match || {
+        p.name.toLowerCase().includes(item.name.toLowerCase().split(' ').slice(0,2).join(' ').toLowerCase())
+      ) || {
         id: item.name.toLowerCase().replace(/\s+/g,'-'),
         name: item.name, price: item.price,
         category:'carnes', description:'', weight:'', available:true,
       };
-      for (let i = 0; i < item.qty; i++) addItem(product);
+      for (let i = 0; i < (item.qty||1); i++) addItem(match);
     });
     setOpen(false);
     onNavigate('checkout');
   }
 
-  // Send message
+  // Send message to API
   async function send(text) {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
     setInput('');
-    setQuickReplies([]);
 
-    setMessages(prev => [...prev, { role:'user', text:msg, time:hhMM() }]);
+    const userMsg = { role:'user', text:msg, time:hhmm() };
+    setMessages(prev => [...prev, userMsg]);
     const newHist = [...history, { role:'user', content:msg }];
     setHistory(newHist);
     setLoading(true);
@@ -144,19 +148,24 @@ export default function ChatBot({ onNavigate, activePage }) {
       const raw = data.content?.[0]?.text || '';
       setHistory(prev => [...prev, { role:'assistant', content:raw }]);
 
+      // Parse order JSON
       const orderMatch = raw.match(/__ORDER__(.+?)__END__/s);
       let orderData = null;
       let displayText = raw.replace(/__ORDER__.+?__END__/s,'').trim();
       if (orderMatch) { try { orderData = JSON.parse(orderMatch[1]); } catch(e) {} }
 
-      setMessages(prev => [...prev, { role:'bot', text:displayText, time:hhMM(), order:orderData }]);
-      const qrs = nextReplies(displayText);
-      if (qrs.length) setQuickReplies(qrs);
+      setMessages(prev => [...prev, { role:'bot', text:displayText, time:hhmm(), order:orderData }]);
+
+      // Advance stage based on response content
+      const newStage = detectStage(displayText);
+      if (newStage) setStage(newStage);
+      else if (orderData) setStage('free');
+
       if (!open) setUnread(u => u+1);
 
     } catch(e) {
       setMessages(prev => [...prev, {
-        role:'bot', time:hhMM(),
+        role:'bot', time:hhmm(),
         text:'Oh my, algo ha fallado. Llámanos al **+34 976 000 000** y te atendemos.',
       }]);
     }
@@ -165,55 +174,48 @@ export default function ChatBot({ onNavigate, activePage }) {
 
   const onKey = e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
 
-  // ── DESKTOP: anchor pill in navbar area, panel opens upward ────────────────
-  // ── MOBILE: yellow bar above tab bar, panel is full bottom-sheet ───────────
-
-  const TAB_H = 72; // must match BottomNav
+  const qrs = STAGE_REPLIES[stage] || [];
+  const TAB_H = 72;
 
   return (
     <>
       {/* ══ CHAT PANEL ══ */}
       <div style={{
         position:'fixed',
-        // Desktop: right side, opens upward from navbar bottom edge
-        // Mobile: full-width bottom sheet above tab bar
         ...(isMobile ? {
-          bottom: open ? TAB_H : '-100%',
+          bottom: open ? TAB_H : 0,
           left:0, right:0,
-          height:'70dvh',
+          height:'72dvh',
           borderRadius:'20px 20px 0 0',
         } : {
-            bottom: 108,
+          bottom: 108,
           left: 32,
-          width: 380,
-          height: 560,
+          width: 390,
+          height: 580,
           borderRadius: 16,
         }),
         background: S.cream,
         display:'flex', flexDirection:'column',
         boxShadow:'0 24px 80px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.07)',
-        zIndex: 998,
+        zIndex:998,
         transform: open
           ? 'translateY(0) scale(1)'
-          : isMobile
-            ? 'translateY(100%)'
-            : 'translateY(12px) scale(.98)',
+          : isMobile ? 'translateY(100%)' : 'translateY(14px) scale(.97)',
         opacity: open ? 1 : 0,
         pointerEvents: open ? 'all' : 'none',
-        transition: 'transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease',
+        transition:'transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease',
+        transformOrigin:'bottom left',
         overflow:'hidden',
       }}>
 
-        {/* Handle (mobile only) */}
-        {isMobile && (
-          <div style={{ width:36, height:4, background:S.border, borderRadius:2, margin:'10px auto 0', flexShrink:0 }} />
-        )}
+        {/* Handle mobile */}
+        {isMobile && <div style={{ width:36, height:4, background:S.border, borderRadius:2, margin:'10px auto 0', flexShrink:0 }} />}
 
         {/* Header */}
         <div style={{ background:S.dark, padding:'12px 16px', display:'flex', alignItems:'center', gap:12, flexShrink:0 }}>
           <div style={{ width:36, height:36, borderRadius:'50%', overflow:'hidden', border:'2px solid rgba(245,200,66,.3)', flexShrink:0 }}>
             <img src="/logo.png" alt="OMG" style={{ width:'100%', height:'100%', objectFit:'cover' }}
-              onError={e => { e.target.style.display='none'; e.target.parentNode.style.background=S.yellow; e.target.parentNode.innerHTML='<span style="font-size:11px;font-weight:800;color:#1a1008;font-family:Outfit">OMG</span>'; }} />
+              onError={e=>{e.target.style.display='none';e.target.parentNode.style.background=S.yellow;}} />
           </div>
           <div style={{ flex:1 }}>
             <div style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:'#fff' }}>OhMyGrill Brasas</div>
@@ -222,14 +224,30 @@ export default function ChatBot({ onNavigate, activePage }) {
               <span style={{ fontSize:10, color:'rgba(255,255,255,.4)' }}>OMG · Siempre en brasa</span>
             </div>
           </div>
+          {/* Reset button */}
+          <button onClick={() => { setMessages([]); setHistory([]); setStage('welcome'); setUnread(0); }}
+            title="Nuevo chat"
+            style={{ background:'rgba(255,255,255,.07)', border:'none', color:'rgba(255,255,255,.4)', width:28, height:28, borderRadius:'50%', cursor:'pointer', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center', marginRight:4, transition:'all .15s' }}
+            onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.15)';e.currentTarget.style.color='#fff'}}
+            onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.07)';e.currentTarget.style.color='rgba(255,255,255,.4)'}}>↺</button>
           <button onClick={() => setOpen(false)}
-            style={{ background:'rgba(255,255,255,.08)', border:'none', color:'rgba(255,255,255,.55)', width:28, height:28, borderRadius:'50%', cursor:'pointer', fontSize:16, display:'flex', alignItems:'center', justifyContent:'center', transition:'all .15s' }}>×</button>
+            style={{ background:'rgba(255,255,255,.07)', border:'none', color:'rgba(255,255,255,.4)', width:28, height:28, borderRadius:'50%', cursor:'pointer', fontSize:17, display:'flex', alignItems:'center', justifyContent:'center', transition:'all .15s' }}
+            onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.15)';e.currentTarget.style.color='#fff'}}
+            onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.07)';e.currentTarget.style.color='rgba(255,255,255,.4)'}}>×</button>
+        </div>
+
+        {/* Progress bar — shows flow stage visually */}
+        <div style={{ height:2, background:S.surface, flexShrink:0 }}>
+          <div style={{
+            height:'100%', background:S.yellow, transition:'width .4s ease',
+            width: stage==='welcome'?'16%' : stage==='size_done'?'32%' : stage==='upsell'?'50%' : stage==='delivery'?'66%' : stage==='zone'?'83%' : '100%',
+          }} />
         </div>
 
         {/* Messages */}
-        <div ref={messagesRef} style={{ flex:1, overflowY:'auto', padding:12, display:'flex', flexDirection:'column', gap:8 }}>
+        <div ref={msgRef} style={{ flex:1, overflowY:'auto', padding:'12px 12px 4px', display:'flex', flexDirection:'column', gap:8 }}>
           {messages.map((msg,i) => (
-            <div key={i} style={{ display:'flex', flexDirection:'column', alignSelf: msg.role==='user'?'flex-end':'flex-start', maxWidth:'86%', gap:2 }}>
+            <div key={i} style={{ display:'flex', flexDirection:'column', alignSelf:msg.role==='user'?'flex-end':'flex-start', maxWidth:'88%', gap:2 }}>
               <div style={{
                 padding:'10px 13px', fontSize:13, lineHeight:1.55, wordBreak:'break-word',
                 borderRadius: msg.role==='user' ? '16px 16px 4px 16px' : '4px 16px 16px 16px',
@@ -239,24 +257,34 @@ export default function ChatBot({ onNavigate, activePage }) {
                 animation:'msgIn .22s ease',
               }} dangerouslySetInnerHTML={{ __html: fmt(msg.text) }} />
               {msg.order && <OrderCard order={msg.order} onCheckout={handleCheckout} />}
-              <span style={{ fontSize:10, color:S.faint, padding:'0 3px', textAlign: msg.role==='user'?'right':'left' }}>{msg.time}</span>
+              <span style={{ fontSize:10, color:S.faint, padding:'0 3px', textAlign:msg.role==='user'?'right':'left' }}>{msg.time}</span>
             </div>
           ))}
+
+          {/* Typing dots */}
           {loading && (
             <div style={{ alignSelf:'flex-start', padding:'10px 14px', background:'#fff', border:`1px solid ${S.border}`, borderRadius:'4px 16px 16px 16px', display:'flex', gap:4 }}>
-              {[0,.2,.4].map((_,i) => <div key={i} style={{ width:5, height:5, borderRadius:'50%', background:S.faint, animation:`typing 1.2s ${_}s infinite` }}/>)}
+              {[0,.2,.4].map((_,i) => <div key={i} style={{ width:5, height:5, borderRadius:'50%', background:S.faint, animation:`typing 1.2s ${_}s infinite` }} />)}
             </div>
           )}
         </div>
 
-        {/* Quick replies */}
-        {quickReplies.length > 0 && (
-          <div style={{ padding:'6px 10px', display:'flex', gap:6, overflowX:'auto', scrollbarWidth:'none', flexShrink:0 }}>
-            {quickReplies.map((qr,i) => (
-              <button key={i} onClick={() => { setQuickReplies([]); send(qr); }}
-                style={{ background:'#fff', border:`1.5px solid ${S.border}`, borderRadius:20, padding:'6px 13px', fontSize:12, fontWeight:600, color:S.dark, cursor:'pointer', whiteSpace:'nowrap', fontFamily:'inherit', flexShrink:0, transition:'all .15s' }}
+        {/* Quick replies — guided flow buttons */}
+        {qrs.length > 0 && !loading && (
+          <div style={{ padding:'8px 10px 4px', display:'flex', gap:6, flexWrap:'wrap', flexShrink:0, borderTop:`1px solid ${S.border}`, background:'#fff' }}>
+            {qrs.map((qr,i) => (
+              <button key={i} onClick={() => { setStage('free'); send(qr); }}
+                style={{
+                  background: S.cream, border:`1.5px solid ${S.border}`,
+                  borderRadius:20, padding:'7px 14px',
+                  fontSize:12, fontWeight:600, color:S.dark,
+                  cursor:'pointer', fontFamily:'inherit',
+                  transition:'all .15s',
+                  // First option always highlighted as recommended
+                  ...(i===0 ? { background:S.yellow, borderColor:S.yellow } : {}),
+                }}
                 onMouseEnter={e=>{e.currentTarget.style.background=S.yellow;e.currentTarget.style.borderColor=S.yellow}}
-                onMouseLeave={e=>{e.currentTarget.style.background='#fff';e.currentTarget.style.borderColor=S.border}}>
+                onMouseLeave={e=>{if(i!==0){e.currentTarget.style.background=S.cream;e.currentTarget.style.borderColor=S.border}}}>
                 {qr}
               </button>
             ))}
@@ -264,15 +292,16 @@ export default function ChatBot({ onNavigate, activePage }) {
         )}
 
         {/* Input */}
-        <div style={{ padding:'10px 12px', borderTop:`1px solid ${S.border}`, background:S.cream, flexShrink:0, paddingBottom: isMobile?'calc(10px + env(safe-area-inset-bottom,0px))':10 }}>
+        <div style={{ padding:'10px 12px', borderTop:`1px solid ${S.border}`, background:S.cream, flexShrink:0, paddingBottom:isMobile?'calc(10px + env(safe-area-inset-bottom,0px))':10 }}>
           <div style={{ display:'flex', gap:8, alignItems:'flex-end' }}>
             <textarea ref={inputRef} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={onKey}
-              placeholder="Escribe tu pedido o pregunta..." rows={1} disabled={loading}
+              placeholder={stage==='welcome'?'O escribe directamente lo que quieres...':'Escribe tu pedido o pregunta...'}
+              rows={1} disabled={loading}
               style={{ flex:1, background:'#fff', border:`1.5px solid ${S.border}`, borderRadius:20, padding:'9px 14px', fontSize:13, fontFamily:'inherit', color:S.dark, resize:'none', maxHeight:80, lineHeight:1.4, transition:'border-color .2s' }}
               onFocus={e=>e.target.style.borderColor=S.dark}
               onBlur={e=>e.target.style.borderColor=S.border}
               onInput={e=>{e.target.style.height='auto';e.target.style.height=Math.min(e.target.scrollHeight,80)+'px'}} />
-            <button onClick={() => send()} disabled={loading||!input.trim()}
+            <button onClick={()=>send()} disabled={loading||!input.trim()}
               style={{ width:38, height:38, background:input.trim()&&!loading?S.dark:S.surface, border:'none', borderRadius:'50%', cursor:input.trim()&&!loading?'pointer':'default', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, transition:'all .2s' }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={input.trim()&&!loading?'#fff':S.faint} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -282,91 +311,63 @@ export default function ChatBot({ onNavigate, activePage }) {
         </div>
       </div>
 
-      {/* ══ DESKTOP: persistent pill anchored to top-right of viewport ══
-           Shows in navbar area — always visible, branded, purposeful        */}
+      {/* ══ DESKTOP PILL — bottom-left, yellow ══ */}
       {!isMobile && (
         <button onClick={() => setOpen(o=>!o)} style={{
-          position:'fixed',
-          bottom: 32,
-          left: 32,
-          top: 'auto',
+          position:'fixed', bottom:32, left:32, top:'auto',
           display:'flex', alignItems:'center', gap:9,
-          background: open ? S.surface : S.dark,
-          border: `1.5px solid ${open ? S.border : S.dark}`,
-          borderRadius: 24,
-          padding: '8px 18px 8px 10px',
-          cursor:'pointer',
-          zIndex: 1001, // above sticky navbar (100)
-          boxShadow: open ? 'none' : '0 4px 16px rgba(0,0,0,.18)',
+          background: open ? S.dark : S.yellow,
+          border:`2px solid ${open?'rgba(255,255,255,.1)':'rgba(26,16,8,.15)'}`,
+          borderRadius:24, padding:'9px 20px 9px 10px',
+          cursor:'pointer', zIndex:1001, fontFamily:'inherit',
+          boxShadow: open ? '0 4px 20px rgba(0,0,0,.25)' : '0 4px 20px rgba(245,200,66,.45)',
           transition:'all .2s',
-          fontFamily:'inherit',
         }}
-          onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow=open?'0 6px 24px rgba(0,0,0,.3)':'0 6px 28px rgba(245,200,66,.55)'}}
-          onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow=open?'0 4px 20px rgba(0,0,0,.25)':'0 4px 20px rgba(245,200,66,.4)'}}>
-
-          {/* Avatar */}
-          <div style={{ width:30, height:30, borderRadius:'50%', overflow:'hidden', border:`2px solid ${open?'rgba(245,200,66,.3)':'rgba(26,16,8,.2)'}`, flexShrink:0, background: open?S.yellow:S.dark }}>
-            <img src="/logo.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }}
-              onError={e=>e.target.style.display='none'} />
+          onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow=open?'0 6px 24px rgba(0,0,0,.3)':'0 8px 28px rgba(245,200,66,.6)'}}
+          onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow=open?'0 4px 20px rgba(0,0,0,.25)':'0 4px 20px rgba(245,200,66,.45)'}}>
+          <div style={{ width:30, height:30, borderRadius:'50%', overflow:'hidden', border:`2px solid ${open?'rgba(245,200,66,.3)':'rgba(26,16,8,.2)'}`, flexShrink:0 }}>
+            <img src="/logo.png" alt="OMG" style={{ width:'100%', height:'100%', objectFit:'cover' }} onError={e=>e.target.style.display='none'} />
           </div>
-
-          {/* Label */}
-          <span style={{ fontSize:13, fontWeight:700, color: open?S.yellow:S.dark, whiteSpace:'nowrap', letterSpacing:'-.1px' }}>
+          <span style={{ fontSize:13, fontWeight:700, color:open?S.yellow:S.dark, letterSpacing:'-.1px' }}>
             {open ? 'Cerrar chat' : '¿Qué pedimos?'}
           </span>
-
-          {/* Unread badge */}
           {unread > 0 && !open && (
-            <div style={{ width:17, height:17, background:S.dark, color:S.yellow, fontSize:9, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', marginLeft:-4 }}>
-              {unread}
-            </div>
+            <div style={{ width:17, height:17, background:S.dark, color:S.yellow, fontSize:9, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{unread}</div>
           )}
         </button>
       )}
 
-      {/* ══ MOBILE: yellow "¿Qué pedimos?" bar above tab bar ══
-           Replaces the generic floating bubble entirely              */}
+      {/* ══ MOBILE BAR — above tab bar ══ */}
       {isMobile && (
         <button onClick={() => setOpen(o=>!o)} style={{
-          position:'fixed',
-          bottom: TAB_H,
-          left:0, right:0,
+          position:'fixed', bottom:TAB_H, left:0, right:0,
           background: open ? S.dark : S.yellow,
-          border:'none',
-          borderTop: `1px solid ${open?'rgba(255,255,255,.08)':'rgba(26,16,8,.12)'}`,
-          padding:'11px 20px',
-          display:'flex', alignItems:'center', justifyContent:'space-between',
-          cursor:'pointer',
-          zIndex:199,
-          fontFamily:'inherit',
-          transition:'background .2s',
+          border:'none', borderTop:`1px solid ${open?'rgba(255,255,255,.08)':'rgba(26,16,8,.12)'}`,
+          padding:'11px 20px', display:'flex', alignItems:'center', justifyContent:'space-between',
+          cursor:'pointer', zIndex:199, fontFamily:'inherit', transition:'background .2s',
         }}>
           <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-            {/* Logo dot */}
-            <div style={{ width:28, height:28, borderRadius:'50%', overflow:'hidden', border:`1.5px solid ${open?'rgba(245,200,66,.3)':'rgba(26,16,8,.2)'}`, flexShrink:0, background: open?S.yellow:S.dark }}>
-              <img src="/logo.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }}
-                onError={e=>e.target.style.display='none'} />
+            <div style={{ width:28, height:28, borderRadius:'50%', overflow:'hidden', border:`1.5px solid ${open?'rgba(245,200,66,.3)':'rgba(26,16,8,.2)'}`, flexShrink:0 }}>
+              <img src="/logo.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} onError={e=>e.target.style.display='none'} />
             </div>
-            <span style={{ fontSize:14, fontWeight:700, color: open?S.yellow:S.dark }}>
+            <span style={{ fontSize:14, fontWeight:700, color:open?S.yellow:S.dark }}>
               {open ? 'Cerrar chat' : '¿Qué pedimos hoy?'}
             </span>
           </div>
           <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-            {unread > 0 && !open && (
-              <div style={{ width:18, height:18, background:S.dark, color:S.yellow, fontSize:10, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>
-                {unread}
-              </div>
+            {unread>0 && !open && (
+              <div style={{ width:18, height:18, background:S.dark, color:S.yellow, fontSize:10, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{unread}</div>
             )}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={open?S.yellow:S.dark} strokeWidth="2.5" strokeLinecap="round">
-              <polyline points={open?"6 15 12 9 18 15":"6 9 12 15 18 9"}/>
+              <polyline points={open?'6 15 12 9 18 15':'6 9 12 15 18 9'}/>
             </svg>
           </div>
         </button>
       )}
 
-      {/* Mobile overlay */}
+      {/* Mobile backdrop */}
       {isMobile && open && (
-        <div onClick={() => setOpen(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,.3)', zIndex:997, backdropFilter:'blur(2px)' }} />
+        <div onClick={() => setOpen(false)} style={{ position:'fixed', inset:0, background:'rgba(0,0,0,.35)', zIndex:997, backdropFilter:'blur(2px)' }} />
       )}
 
       <style>{`
