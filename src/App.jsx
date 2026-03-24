@@ -34,7 +34,6 @@ function AppContent() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  // Standalone pages — no navbar/cart
   if (page === 'admin') return <AdminPage onNavigate={navigate} />;
 
   const renderPage = () => {
@@ -51,22 +50,14 @@ function AppContent() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAF6EF' }}>
+    <div style={{ minHeight:'100vh', background:'#0F0800' }}>
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
       <main>{renderPage()}</main>
-      <CartDrawer
-        open={cartOpen}
-        onClose={() => setCartOpen(false)}
-        onCheckout={() => { setCartOpen(false); navigate('checkout'); }}
-      />
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
     </div>
   );
 }
 
 export default function App() {
-  return (
-    <CartProvider>
-      <AppContent />
-    </CartProvider>
-  );
+  return <CartProvider><AppContent /></CartProvider>;
 }

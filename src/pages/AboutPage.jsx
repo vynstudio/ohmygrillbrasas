@@ -34,7 +34,7 @@ export default function AboutPage({ onNavigate }) {
     width: '100%', padding: '12px 14px',
     border: `1.5px solid ${hasError ? '#E24B4A' : '#2A1A00'}`,
     borderRadius: 12, fontFamily: "'Outfit', sans-serif",
-    fontSize: 14, color: '#0F0800', background: '#fff',
+    fontSize: 14, color: '#0F0800', background: '#1A1000',
     boxSizing: 'border-box', outline: 'none', transition: 'border-color 0.15s',
   });
 
@@ -58,12 +58,12 @@ export default function AboutPage({ onNavigate }) {
       <section style={{ background: '#0F0800', padding: isMobile ? '56px 20px 48px' : '80px 0 72px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', bottom: -40, right: -20, fontFamily: "'Fraunces', serif", fontSize: 200, fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none' }}>OMG</div>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative', zIndex: 1 }}>
-          <span style={{ display: 'inline-block', background: 'rgba(232,88,32,0.2)', border: '1px solid rgba(232,88,32,0.3)', color: '#ffd43a', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 20, marginBottom: 20, textTransform: 'uppercase' }}>
+          <span style={{ display: 'inline-block', background: '#2A1A00', border: '1px solid #FFD43A', color: '#FFD43A', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 20, marginBottom: 20, textTransform: 'uppercase' }}>
             Nuestra historia
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 38 : 58, fontWeight: 600, color: '#FFF8DC', margin: '0 0 20px', lineHeight: 1.0, letterSpacing: '-1px' }}>
+          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 38 : 58, fontWeight: 600, color: '#FFFFFF', margin: '0 0 20px', lineHeight: 1.0, letterSpacing: '-1px' }}>
             Más de diez años<br />
-            <em style={{ color: '#ffd43a', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
+            <em style={{ color: '#FFD43A', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
           </h1>
           <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(240,235,227,0.55)', lineHeight: 1.75, maxWidth: 580, margin: 0 }}>
             Producto aragonés de calidad, marinado honesto y paciencia sobre el carbón. Eso es OhMyGrill Brasas.
@@ -72,19 +72,19 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* ── STORY ── */}
-      <section style={{ background: '#fff', padding: isMobile ? '48px 20px' : '72px 0' }}>
+      <section style={{ background: '#1A1000', padding: isMobile ? '48px 20px' : '72px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 64, alignItems: 'center' }}>
           <div>
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 28 : 38, fontWeight: 600, color: '#0F0800', margin: '0 0 20px', lineHeight: 1.1 }}>
               Empezamos con<br />una brasa y una idea.
             </h2>
-            <p style={{ fontSize: 15, color: '#C8860A', lineHeight: 1.8, margin: '0 0 16px' }}>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: '0 0 16px' }}>
               En 2013, María García abrió un pequeño local en el centro de Zaragoza con una sola obsesión: hacer la brasa como debe hacerse. Sin atajos, sin gas, sin congelados.
             </p>
-            <p style={{ fontSize: 15, color: '#C8860A', lineHeight: 1.8, margin: '0 0 16px' }}>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: '0 0 16px' }}>
               Lo que empezó como un restaurante de barrio se convirtió en una referencia en la ciudad. Los clientes volvían. Y traían a sus familias. Y a sus amigos.
             </p>
-            <p style={{ fontSize: 15, color: '#C8860A', lineHeight: 1.8, margin: 0 }}>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: 0 }}>
               Hoy, más de diez años después, seguimos usando la misma leña de encina, los mismos ganaderos de Aragón y la misma receta de siempre. Solo añadimos la posibilidad de pedirlo desde casa.
             </p>
           </div>
@@ -97,9 +97,9 @@ export default function AboutPage({ onNavigate }) {
               { num: '4.9★', label: 'Google Maps', sub: 'Más de 200 reseñas' },
             ].map(s => (
               <div key={s.label} style={{ background: '#0F0800', border: '1px solid #2A1A00', borderRadius: 16, padding: '22px 18px' }}>
-                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontWeight: 600, color: '#ffd43a', margin: '0 0 4px', lineHeight: 1 }}>{s.num}</p>
-                <p style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', margin: '0 0 3px' }}>{s.label}</p>
-                <p style={{ fontSize: 11, color: '#C8860A', margin: 0 }}>{s.sub}</p>
+                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontWeight: 600, color: '#FFD43A', margin: '0 0 4px', lineHeight: 1 }}>{s.num}</p>
+                <p style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF', margin: '0 0 3px' }}>{s.label}</p>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{s.sub}</p>
               </div>
             ))}
           </div>
@@ -109,14 +109,14 @@ export default function AboutPage({ onNavigate }) {
       {/* ── VALUES ── */}
       <section style={{ background: '#0F0800', padding: isMobile ? '48px 20px' : '72px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px' }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#0F0800', margin: '0 0 8px', textAlign: 'center' }}>Lo que nos define</h2>
-          <p style={{ fontSize: 14, color: '#C8860A', textAlign: 'center', margin: '0 0 36px' }}>Por qué nuestros clientes llevan más de diez años volviendo</p>
+          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#FFFFFF', margin: '0 0 8px', textAlign: 'center' }}>Lo que nos define</h2>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: '0 0 36px' }}>Por qué nuestros clientes llevan más de diez años volviendo</p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4,1fr)', gap: 16 }}>
             {values.map(v => (
-              <div key={v.title} style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 18, padding: '24px 20px' }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#FEF3EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 16 }}>{v.icon}</div>
-                <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 8px' }}>{v.title}</h3>
-                <p style={{ fontSize: 13, color: '#C8860A', lineHeight: 1.65, margin: 0 }}>{v.desc}</p>
+              <div key={v.title} style={{ background: '#1A1000', border: '1px solid #2A1A00', borderRadius: 18, padding: '24px 20px' }}>
+                <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#1A1000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 16 }}>{v.icon}</div>
+                <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#FFFFFF', margin: '0 0 8px' }}>{v.title}</h3>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, margin: 0 }}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -124,17 +124,17 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* ── TEAM ── */}
-      <section style={{ background: '#fff', padding: isMobile ? '48px 20px' : '72px 0' }}>
+      <section style={{ background: '#1A1000', padding: isMobile ? '48px 20px' : '72px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px' }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#0F0800', margin: '0 0 8px', textAlign: 'center' }}>El equipo</h2>
-          <p style={{ fontSize: 14, color: '#C8860A', textAlign: 'center', margin: '0 0 36px' }}>Las personas detrás de cada brasa</p>
+          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#FFFFFF', margin: '0 0 8px', textAlign: 'center' }}>El equipo</h2>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', textAlign: 'center', margin: '0 0 36px' }}>Las personas detrás de cada brasa</p>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: 20 }}>
             {team.map(member => (
               <div key={member.name} style={{ background: '#0F0800', border: '1px solid #2A1A00', borderRadius: 20, padding: '28px 24px', textAlign: 'center' }}>
                 <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#0F0800', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px' }}>{member.emoji}</div>
                 <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 19, fontWeight: 600, color: '#0F0800', margin: '0 0 4px' }}>{member.name}</h3>
-                <p style={{ fontSize: 13, color: '#ffd43a', fontWeight: 500, margin: '0 0 6px' }}>{member.role}</p>
-                <p style={{ fontSize: 12, color: '#C8860A', margin: 0 }}>{member.years}</p>
+                <p style={{ fontSize: 13, color: '#FFD43A', fontWeight: 500, margin: '0 0 6px' }}>{member.role}</p>
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{member.years}</p>
               </div>
             ))}
           </div>
@@ -150,7 +150,7 @@ export default function AboutPage({ onNavigate }) {
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 28 : 38, fontWeight: 600, color: '#0F0800', margin: '0 0 12px', lineHeight: 1.1 }}>
               Hablemos
             </h2>
-            <p style={{ fontSize: 15, color: '#C8860A', lineHeight: 1.75, margin: '0 0 36px' }}>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, margin: '0 0 36px' }}>
               ¿Tienes una pregunta sobre un pedido, una alergia o quieres hacer un pedido grande para un evento? Escríbenos.
             </p>
 
@@ -162,12 +162,12 @@ export default function AboutPage({ onNavigate }) {
                 { icon: '💬', label: 'WhatsApp', value: '+34 600 000 000', sub: 'Respuesta en menos de 1 hora' },
                 { icon: '📸', label: 'Instagram', value: '@ohmygrillbrasas', sub: 'Síguenos para novedades' },
               ].map(item => (
-                <div key={item.label} style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 14, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: '#FEF3EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>{item.icon}</div>
+                <div key={item.label} style={{ background: '#1A1000', border: '1px solid #2A1A00', borderRadius: 14, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: '#1A1000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>{item.icon}</div>
                   <div>
-                    <p style={{ fontSize: 11, color: '#C8860A', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 2px' }}>{item.label}</p>
+                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 2px' }}>{item.label}</p>
                     <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: '0 0 2px' }}>{item.value}</p>
-                    <p style={{ fontSize: 12, color: '#C8860A', margin: 0 }}>{item.sub}</p>
+                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{item.sub}</p>
                   </div>
                 </div>
               ))}
@@ -175,7 +175,7 @@ export default function AboutPage({ onNavigate }) {
 
             {/* Hours */}
             <div style={{ background: '#0F0800', borderRadius: 16, padding: '22px 20px', marginTop: 20 }}>
-              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#ffd43a', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 14px' }}>Horario de pedidos</p>
+              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#FFD43A', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 14px' }}>Horario de pedidos</p>
               {[
                 { day: 'Lunes – Jueves', hours: '13:00 – 22:00' },
                 { day: 'Viernes – Sábado', hours: '13:00 – 23:00' },
@@ -183,7 +183,7 @@ export default function AboutPage({ onNavigate }) {
               ].map(h => (
                 <div key={h.day} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                   <span style={{ fontSize: 13, color: 'rgba(240,235,227,0.5)' }}>{h.day}</span>
-                  <span style={{ fontSize: 13, fontWeight: 500, color: '#FFF8DC' }}>{h.hours}</span>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF' }}>{h.hours}</span>
                 </div>
               ))}
             </div>
@@ -191,34 +191,34 @@ export default function AboutPage({ onNavigate }) {
 
           {/* Right — contact form */}
           <div>
-            <div style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 24, padding: isMobile ? '28px 20px' : '36px 32px' }}>
+            <div style={{ background: '#1A1000', border: '1px solid #2A1A00', borderRadius: 24, padding: isMobile ? '28px 20px' : '36px 32px' }}>
               {formState === 'sent' ? (
                 <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#EDFBF3', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>✅</div>
+                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#1A1000', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>✅</div>
                   <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 10px' }}>¡Mensaje enviado!</h3>
-                  <p style={{ fontSize: 14, color: '#C8860A', lineHeight: 1.65, margin: '0 0 24px' }}>Te responderemos en menos de 24 horas. También puedes contactarnos por WhatsApp para una respuesta más rápida.</p>
-                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#ffd43a', color: '#fff', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, margin: '0 0 24px' }}>Te responderemos en menos de 24 horas. También puedes contactarnos por WhatsApp para una respuesta más rápida.</p>
+                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
                     Enviar otro mensaje
                   </button>
                 </div>
               ) : (
                 <>
                   <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 6px' }}>Envíanos un mensaje</h3>
-                  <p style={{ fontSize: 13, color: '#C8860A', margin: '0 0 24px' }}>Respondemos en menos de 24 horas</p>
+                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: '0 0 24px' }}>Respondemos en menos de 24 horas</p>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
                     <div>
                       <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Nombre *</label>
                       <input type="text" placeholder="Tu nombre" value={formData.name} onChange={e => setFormData(d => ({ ...d, name: e.target.value }))}
                         style={inputStyle(errors.name)}
-                        onFocus={e => e.target.style.borderColor = '#ffd43a'} onBlur={e => e.target.style.borderColor = errors.name ? '#E24B4A' : '#2A1A00'} />
+                        onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.name ? '#E24B4A' : '#2A1A00'} />
                       {errors.name && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.name}</p>}
                     </div>
                     <div>
                       <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Teléfono</label>
                       <input type="tel" placeholder="+34 600..." value={formData.phone} onChange={e => setFormData(d => ({ ...d, phone: e.target.value }))}
                         style={inputStyle(false)}
-                        onFocus={e => e.target.style.borderColor = '#ffd43a'} onBlur={e => e.target.style.borderColor = '#2A1A00'} />
+                        onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = '#2A1A00'} />
                     </div>
                   </div>
 
@@ -226,7 +226,7 @@ export default function AboutPage({ onNavigate }) {
                     <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Email *</label>
                     <input type="email" placeholder="tu@email.com" value={formData.email} onChange={e => setFormData(d => ({ ...d, email: e.target.value }))}
                       style={inputStyle(errors.email)}
-                      onFocus={e => e.target.style.borderColor = '#ffd43a'} onBlur={e => e.target.style.borderColor = errors.email ? '#E24B4A' : '#2A1A00'} />
+                      onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.email ? '#E24B4A' : '#2A1A00'} />
                     {errors.email && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.email}</p>}
                   </div>
 
@@ -234,11 +234,11 @@ export default function AboutPage({ onNavigate }) {
                     <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Mensaje *</label>
                     <textarea placeholder="¿En qué podemos ayudarte?" value={formData.message} onChange={e => setFormData(d => ({ ...d, message: e.target.value }))} rows={5}
                       style={{ ...inputStyle(errors.message), resize: 'vertical' }}
-                      onFocus={e => e.target.style.borderColor = '#ffd43a'} onBlur={e => e.target.style.borderColor = errors.message ? '#E24B4A' : '#2A1A00'} />
+                      onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.message ? '#E24B4A' : '#2A1A00'} />
                     {errors.message && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.message}</p>}
                   </div>
 
-                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: formState === 'sending' ? '#C8860A' : '#ffd43a', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                     {formState === 'sending' ? (
                       <><span style={{ display: 'inline-block', width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />Enviando...</>
                     ) : 'Enviar mensaje →'}
@@ -247,7 +247,7 @@ export default function AboutPage({ onNavigate }) {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
                     <div style={{ flex: 1, height: 1, background: '#2A1A00' }} />
-                    <span style={{ fontSize: 12, color: '#C8860A' }}>o</span>
+                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>o</span>
                     <div style={{ flex: 1, height: 1, background: '#2A1A00' }} />
                   </div>
 
@@ -265,7 +265,7 @@ export default function AboutPage({ onNavigate }) {
       <section style={{ background: '#0F0800', padding: isMobile ? '48px 20px' : '64px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 48, alignItems: 'center' }}>
           <div>
-            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#FFF8DC', margin: '0 0 16px' }}>Encuéntranos</h2>
+            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#FFFFFF', margin: '0 0 16px' }}>Encuéntranos</h2>
             <p style={{ fontSize: 15, color: 'rgba(240,235,227,0.5)', lineHeight: 1.75, margin: '0 0 28px' }}>
               Estamos en el centro de Zaragoza. Si prefieres venir a recoger tu pedido, estaremos encantados de atenderte en el local.
             </p>
@@ -281,7 +281,7 @@ export default function AboutPage({ onNavigate }) {
                 </div>
               ))}
             </div>
-            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#ffd43a', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
               Pedir ahora →
             </button>
           </div>
