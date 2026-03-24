@@ -27,9 +27,9 @@ function ProductRow({ product }) {
       {/* Info */}
       <div style={{ flex:1, minWidth:0 }}>
         <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
-          <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#0F0800', margin:0 }}>{product.name}</h3>
+          <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#FFFFFF', margin:0 }}>{product.name}</h3>
           {product.badge && (
-            <span style={{ background: product.'#FFD43A', color:'#0F0800', fontSize:10, fontWeight:600, padding:'2px 8px', borderRadius:20 }}>{product.badge}</span>
+            <span style={{ background:'#FFD43A', color:'#0F0800', fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:20 }}>{product.badge}</span>
           )}
         </div>
         <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:12.5, color:'rgba(255,255,255,0.45)', margin:'3px 0 0', lineHeight:1.5 }}>{product.description}</p>
