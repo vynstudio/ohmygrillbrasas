@@ -60,7 +60,7 @@ export default function HomePage({ onNavigate }) {
             </p>
 
             <div style={{ display:'flex', gap:12, flexDirection: isMobile ? 'column' : 'row' }}>
-              <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', , transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:700, cursor:'pointer', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
                 Ver la carta →
               </button>
               <button onClick={() => onNavigate('packs')} style={{ background:'rgba(255,255,255,0.08)', color:'rgba(245,239,230,0.85)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', backdropFilter:'blur(8px)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
@@ -223,7 +223,7 @@ export default function HomePage({ onNavigate }) {
           <p style={{ fontSize: isMobile ? 14 : 15, color:'rgba(240,235,227,0.5)', lineHeight:1.65, marginBottom: isMobile ? 28 : 36 }}>
             Pedido mínimo €20 · Envío gratis +€35 · Toda Zaragoza
           </p>
-          <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '15px 32px' : '16px 40px', fontSize: isMobile ? 15 : 16, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif", , width: isMobile ? '100%' : 'auto' }}>
+          <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:32, padding: isMobile ? '15px 32px' : '16px 40px', fontSize: isMobile ? 15 : 16, fontWeight:700, cursor:'pointer', fontFamily:"'Outfit',sans-serif", width: isMobile ? '100%' : 'auto' }}>
             Pedir ahora →
           </button>
         </div>
