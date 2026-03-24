@@ -55,7 +55,7 @@ function AdminLogin({ onLogin }) {
           style={{ width: '100%', padding: '13px 16px', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#F0EBE3', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
-        <button onClick={handle} style={{ width: '100%', background: '#E85820', color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+        <button onClick={handle} style={{ width: '100%', background: '#E4AC21', color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
           Entrar →
         </button>
         <p style={{ fontSize: 11, color: 'rgba(240,235,227,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
@@ -77,12 +77,12 @@ function OrderCard({ order, onStatusChange }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#1C1A14' }}>{order.id}</span>
             <Badge status={order.status} />
-            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#E85820', color: '#fff', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
+            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#E4AC21', color: '#fff', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
           </div>
           <p style={{ fontSize: 13, color: '#7A6E63', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#E85820', margin: 0 }}>€{order.total.toFixed(2)}</p>
+          <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#E4AC21', margin: 0 }}>€{order.total.toFixed(2)}</p>
           <p style={{ fontSize: 11, color: '#9A8F85', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
         </div>
         <span style={{ fontSize: 16, color: '#B8AFA8', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
@@ -118,7 +118,7 @@ function OrderCard({ order, onStatusChange }) {
           </div>
 
           {order.address && (
-            <div style={{ background: '#FAFAF7', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
+            <div style={{ background: '#FAFAF5', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
               <p style={{ fontSize: 11, color: '#9A8F85', margin: '0 0 2px' }}>📍 Dirección</p>
               <p style={{ fontSize: 13, color: '#1C1A14', margin: 0 }}>{order.address}</p>
             </div>
@@ -126,7 +126,7 @@ function OrderCard({ order, onStatusChange }) {
 
           {order.notes && (
             <div style={{ background: '#FEF3EE', border: '1px solid rgba(232,88,32,0.2)', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
-              <p style={{ fontSize: 11, color: '#E85820', margin: '0 0 2px', fontWeight: 600 }}>📝 Notas</p>
+              <p style={{ fontSize: 11, color: '#E4AC21', margin: '0 0 2px', fontWeight: 600 }}>📝 Notas</p>
               <p style={{ fontSize: 13, color: '#7A6E63', margin: 0 }}>{order.notes}</p>
             </div>
           )}
@@ -209,7 +209,7 @@ function MenuEditor() {
 
   if (loading) return (
     <div style={{ textAlign: 'center', padding: '48px 20px', color: '#9A8F85' }}>
-      <div style={{ width: 32, height: 32, border: '3px solid #EDE9E3', borderTopColor: '#E85820', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+      <div style={{ width: 32, height: 32, border: '3px solid #EDE9E3', borderTopColor: '#E4AC21', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
       <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14 }}>Cargando carta desde Supabase...</p>
     </div>
   );
@@ -223,7 +223,7 @@ function MenuEditor() {
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
-          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#1a7a4a' : '#E85820', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#1a7a4a' : '#E4AC21', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
             {saving ? <><span style={{ width:14, height:14, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite', display:'inline-block' }} />Guardando...</> : saved ? '✓ Guardado en Supabase' : 'Guardar cambios'}
           </button>
         </div>
@@ -251,7 +251,7 @@ function MenuEditor() {
                     value={item.price}
                     onChange={e => handlePriceChange(item.id, e.target.value)}
                     style={{ width: 64, padding: '6px 8px', border: '1.5px solid #EDE9E3', borderRadius: 8, fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, color: '#1C1A14', textAlign: 'center', outline: 'none' }}
-                    onFocus={e => e.target.style.borderColor = '#E85820'}
+                    onFocus={e => e.target.style.borderColor = '#E4AC21'}
                     onBlur={e => e.target.style.borderColor = '#EDE9E3'}
                   />
                 </div>
@@ -285,7 +285,7 @@ function StatsSection({ orders }) {
   const stats = [
     { icon: '📦', label: 'Pedidos hoy', value: today.length, sub: `${orders.length} en total`, color: '#185FA5' },
     { icon: '💶', label: 'Ingresos hoy', value: `€${todayRevenue.toFixed(0)}`, sub: `€${totalRevenue.toFixed(0)} total`, color: '#1a7a4a' },
-    { icon: '🧾', label: 'Ticket medio', value: `€${avgOrder.toFixed(0)}`, sub: 'Por pedido', color: '#E85820' },
+    { icon: '🧾', label: 'Ticket medio', value: `€${avgOrder.toFixed(0)}`, sub: 'Por pedido', color: '#E4AC21' },
     { icon: '🔔', label: 'Pendientes', value: pending, sub: 'Sin confirmar', color: pending > 0 ? '#EF9F27' : '#888780' },
   ];
 
@@ -404,7 +404,7 @@ export default function AdminPage() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {pendingCount > 0 && (
-            <span style={{ background: '#E85820', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20 }}>
+            <span style={{ background: '#E4AC21', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20 }}>
               {pendingCount} nuevo{pendingCount > 1 ? 's' : ''}
             </span>
           )}
@@ -417,9 +417,9 @@ export default function AdminPage() {
       {/* Tab bar */}
       <div style={{ background: '#fff', borderBottom: '1px solid #EDE9E3', padding: '0 20px', display: 'flex', gap: 4 }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#E85820' : '#7A6E63', borderBottom: `2px solid ${tab === t.id ? '#E85820' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
+          <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#E4AC21' : '#7A6E63', borderBottom: `2px solid ${tab === t.id ? '#E4AC21' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
             {t.label}
-            {t.badge && <span style={{ background: '#E85820', color: '#fff', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
+            {t.badge && <span style={{ background: '#E4AC21', color: '#fff', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
           </button>
         ))}
       </div>
@@ -501,10 +501,10 @@ export default function AdminPage() {
                   <div key={zone} style={{ marginBottom: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                       <span style={{ fontSize: 13, color: '#1C1A14' }}>{zone}</span>
-                      <span style={{ fontSize: 13, fontWeight: 500, color: '#E85820' }}>€{rev.toFixed(0)}</span>
+                      <span style={{ fontSize: 13, fontWeight: 500, color: '#E4AC21' }}>€{rev.toFixed(0)}</span>
                     </div>
                     <div style={{ height: 6, background: '#F5F1EC', borderRadius: 3, overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${pct}%`, background: '#E85820', borderRadius: 3, transition: 'width 0.5s ease' }} />
+                      <div style={{ height: '100%', width: `${pct}%`, background: '#E4AC21', borderRadius: 3, transition: 'width 0.5s ease' }} />
                     </div>
                   </div>
                 );
@@ -523,7 +523,7 @@ export default function AdminPage() {
                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < 5 ? '1px solid #F5F1EC' : 'none' }}>
                   <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#B8AFA8', minWidth: 20 }}>{i + 1}</span>
                   <span style={{ fontSize: 13, color: '#1C1A14', flex: 1 }}>{name}</span>
-                  <span style={{ background: '#FEF3EE', color: '#E85820', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
+                  <span style={{ background: '#FEF3EE', color: '#E4AC21', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
                 </div>
               ))}
             </div>

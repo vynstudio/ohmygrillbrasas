@@ -51,7 +51,7 @@ function AppContent() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAFAF7' }}>
+    <div style={{ minHeight: '100vh', background: '#FAFAF5' }}>
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
       <main>{renderPage()}</main>
       <CartDrawer

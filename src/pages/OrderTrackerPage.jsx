@@ -187,7 +187,7 @@ export default function OrderTrackerPage({ onNavigate }) {
   const isReady = order?.status === 'ready' && order?.deliveryType === 'pickup';
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAFAF7', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAFAF5', minHeight: '100vh' }}>
 
       {/* Header */}
       <div style={{ background: '#1C1A14', padding: isMobile ? '48px 20px 40px' : '64px 0 56px', position: 'relative', overflow: 'hidden' }}>
@@ -218,14 +218,14 @@ export default function OrderTrackerPage({ onNavigate }) {
                 fontSize: 16, letterSpacing: '2px',
                 outline: 'none', boxSizing: 'border-box',
               }}
-              onFocus={e => e.target.style.borderColor = '#E85820'}
+              onFocus={e => e.target.style.borderColor = '#E4AC21'}
               onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
             />
             <button
               onClick={() => handleSearch()}
               disabled={loading}
               style={{
-                background: loading ? '#9A8F85' : '#E85820',
+                background: loading ? '#9A8F85' : '#E4AC21',
                 color: '#fff', border: 'none', borderRadius: 12,
                 padding: '13px 24px', fontFamily: "'Outfit', sans-serif",
                 fontSize: 14, fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer',
@@ -254,7 +254,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {/* Status hero card */}
           <div style={{
             background: isDelivered ? '#EDFBF3' : isReady ? '#FEF3EE' : '#fff',
-            border: `1px solid ${isDelivered ? '#1a7a4a' : isReady ? '#E85820' : '#EDE9E3'}`,
+            border: `1px solid ${isDelivered ? '#1a7a4a' : isReady ? '#E4AC21' : '#EDE9E3'}`,
             borderRadius: 20, padding: '24px', marginBottom: 20,
             display: 'flex', alignItems: 'center', gap: 16,
           }}>
@@ -278,7 +278,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#E85820', margin: 0 }}>€{order.total.toFixed(2)}</p>
+              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#E4AC21', margin: 0 }}>€{order.total.toFixed(2)}</p>
               <p style={{ fontSize: 11, color: '#9A8F85', margin: '3px 0 0' }}>
                 <TimeAgo date={order.createdAt} />
               </p>
@@ -309,7 +309,7 @@ export default function OrderTrackerPage({ onNavigate }) {
                 ))}
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid #EDE9E3', marginTop: 8 }}>
                   <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#1C1A14' }}>Total</span>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#E85820' }}>€{order.total.toFixed(2)}</span>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#E4AC21' }}>€{order.total.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -353,7 +353,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {isDelivered && (
             <div style={{ marginTop: 20, textAlign: 'center' }}>
               <p style={{ fontSize: 14, color: '#9A8F85', marginBottom: 12 }}>¿Te ha gustado? ¡Repite!</p>
-              <button onClick={() => onNavigate('menu')} style={{ background: '#E85820', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background: '#E4AC21', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
                 Hacer otro pedido →
               </button>
             </div>

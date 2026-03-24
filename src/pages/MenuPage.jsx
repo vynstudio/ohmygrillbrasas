@@ -21,7 +21,7 @@ function ProductRow({ product }) {
       <div style={{ width:56, height:56, borderRadius:12, background:'linear-gradient(135deg,#2A1005,#7C2D0C)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:26, flexShrink:0, position:'relative' }}>
         {product.emoji}
         {qty > 0 && (
-          <span style={{ position:'absolute', top:-6, right:-6, background:'#E85820', color:'#fff', fontSize:10, fontWeight:600, width:18, height:18, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{qty}</span>
+          <span style={{ position:'absolute', top:-6, right:-6, background:'#E4AC21', color:'#fff', fontSize:10, fontWeight:600, width:18, height:18, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{qty}</span>
         )}
       </div>
       {/* Info */}
@@ -37,7 +37,7 @@ function ProductRow({ product }) {
       </div>
       {/* Price + add */}
       <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:8, flexShrink:0 }}>
-        <span style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#E85820' }}>
+        <span style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#E4AC21' }}>
           €{product.price % 1 === 0 ? product.price : product.price.toFixed(2)}
         </span>
         <button onClick={handleAdd} style={{ background: added ? '#1a7a4a' : '#1C1A14', color:'#fff', border:'none', borderRadius:24, padding:'7px 16px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:5, whiteSpace:'nowrap' }}>
@@ -64,7 +64,7 @@ function PackCard({ pack, onNavigate }) {
       <div style={{ position:'relative', zIndex:1 }}>
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:12 }}>
           <div>
-            <span style={{ background:'#E85820', color:'#fff', fontSize:10, fontWeight:600, padding:'2px 10px', borderRadius:20, display:'inline-block', marginBottom:8 }}>{pack.badge}</span>
+            <span style={{ background:'#E4AC21', color:'#fff', fontSize:10, fontWeight:600, padding:'2px 10px', borderRadius:20, display:'inline-block', marginBottom:8 }}>{pack.badge}</span>
             <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F0EBE3', margin:0 }}>{pack.name}</h3>
             <p style={{ fontSize:12, color:'rgba(240,235,227,0.45)', marginTop:2 }}>{pack.subtitle}</p>
           </div>
@@ -73,7 +73,7 @@ function PackCard({ pack, onNavigate }) {
         <ul style={{ margin:'0 0 14px', padding:0, listStyle:'none' }}>
           {pack.items.map(item => (
             <li key={item} style={{ fontSize:12, color:'rgba(240,235,227,0.6)', padding:'2px 0', display:'flex', alignItems:'center', gap:7 }}>
-              <span style={{ color:'#E85820', fontSize:9 }}>●</span>{item}
+              <span style={{ color:'#E4AC21', fontSize:9 }}>●</span>{item}
             </li>
           ))}
         </ul>
@@ -82,7 +82,7 @@ function PackCard({ pack, onNavigate }) {
             <span style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#F0EBE3' }}>€{pack.price}</span>
             <span style={{ fontSize:12, color:'rgba(240,235,227,0.3)', marginLeft:7, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
           </div>
-          <button onClick={handleAdd} style={{ background: added ? '#1a7a4a' : '#E85820', color:'#fff', border:'none', borderRadius:24, padding:'9px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s' }}>
+          <button onClick={handleAdd} style={{ background: added ? '#1a7a4a' : '#E4AC21', color:'#fff', border:'none', borderRadius:24, padding:'9px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s' }}>
             {added ? '✓ Añadido' : 'Pedir pack'}
           </button>
         </div>
@@ -160,7 +160,7 @@ export default function MenuPage({ onNavigate }) {
   const categoryLabels = { carnes:'Carnes', aves:'Aves y volatería', verduras:'Verduras y guarniciones', salsas:'Salsas y extras' };
 
   return (
-    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FAFAF7', minHeight:'100vh' }}>
+    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FAFAF5', minHeight:'100vh' }}>
 
       {/* Page header */}
       <div style={{ background:'#fff', borderBottom:'1px solid #EDE9E3', padding: isMobile ? '28px 20px 0' : '40px 0 0' }}>
@@ -182,8 +182,8 @@ export default function MenuPage({ onNavigate }) {
               placeholder="Buscar plato..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #EDE9E3', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', background:'#FAFAF7', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
-              onFocus={e => e.target.style.borderColor = '#E85820'}
+              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #EDE9E3', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', background:'#FAFAF5', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
+              onFocus={e => e.target.style.borderColor = '#E4AC21'}
               onBlur={e => e.target.style.borderColor = '#EDE9E3'}
             />
             {search && (
@@ -220,7 +220,7 @@ export default function MenuPage({ onNavigate }) {
                 <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1C1A14', margin:0 }}>{categoryLabels[cat] || cat}</h2>
                 <span style={{ fontSize:12, color:'#B8AFA8', background:'#F5F1EC', padding:'2px 10px', borderRadius:20 }}>{items.length}</span>
               </div>
-              <div style={{ borderTop:'2px solid #E85820', width:40, marginBottom:16 }} />
+              <div style={{ borderTop:'2px solid #E4AC21', width:40, marginBottom:16 }} />
               {items.map(p => <ProductRow key={p.id} product={p} />)}
             </div>
           ))}
@@ -233,7 +233,7 @@ export default function MenuPage({ onNavigate }) {
                   <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1C1A14', margin:'0 0 4px' }}>
                     {categoryLabels[activeCategory] || categories.find(c=>c.id===activeCategory)?.label}
                   </h2>
-                  <div style={{ borderTop:'2px solid #E85820', width:40 }} />
+                  <div style={{ borderTop:'2px solid #E4AC21', width:40 }} />
                 </div>
               )}
               {filtered.length === 0 ? (
@@ -254,7 +254,7 @@ export default function MenuPage({ onNavigate }) {
               <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:4 }}>
                 <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1C1A14', margin:0 }}>Packs y promociones</h2>
               </div>
-              <div style={{ borderTop:'2px solid #E85820', width:40, marginBottom:16 }} />
+              <div style={{ borderTop:'2px solid #E4AC21', width:40, marginBottom:16 }} />
               <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2,1fr)', gap:14 }}>
                 {packs.map(pack => <PackCard key={pack.id} pack={pack} onNavigate={onNavigate} />)}
               </div>
@@ -285,9 +285,9 @@ export default function MenuPage({ onNavigate }) {
                   </div>
                   <div style={{ display:'flex', justifyContent:'space-between', padding:'10px 0 16px' }}>
                     <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#1C1A14' }}>Total</span>
-                    <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#E85820' }}>€{subtotal.toFixed(2)}</span>
+                    <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#E4AC21' }}>€{subtotal.toFixed(2)}</span>
                   </div>
-                  <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#E85820', color:'#fff', border:'none', borderRadius:12, padding:'13px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
+                  <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#E4AC21', color:'#fff', border:'none', borderRadius:12, padding:'13px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
                     Ir al pago →
                   </button>
                   <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'#9A8F85', border:'none', padding:'10px', fontFamily:"'Outfit',sans-serif", fontSize:12, cursor:'pointer', marginTop:4 }}>
@@ -297,7 +297,7 @@ export default function MenuPage({ onNavigate }) {
               )}
 
               {/* Delivery info */}
-              <div style={{ borderTop:'1px solid #F0EDE8', padding:'14px 24px', background:'#FAFAF7' }}>
+              <div style={{ borderTop:'1px solid #F0EDE8', padding:'14px 24px', background:'#FAFAF5' }}>
                 {[
                   { icon:'🛵', text:'Envío gratis en pedidos +€35' },
                   { icon:'⏱', text:'Entrega en 90 min · Zaragoza' },
@@ -317,7 +317,7 @@ export default function MenuPage({ onNavigate }) {
       {/* Mobile floating cart bar */}
       {isMobile && itemCount > 0 && (
         <div style={{ position:'fixed', bottom:0, left:0, right:0, padding:'12px 16px', background:'#fff', borderTop:'1px solid #EDE9E3', zIndex:50, boxShadow:'0 -4px 20px rgba(0,0,0,0.08)' }}>
-          <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#E85820', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#E4AC21', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
             <span>🛒 {itemCount} {itemCount===1?'artículo':'artículos'}</span>
             <span>Ver pedido · €{subtotal.toFixed(2)} →</span>
           </button>

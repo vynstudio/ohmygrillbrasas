@@ -69,7 +69,7 @@ export default function ProductCard({ product, size = 'normal' }) {
             position: 'absolute',
             top: 10,
             right: 10,
-            background: '#E85820',
+            background: '#E4AC21',
             color: '#fff',
             fontSize: 11,
             fontFamily: "'Outfit', sans-serif",
@@ -132,7 +132,7 @@ export default function ProductCard({ product, size = 'normal' }) {
             fontFamily: "'Fraunces', serif",
             fontSize: isSmall ? 18 : 22,
             fontWeight: 600,
-            color: '#E85820',
+            color: '#E4AC21',
           }}>
             €{product.price % 1 === 0 ? product.price : product.price.toFixed(2)}
           </span>
