@@ -40,7 +40,7 @@ exports.handler = async (event) => {
     const piParams = {
       amount:   totalCents,
       currency: 'eur',
-      payment_method_types: ['card', 'klarna', 'link'],
+      payment_method_types: ['card', 'link'],
       metadata: {
         order_id:           orderId,
         contact_name:       contact?.name    || '',
