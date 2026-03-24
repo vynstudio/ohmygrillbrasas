@@ -59,7 +59,7 @@ function AppContent() {
           onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
       )}
       {isMobile && <BottomNav activePage={page} onNavigate={navigate} />}
-      {page !== 'checkout' && page !== 'admin' && <ChatBot onNavigate={navigate} />}
+      {page !== 'checkout' && page !== 'admin' && <ChatBot onNavigate={navigate} activePage={page} />}
     </div>
   );
 }
