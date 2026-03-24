@@ -382,7 +382,7 @@ export default function CheckoutPage({ onNavigate }) {
           },
           receipt_email: formData.email,
         },
-        redirect: 'if_required',
+        redirect: 'if_required', // Apple Pay may redirect, that's OK
       });
 
       if (confirmError) {
@@ -398,7 +398,7 @@ export default function CheckoutPage({ onNavigate }) {
 
     } catch (e) {
       console.error('Payment error:', e);
-      setStripeError('Error al procesar el pago. Inténtalo de nuevo.');
+      setStripeError(e?.message || 'Error al procesar el pago. Inténtalo de nuevo.');
     }
 
     setLoading(false);
