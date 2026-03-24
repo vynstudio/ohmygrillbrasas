@@ -11,50 +11,31 @@ export default function ProductCard({ product, size = 'normal' }) {
   const handleAdd = () => { addItem(product); setAdded(true); setTimeout(() => setAdded(false), 1200); };
 
   return (
-    <div
-      style={{ background:'#1A1000', borderRadius:16, border:'1px solid #2A1A00', overflow:'hidden', display:'flex', flexDirection:'column', transition:'transform 0.2s' }}
-      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
-      onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-    >
-      {/* Image — darkest surface */}
-      <div style={{ height: isSmall ? 100 : 130, background:'#0F0800', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', fontSize: isSmall ? 36 : 48 }}>
+    <div style={{ background:'#FFFFFF', borderRadius:14, border:'1px solid rgba(15,8,0,0.1)', overflow:'hidden', display:'flex', flexDirection:'column', transition:'transform 0.2s, box-shadow 0.2s' }}
+      onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(15,8,0,0.1)'; }}
+      onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='none'; }}>
+
+      {/* Image — dark bg for emoji contrast */}
+      <div style={{ height: isSmall?96:120, background:'#0F0800', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', fontSize: isSmall?34:44 }}>
         {product.emoji}
-        {product.badge && (
-          <span style={{ position:'absolute', top:10, left:10, background:'#FFD43A', color:'#0F0800', fontSize:10, fontFamily:"'Outfit',sans-serif", fontWeight:700, padding:'3px 10px', borderRadius:20 }}>
-            {product.badge}
-          </span>
-        )}
-        {qty > 0 && (
-          <span style={{ position:'absolute', top:10, right:10, background:'#FFD43A', color:'#0F0800', fontSize:11, fontWeight:700, width:22, height:22, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>
-            {qty}
-          </span>
-        )}
+        {product.badge && <span style={{ position:'absolute', top:8, left:8, background:'#0F0800', border:'1px solid rgba(255,255,255,0.2)', color:'#FFFFFF', fontSize:9, fontWeight:700, padding:'2px 8px', borderRadius:4 }}>{product.badge}</span>}
+        {qty > 0 && <span style={{ position:'absolute', top:8, right:8, background:'#FFD43A', color:'#0F0800', fontSize:10, fontWeight:700, width:20, height:20, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{qty}</span>}
       </div>
 
-      {/* Body */}
-      <div style={{ padding: isSmall ? '12px 14px' : '16px 18px', flex:1, display:'flex', flexDirection:'column' }}>
+      {/* Body — white */}
+      <div style={{ padding: isSmall?'10px 12px':'14px 16px', flex:1, display:'flex', flexDirection:'column' }}>
         <div style={{ flex:1 }}>
           <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', gap:8, marginBottom:4 }}>
-            <h3 style={{ fontFamily:"'Fraunces',serif", fontSize: isSmall ? 15 : 17, fontWeight:600, color:'#FFFFFF', margin:0, lineHeight:1.2 }}>
-              {product.name}
-            </h3>
-            <span style={{ fontSize:11, color:'rgba(255,255,255,0.35)', background:'#0F0800', padding:'2px 8px', borderRadius:10, whiteSpace:'nowrap', marginTop:2 }}>
-              {product.weight}
-            </span>
+            <h3 style={{ fontFamily:"'Fraunces',serif", fontSize: isSmall?14:16, fontWeight:600, color:'#0F0800', margin:0, lineHeight:1.2 }}>{product.name}</h3>
+            <span style={{ fontSize:10, color:'rgba(15,8,0,0.4)', background:'#F5F0E8', padding:'2px 7px', borderRadius:4, whiteSpace:'nowrap', marginTop:1, flexShrink:0, fontFamily:"'Outfit',sans-serif" }}>{product.weight}</span>
           </div>
-          {!isSmall && (
-            <p style={{ fontSize:12.5, color:'rgba(255,255,255,0.45)', lineHeight:1.55, margin:'0 0 14px' }}>
-              {product.description}
-            </p>
-          )}
+          {!isSmall && <p style={{ fontSize:12, color:'rgba(15,8,0,0.5)', lineHeight:1.5, margin:'0 0 12px', fontFamily:"'Outfit',sans-serif" }}>{product.description}</p>}
         </div>
 
-        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop: isSmall ? 10 : 0 }}>
-          <span style={{ fontFamily:"'Fraunces',serif", fontSize: isSmall ? 18 : 22, fontWeight:600, color:'#FFD43A' }}>
-            €{product.price % 1 === 0 ? product.price : product.price.toFixed(2)}
-          </span>
-          <button onClick={handleAdd} style={{ background: added ? '#2A3A00' : '#FFD43A', color: added ? '#FFFFFF' : '#0F0800', border:'none', borderRadius:24, padding: isSmall ? '6px 14px' : '8px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:700, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:6 }}>
-            {added ? <>✓ Añadido</> : <>+ Añadir</>}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop: isSmall?8:0 }}>
+          <span style={{ fontFamily:"'Fraunces',serif", fontSize: isSmall?16:20, fontWeight:600, color:'#0F0800' }}>€{product.price%1===0?product.price:product.price.toFixed(2)}</span>
+          <button onClick={handleAdd} style={{ background: added?'#0F0800':'#FFD43A', color: added?'#FFFFFF':'#0F0800', border:'none', borderRadius:20, padding: isSmall?'5px 12px':'7px 16px', fontSize:11, fontFamily:"'Outfit',sans-serif", fontWeight:700, cursor:'pointer', transition:'all 0.2s' }}>
+            {added ? '✓ Añadido' : '+ Añadir'}
           </button>
         </div>
       </div>

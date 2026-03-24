@@ -12,17 +12,17 @@ function ProductRow({ product }) {
   const handleAdd = () => { addItem(product); setAdded(true); setTimeout(() => setAdded(false), 1200); };
 
   return (
-    <div style={{ display:'flex', alignItems:'center', gap:16, padding:'16px 0', borderBottom:'1px solid #2A1A00' }}>
-      <div style={{ width:52, height:52, background:'#1A1000', borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, flexShrink:0, position:'relative' }}>
+    <div style={{ display:'flex', alignItems:'center', gap:16, padding:'16px 0', borderBottom:'1px solid rgba(15,8,0,0.12)' }}>
+      <div style={{ width:52, height:52, background:'#F5F0E8', borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, flexShrink:0, position:'relative' }}>
         {product.emoji}
         {inCart?.qty > 0 && <span style={{ position:'absolute', top:-5, right:-5, background:'#FFD43A', color:'#0F0800', fontSize:9, fontWeight:700, width:16, height:16, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{inCart.qty}</span>}
       </div>
       <div style={{ flex:1, minWidth:0 }}>
         <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
-          <span style={{ fontFamily:"'Fraunces',serif", fontSize:15, fontWeight:600, color:'#FFFFFF' }}>{product.name}</span>
+          <span style={{ fontFamily:"'Fraunces',serif", fontSize:15, fontWeight:600, color:'#0F0800' }}>{product.name}</span>
           {product.badge && <span style={{ background:'#FFD43A', color:'#0F0800', fontSize:9, fontWeight:700, padding:'2px 7px', borderRadius:10 }}>{product.badge}</span>}
         </div>
-        <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', marginTop:3, fontFamily:"'Outfit',sans-serif" }}>{product.description}</div>
+        <div style={{ fontSize:11, color:'rgba(15,8,0,0.4)', marginTop:3, fontFamily:"'Outfit',sans-serif" }}>{product.description}</div>
         <div style={{ fontSize:10, color:'rgba(255,255,255,0.2)', marginTop:2, fontFamily:"'Outfit',sans-serif" }}>{product.weight}</div>
       </div>
       <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:8, flexShrink:0 }}>
@@ -44,15 +44,15 @@ function MobileCard({ product }) {
   const handleAdd = () => { addItem(product); setAdded(true); setTimeout(() => setAdded(false), 1200); };
 
   return (
-    <div style={{ background:'#1A1000', borderRadius:14, border:'1px solid #2A1A00', overflow:'hidden', display:'flex', flexDirection:'column' }}>
-      <div style={{ background:'#0F0800', height:88, display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, position:'relative' }}>
+    <div style={{ background:'#F5F0E8', borderRadius:14, border:'1px solid rgba(15,8,0,0.12)', overflow:'hidden', display:'flex', flexDirection:'column' }}>
+      <div style={{ background:'#FFFFFF', height:88, display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, position:'relative' }}>
         {product.emoji}
         {product.badge && <span style={{ position:'absolute', top:7, left:7, background:'#FFD43A', color:'#0F0800', fontSize:9, fontWeight:700, padding:'2px 7px', borderRadius:8 }}>{product.badge}</span>}
         {inCart?.qty > 0 && <span style={{ position:'absolute', top:7, right:7, background:'#FFD43A', color:'#0F0800', fontSize:9, fontWeight:700, width:18, height:18, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{inCart.qty}</span>}
       </div>
       <div style={{ padding:'11px 12px', flex:1, display:'flex', flexDirection:'column', gap:4 }}>
-        <div style={{ fontFamily:"'Fraunces',serif", fontSize:13, fontWeight:600, color:'#FFFFFF', lineHeight:1.2 }}>{product.name}</div>
-        <div style={{ fontSize:10, color:'rgba(255,255,255,0.4)', lineHeight:1.45, flex:1, fontFamily:"'Outfit',sans-serif" }}>{product.description}</div>
+        <div style={{ fontFamily:"'Fraunces',serif", fontSize:13, fontWeight:600, color:'#0F0800', lineHeight:1.2 }}>{product.name}</div>
+        <div style={{ fontSize:10, color:'rgba(15,8,0,0.4)', lineHeight:1.45, flex:1, fontFamily:"'Outfit',sans-serif" }}>{product.description}</div>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:6 }}>
           <span style={{ fontFamily:"'Fraunces',serif", fontSize:17, fontWeight:600, color:'#FFD43A' }}>€{product.price%1===0?product.price:product.price.toFixed(2)}</span>
           <button onClick={handleAdd} style={{ background: added?'#2A1A00':'#FFD43A', color: added?'#FFD43A':'#0F0800', border:'none', borderRadius:16, padding:'6px 13px', fontSize:11, fontWeight:700, cursor:'pointer', fontFamily:"'Outfit',sans-serif", transition:'all 0.2s' }}>
@@ -82,14 +82,14 @@ function WebOrderPanel({ onNavigate }) {
           </div>
         ) : items.map(item => (
           <div key={item.id} style={{ display:'flex', alignItems:'center', gap:8, padding:'9px 0', borderBottom:'1px solid rgba(0,0,0,0.1)' }}>
-            <div style={{ width:30, height:30, background:'#0F0800', borderRadius:6, display:'flex', alignItems:'center', justifyContent:'center', fontSize:14, flexShrink:0 }}>{item.emoji}</div>
+            <div style={{ width:30, height:30, background:'#FFFFFF', borderRadius:6, display:'flex', alignItems:'center', justifyContent:'center', fontSize:14, flexShrink:0 }}>{item.emoji}</div>
             <div style={{ flex:1, minWidth:0 }}>
               <div style={{ fontSize:11, fontWeight:600, color:'#0F0800', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', fontFamily:"'Outfit',sans-serif" }}>{item.name}</div>
             </div>
             <div style={{ display:'flex', alignItems:'center', gap:5 }}>
               <button onClick={() => updateQty(item.id, item.qty-1)} style={{ width:20, height:20, border:'1.5px solid #0F0800', background:'transparent', borderRadius:'50%', cursor:'pointer', fontSize:12, color:'#0F0800', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700 }}>−</button>
               <span style={{ fontSize:11, fontWeight:700, color:'#0F0800', minWidth:12, textAlign:'center', fontFamily:"'Outfit',sans-serif" }}>{item.qty}</span>
-              <button onClick={() => updateQty(item.id, item.qty+1)} style={{ width:20, height:20, border:'none', background:'#0F0800', borderRadius:'50%', cursor:'pointer', fontSize:12, color:'#FFD43A', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700 }}>+</button>
+              <button onClick={() => updateQty(item.id, item.qty+1)} style={{ width:20, height:20, border:'none', background:'#FFFFFF', borderRadius:'50%', cursor:'pointer', fontSize:12, color:'#FFD43A', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700 }}>+</button>
             </div>
             <span style={{ fontSize:12, fontWeight:700, color:'#0F0800', minWidth:36, textAlign:'right', fontFamily:"'Fraunces',serif" }}>€{(item.price*item.qty).toFixed(2)}</span>
           </div>
@@ -111,7 +111,7 @@ function WebOrderPanel({ onNavigate }) {
             <span style={{ fontSize:13, fontWeight:700, color:'#0F0800' }}>€{(deliveryType==='delivery'&&deliveryZone?total:subtotal).toFixed(2)}</span>
           </div>
         )}
-        <button onClick={() => onNavigate(itemCount>0?'checkout':'home')} style={{ width:'100%', background:'#0F0800', color:'#FFD43A', border:'none', borderRadius:8, padding:'13px', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:700, cursor:'pointer' }}>
+        <button onClick={() => onNavigate(itemCount>0?'checkout':'home')} style={{ width:'100%', background:'#FFFFFF', color:'#FFD43A', border:'none', borderRadius:8, padding:'13px', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:700, cursor:'pointer' }}>
           {itemCount > 0 ? 'Ir al pago →' : '← Volver al inicio'}
         </button>
       </div>
@@ -159,23 +159,23 @@ export default function MenuPage({ onNavigate }) {
   // ── MOBILE ────────────────────────────────────────────────────────────────
   if (isMobile) {
     return (
-      <div style={{ background:'#0F0800', minHeight:'100vh', fontFamily:"'Outfit',sans-serif" }}>
+      <div style={{ background:'#FFFFFF', minHeight:'100vh', fontFamily:"'Outfit',sans-serif" }}>
         {/* Sticky header */}
-        <div style={{ background:'#0F0800', padding:'16px 16px 0', position:'sticky', top:0, zIndex:10, borderBottom:'1px solid #2A1A00' }}>
+        <div style={{ background:'#FFFFFF', padding:'16px 16px 0', position:'sticky', top:0, zIndex:10, borderBottom:'1px solid rgba(15,8,0,0.12)' }}>
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:12 }}>
-            <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFFFFF' }}>La carta</div>
-            <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>Brasa de leña · Zaragoza</div>
+            <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#0F0800' }}>La carta</div>
+            <div style={{ fontSize:11, color:'rgba(15,8,0,0.35)' }}>Brasa de leña · Zaragoza</div>
           </div>
           {/* Search */}
           <div style={{ position:'relative', marginBottom:12 }}>
             <input type="text" placeholder="Buscar plato..." value={search} onChange={e => setSearch(e.target.value)}
-              style={{ width:'100%', padding:'10px 14px 10px 36px', background:'#1A1000', border:'1px solid #2A1A00', borderRadius:10, color:'#FFFFFF', fontSize:13, fontFamily:"'Outfit',sans-serif", boxSizing:'border-box', outline:'none' }} />
+              style={{ width:'100%', padding:'10px 14px 10px 36px', background:'#F5F0E8', border:'1px solid rgba(15,8,0,0.12)', borderRadius:10, color:'#0F0800', fontSize:13, fontFamily:"'Outfit',sans-serif", boxSizing:'border-box', outline:'none' }} />
             <svg style={{ position:'absolute', left:12, top:'50%', transform:'translateY(-50%)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
           {/* Category pills */}
           <div style={{ display:'flex', gap:7, overflowX:'auto', paddingBottom:12, scrollbarWidth:'none' }}>
             {categories.map(c => (
-              <button key={c.id} onClick={() => { setActiveCategory(c.id); setSearch(''); }} style={{ background: activeCategory===c.id?'#FFD43A':'#1A1000', color: activeCategory===c.id?'#0F0800':'rgba(255,255,255,0.55)', border: activeCategory===c.id?'none':'1px solid #2A1A00', borderRadius:20, padding:'7px 16px', fontSize:12, fontWeight:700, cursor:'pointer', whiteSpace:'nowrap', fontFamily:"'Outfit',sans-serif", flexShrink:0 }}>
+              <button key={c.id} onClick={() => { setActiveCategory(c.id); setSearch(''); }} style={{ background: activeCategory===c.id?'#FFD43A':'#1A1000', color: activeCategory===c.id?'#0F0800':'rgba(255,255,255,0.55)', border: activeCategory===c.id?'none':'1px solid rgba(15,8,0,0.12)', borderRadius:20, padding:'7px 16px', fontSize:12, fontWeight:700, cursor:'pointer', whiteSpace:'nowrap', fontFamily:"'Outfit',sans-serif", flexShrink:0 }}>
                 {c.label}
               </button>
             ))}
@@ -187,8 +187,8 @@ export default function MenuPage({ onNavigate }) {
           {grouped && Object.entries(grouped).map(([cat, items]) => (
             <div key={cat} style={{ marginBottom:24 }}>
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:12 }}>
-                <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#FFFFFF' }}>{catLabels[cat]||cat}</span>
-                <span style={{ fontSize:11, color:'rgba(255,255,255,0.35)', background:'#1A1000', padding:'2px 8px', borderRadius:10 }}>{items.length}</span>
+                <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#0F0800' }}>{catLabels[cat]||cat}</span>
+                <span style={{ fontSize:11, color:'rgba(15,8,0,0.35)', background:'#F5F0E8', padding:'2px 8px', borderRadius:10 }}>{items.length}</span>
               </div>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
                 {items.map(p => <MobileCard key={p.id} product={p} />)}
@@ -198,14 +198,14 @@ export default function MenuPage({ onNavigate }) {
           {!grouped && filtered.map(p => <MobileCard key={p.id} product={p} />)}
           {showPacks && !search && (
             <div style={{ marginBottom:16 }}>
-              <div style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#FFFFFF', marginBottom:12 }}>Packs</div>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#0F0800', marginBottom:12 }}>Packs</div>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
                 {packs.map(pack => (
-                  <div key={pack.id} onClick={() => onNavigate('packs')} style={{ background:'#1A1000', border:'1px solid #2A1A00', borderRadius:14, padding:'14px 12px', cursor:'pointer' }}>
+                  <div key={pack.id} onClick={() => onNavigate('packs')} style={{ background:'#F5F0E8', border:'1px solid rgba(15,8,0,0.12)', borderRadius:14, padding:'14px 12px', cursor:'pointer' }}>
                     <div style={{ fontSize:28, marginBottom:8 }}>{pack.emoji}</div>
-                    <div style={{ fontFamily:"'Fraunces',serif", fontSize:13, fontWeight:600, color:'#FFFFFF', marginBottom:4 }}>{pack.name}</div>
+                    <div style={{ fontFamily:"'Fraunces',serif", fontSize:13, fontWeight:600, color:'#0F0800', marginBottom:4 }}>{pack.name}</div>
                     <div style={{ fontSize:16, fontWeight:700, color:'#FFD43A', fontFamily:"'Fraunces',serif" }}>€{pack.price}</div>
-                    <div style={{ fontSize:10, color:'rgba(255,255,255,0.35)', textDecoration:'line-through', fontFamily:"'Outfit',sans-serif" }}>€{pack.originalPrice}</div>
+                    <div style={{ fontSize:10, color:'rgba(15,8,0,0.35)', textDecoration:'line-through', fontFamily:"'Outfit',sans-serif" }}>€{pack.originalPrice}</div>
                   </div>
                 ))}
               </div>
@@ -218,17 +218,17 @@ export default function MenuPage({ onNavigate }) {
 
   // ── WEB SPLIT SCREEN ──────────────────────────────────────────────────────
   return (
-    <div style={{ display:'flex', background:'#0F0800', minHeight:'calc(100vh - 58px)', fontFamily:"'Outfit',sans-serif" }}>
+    <div style={{ display:'flex', background:'#FFFFFF', minHeight:'calc(100vh - 58px)', fontFamily:"'Outfit',sans-serif" }}>
       <div style={{ flex:1, minWidth:0 }}>
         {/* Page header */}
-        <div style={{ background:'#0F0800', padding:'32px 48px 0', borderBottom:'1px solid #2A1A00' }}>
-          <h1 style={{ fontFamily:"'Fraunces',serif", fontSize:36, fontWeight:600, color:'#FFFFFF', margin:'0 0 4px' }}>La carta</h1>
-          <p style={{ fontSize:13, color:'rgba(255,255,255,0.4)', margin:'0 0 20px' }}>Brasa de leña de encina · Zaragoza</p>
+        <div style={{ background:'#FFFFFF', padding:'32px 48px 0', borderBottom:'1px solid rgba(15,8,0,0.12)' }}>
+          <h1 style={{ fontFamily:"'Fraunces',serif", fontSize:36, fontWeight:600, color:'#0F0800', margin:'0 0 4px' }}>La carta</h1>
+          <p style={{ fontSize:13, color:'rgba(15,8,0,0.4)', margin:'0 0 20px' }}>Brasa de leña de encina · Zaragoza</p>
           {/* Search */}
           <div style={{ position:'relative', maxWidth:400, marginBottom:16 }}>
             <svg style={{ position:'absolute', left:14, top:'50%', transform:'translateY(-50%)' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" placeholder="Buscar plato..." value={search} onChange={e => setSearch(e.target.value)}
-              style={{ width:'100%', padding:'10px 14px 10px 40px', background:'#1A1000', border:'1px solid #2A1A00', borderRadius:10, color:'#FFFFFF', fontSize:13, fontFamily:"'Outfit',sans-serif", boxSizing:'border-box', outline:'none' }}
+              style={{ width:'100%', padding:'10px 14px 10px 40px', background:'#F5F0E8', border:'1px solid rgba(15,8,0,0.12)', borderRadius:10, color:'#0F0800', fontSize:13, fontFamily:"'Outfit',sans-serif", boxSizing:'border-box', outline:'none' }}
               onFocus={e => e.target.style.borderColor='#FFD43A'} onBlur={e => e.target.style.borderColor='#2A1A00'} />
           </div>
           {/* Category tabs */}
@@ -246,8 +246,8 @@ export default function MenuPage({ onNavigate }) {
           {grouped && Object.entries(grouped).map(([cat, items]) => (
             <div key={cat} style={{ marginBottom:32 }}>
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:4 }}>
-                <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFFFFF', margin:0 }}>{catLabels[cat]||cat}</h2>
-                <span style={{ fontSize:11, color:'rgba(255,255,255,0.35)', background:'#1A1000', padding:'2px 8px', borderRadius:10 }}>{items.length}</span>
+                <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#0F0800', margin:0 }}>{catLabels[cat]||cat}</h2>
+                <span style={{ fontSize:11, color:'rgba(15,8,0,0.35)', background:'#F5F0E8', padding:'2px 8px', borderRadius:10 }}>{items.length}</span>
               </div>
               <div style={{ borderTop:'2px solid #FFD43A', width:32, marginBottom:12 }} />
               {items.map(p => <ProductRow key={p.id} product={p} />)}
@@ -257,16 +257,16 @@ export default function MenuPage({ onNavigate }) {
           {showPacks && !search && (
             <div style={{ marginTop:grouped?0:0 }}>
               <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:4 }}>
-                <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFFFFF', margin:0 }}>Packs</h2>
+                <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#0F0800', margin:0 }}>Packs</h2>
               </div>
               <div style={{ borderTop:'2px solid #FFD43A', width:32, marginBottom:12 }} />
               <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:14 }}>
                 {packs.map(pack => (
-                  <div key={pack.id} style={{ background:'#1A1000', borderRadius:14, padding:'20px', border:'1px solid #2A1A00', cursor:'pointer' }} onClick={() => onNavigate('packs')}>
+                  <div key={pack.id} style={{ background:'#F5F0E8', borderRadius:14, padding:'20px', border:'1px solid rgba(15,8,0,0.12)', cursor:'pointer' }} onClick={() => onNavigate('packs')}>
                     <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:10 }}>
                       <div>
-                        <span style={{ background:'#FFD43A', color:'#0F0800', fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:10, display:'inline-block', marginBottom:6 }}>{pack.badge}</span>
-                        <div style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFFFFF' }}>{pack.name}</div>
+                        <span style={{ background:'#0F0800', color:'#FFFFFF', fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:10, display:'inline-block', marginBottom:6 }}>{pack.badge}</span>
+                        <div style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#0F0800' }}>{pack.name}</div>
                       </div>
                       <span style={{ fontSize:28 }}>{pack.emoji}</span>
                     </div>

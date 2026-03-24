@@ -44,15 +44,15 @@ function AdminLogin({ onLogin }) {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0C0A06', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-      <div style={{ background: '#0F0800', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
+      <div style={{ background: '#FFFFFF', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 20 }}>🔥</div>
-        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#FFFFFF', margin: '0 0 6px' }}>Panel de administración</h1>
-        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
+        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#0F0800', margin: '0 0 6px' }}>Panel de administración</h1>
+        <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
         <input
           type="password" placeholder="Contraseña"
           value={pw} onChange={e => setPw(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handle()}
-          style={{ width: '100%', padding: '13px 16px', background: '#1A1000', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#FFFFFF', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
+          style={{ width: '100%', padding: '13px 16px', background: '#F5F0E8', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#0F0800', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
         <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
@@ -72,20 +72,20 @@ function OrderCard({ order, onStatusChange }) {
   return (
     <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#2A1A00'}`, borderRadius: 16, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
       {/* Header */}
-      <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid #2A1A00' : 'none' }} onClick={() => setExpanded(!expanded)}>
+      <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid rgba(15,8,0,0.12)' : 'none' }} onClick={() => setExpanded(!expanded)}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#0F0800' }}>{order.id}</span>
             <Badge status={order.status} />
             {order.status === 'pending' && <span style={{ fontSize: 10, background: '#FFD43A', color: '#0F0800', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
           </div>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
+          <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
           <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#FFD43A', margin: 0 }}>€{order.total.toFixed(2)}</p>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
+          <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
         </div>
-        <span style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
+        <span style={{ fontSize: 16, color: 'rgba(15,8,0,0.45)', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
       </div>
 
       {/* Expanded detail */}
@@ -93,11 +93,11 @@ function OrderCard({ order, onStatusChange }) {
         <div style={{ padding: '16px 18px' }}>
           {/* Items */}
           <div style={{ marginBottom: 14 }}>
-            <p style={{ fontSize: 11, letterSpacing: '1.5px', color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 8px' }}>Artículos</p>
+            <p style={{ fontSize: 11, letterSpacing: '1.5px', color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 8px' }}>Artículos</p>
             {order.items.map((item, i) => (
               <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, padding: '5px 0', borderBottom: '1px solid #1A1000' }}>
                 <span style={{ color: '#0F0800' }}>{item.qty}× {item.name}</span>
-                <span style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 500 }}>€{(item.price * item.qty).toFixed(2)}</span>
+                <span style={{ color: 'rgba(15,8,0,0.45)', fontWeight: 500 }}>€{(item.price * item.qty).toFixed(2)}</span>
               </div>
             ))}
           </div>
@@ -111,37 +111,37 @@ function OrderCard({ order, onStatusChange }) {
               { label: 'Zona', val: order.zone || '—' },
             ].map(item => (
               <div key={item.label}>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 2px' }}>{item.label}</p>
+                <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 2px' }}>{item.label}</p>
                 <p style={{ fontSize: 13, color: '#0F0800', margin: 0 }}>{item.val}</p>
               </div>
             ))}
           </div>
 
           {order.address && (
-            <div style={{ background: '#0F0800', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
-              <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: '0 0 2px' }}>📍 Dirección</p>
+            <div style={{ background: '#FFFFFF', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
+              <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '0 0 2px' }}>📍 Dirección</p>
               <p style={{ fontSize: 13, color: '#0F0800', margin: 0 }}>{order.address}</p>
             </div>
           )}
 
           {order.notes && (
-            <div style={{ background: '#1A1000', border: '1px solid #2A1A00', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
+            <div style={{ background: '#F5F0E8', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
               <p style={{ fontSize: 11, color: '#FFD43A', margin: '0 0 2px', fontWeight: 600 }}>📝 Notas</p>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{order.notes}</p>
+              <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{order.notes}</p>
             </div>
           )}
 
           {/* Actions */}
           <div style={{ display: 'flex', gap: 8 }}>
             {cfg.next && (
-              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#0F0800', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#FFFFFF', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
                 {cfg.nextLabel} →
               </button>
             )}
-            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#1A1000', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#F5F0E8', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               📞 Llamar
             </a>
-            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#1A1000', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#F5F0E8', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               💬 WA
             </a>
           </div>
@@ -208,7 +208,7 @@ function MenuEditor() {
   const catLabels = { carnes: 'Carnes', aves: 'Aves', verduras: 'Verduras', salsas: 'Salsas y extras' };
 
   if (loading) return (
-    <div style={{ textAlign: 'center', padding: '48px 20px', color: 'rgba(255,255,255,0.45)' }}>
+    <div style={{ textAlign: 'center', padding: '48px 20px', color: 'rgba(15,8,0,0.45)' }}>
       <div style={{ width: 32, height: 32, border: '3px solid #2A1A00', borderTopColor: '#FFD43A', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
       <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14 }}>Cargando carta desde Supabase...</p>
     </div>
@@ -219,7 +219,7 @@ function MenuEditor() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
           <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#0F0800', margin: 0 }}>Editor de carta</h3>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: '3px 0 0' }}>Activa/desactiva platos y actualiza precios</p>
+          <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: '3px 0 0' }}>Activa/desactiva platos y actualiza precios</p>
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
@@ -233,19 +233,19 @@ function MenuEditor() {
         <div key={cat} style={{ marginBottom: 28 }}>
           <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 10 }}>
             {catLabels[cat]}
-            <span style={{ width: 32, height: 1, background: '#2A1A00', display: 'inline-block' }} />
+            <span style={{ width: 32, height: 1, background: '#F5F0E8', display: 'inline-block' }} />
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {items.map(item => (
-              <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '1px solid #2A1A00', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
+              <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
                 <span style={{ fontSize: 22 }}>{item.emoji}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.name}</p>
-                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', margin: '1px 0 0' }}>{item.weight}</p>
+                  <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '1px 0 0' }}>{item.weight}</p>
                 </div>
                 {/* Price editor */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>€</span>
+                  <span style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)' }}>€</span>
                   <input
                     type="number" step="0.5" min="0"
                     value={item.price}
@@ -292,13 +292,13 @@ function StatsSection({ orders }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 24 }}>
       {stats.map(s => (
-        <div key={s.label} style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 14, padding: '16px 18px' }}>
+        <div key={s.label} style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 14, padding: '16px 18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 18 }}>{s.icon}</span>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</span>
+            <span style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</span>
           </div>
           <p style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: s.color, margin: '0 0 3px', lineHeight: 1 }}>{s.value}</p>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', margin: 0 }}>{s.sub}</p>
+          <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{s.sub}</p>
         </div>
       ))}
     </div>
@@ -393,14 +393,14 @@ export default function AdminPage() {
   ];
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#1A1000', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#F5F0E8', minHeight: '100vh' }}>
 
       {/* Top bar */}
-      <div style={{ background: '#0F0800', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ background: '#FFFFFF', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 20 }}>🔥</span>
-          <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#FFFFFF' }}>OhMyGrill</span>
-          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', background: '#1A1000', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
+          <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800' }}>OhMyGrill</span>
+          <span style={{ fontSize: 11, color: 'rgba(15,8,0,0.35)', background: '#F5F0E8', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {pendingCount > 0 && (
@@ -408,18 +408,18 @@ export default function AdminPage() {
               {pendingCount} nuevo{pendingCount > 1 ? 's' : ''}
             </span>
           )}
-          <button onClick={handleLogout} style={{ background: '#1A1000', color: 'rgba(255,255,255,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
+          <button onClick={handleLogout} style={{ background: '#F5F0E8', color: 'rgba(255,255,255,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
             Cerrar sesión
           </button>
         </div>
       </div>
 
       {/* Tab bar */}
-      <div style={{ background: '#fff', borderBottom: '1px solid #2A1A00', padding: '0 20px', display: 'flex', gap: 4 }}>
+      <div style={{ background: '#fff', borderBottom: '1px solid rgba(15,8,0,0.12)', padding: '0 20px', display: 'flex', gap: 4 }}>
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#FFD43A' : 'rgba(255,255,255,0.45)', borderBottom: `2px solid ${tab === t.id ? '#FFD43A' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
             {t.label}
-            {t.badge && <span style={{ background: '#FFD43A', color: '#0F0800', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
+            {t.badge && <span style={{ background: '#0F0800', color: '#FFFFFF', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
           </button>
         ))}
       </div>
@@ -435,7 +435,7 @@ export default function AdminPage() {
             {/* Filter bar */}
             <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
               {[{ id: 'all', label: 'Todos' }, ...Object.entries(STATUS_CONFIG).map(([id, cfg]) => ({ id, label: cfg.label }))].map(f => (
-                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#FFD43A' : '#1A1000', color: filterStatus === f.id ? '#0F0800' : 'rgba(255,255,255,0.45)', border: '1px solid #2A1A00', borderRadius: 20, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#FFD43A' : '#1A1000', color: filterStatus === f.id ? '#0F0800' : 'rgba(255,255,255,0.45)', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   {f.label} {f.id !== 'all' && <span style={{ opacity: 0.6 }}>({orders.filter(o => o.status === f.id).length})</span>}
                 </button>
               ))}
@@ -443,7 +443,7 @@ export default function AdminPage() {
 
             {/* Orders list */}
             {filteredOrders.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '60px 20px', color: 'rgba(255,255,255,0.45)' }}>
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: 'rgba(15,8,0,0.45)' }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>📭</div>
                 <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#0F0800', marginBottom: 6 }}>Sin pedidos</p>
                 <p style={{ fontSize: 13 }}>No hay pedidos con este filtro</p>
@@ -465,7 +465,7 @@ export default function AdminPage() {
 
         {/* ── MENU TAB ── */}
         {tab === 'menu' && (
-          <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #2A1A00', padding: isMobile ? '24px 20px' : '32px' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '1px solid rgba(15,8,0,0.12)', padding: isMobile ? '24px 20px' : '32px' }}>
             <MenuEditor />
           </div>
         )}
@@ -476,7 +476,7 @@ export default function AdminPage() {
             <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 20px' }}>Resumen de actividad</h3>
 
             {orders.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(255,255,255,0.45)' }}>
+              <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(15,8,0,0.45)' }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>📊</div>
                 <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#0F0800', marginBottom: 6 }}>Sin datos todavía</p>
                 <p style={{ fontSize: 13 }}>Las estadísticas aparecerán cuando haya pedidos completados.</p>
@@ -485,7 +485,7 @@ export default function AdminPage() {
 
             {orders.length > 0 && <>
             {/* Revenue by zone */}
-            <div style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
+            <div style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
               <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Ingresos por zona</h4>
               {Object.entries(
                 orders.reduce((acc, o) => {
@@ -503,7 +503,7 @@ export default function AdminPage() {
                       <span style={{ fontSize: 13, color: '#0F0800' }}>{zone}</span>
                       <span style={{ fontSize: 13, fontWeight: 500, color: '#FFD43A' }}>€{rev.toFixed(0)}</span>
                     </div>
-                    <div style={{ height: 6, background: '#1A1000', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: 6, background: '#F5F0E8', borderRadius: 3, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${pct}%`, background: '#FFD43A', borderRadius: 3, transition: 'width 0.5s ease' }} />
                     </div>
                   </div>
@@ -512,7 +512,7 @@ export default function AdminPage() {
             </div>
 
             {/* Top products */}
-            <div style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 20, padding: '24px' }}>
+            <div style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '24px' }}>
               <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Platos más pedidos</h4>
               {Object.entries(
                 orders.flatMap(o => o.items).reduce((acc, item) => {
@@ -521,9 +521,9 @@ export default function AdminPage() {
                 }, {})
               ).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([name, qty], i) => (
                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < 5 ? '1px solid #1A1000' : 'none' }}>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: 'rgba(255,255,255,0.45)', minWidth: 20 }}>{i + 1}</span>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: 'rgba(15,8,0,0.45)', minWidth: 20 }}>{i + 1}</span>
                   <span style={{ fontSize: 13, color: '#0F0800', flex: 1 }}>{name}</span>
-                  <span style={{ background: '#2A1A00', color: '#FFD43A', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
+                  <span style={{ background: '#F5F0E8', color: '#FFD43A', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
                 </div>
               ))}
             </div>

@@ -47,16 +47,14 @@ function AppContent() {
   };
 
   return (
-    <div style={{ minHeight:'100vh', background:'#0F0800' }}>
+    <div style={{ minHeight:'100vh', background:'#FFFFFF' }}>
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
       <main style={{ paddingBottom: isMobile ? 120 : 0 }}>
         {renderPage()}
       </main>
-      {/* Web: slide-out cart drawer */}
       {!isMobile && (
         <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
       )}
-      {/* Mobile: sticky bottom tab bar */}
       {isMobile && <BottomNav activePage={page} onNavigate={navigate} />}
     </div>
   );
