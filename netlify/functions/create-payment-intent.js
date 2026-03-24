@@ -36,7 +36,7 @@ exports.handler = async (event) => {
     // ── 5% platform fee to VynStudio, 95% to OhMyGrill ─────────────────────
     // application_fee_amount = what Vyn Studio keeps (5%)
     // Stripe automatically routes the rest (95%) to the destination account
-    const applicationFeeCents = Math.round(totalCents * 0.05);
+    const applicationFeeCents = Math.max(50, Math.round(totalCents * 0.05)); // min €0.50
 
     const piParams = {
       amount:   totalCents,
