@@ -209,7 +209,7 @@ export default function ChatBot({ onNavigate }) {
             </div>
           </div>
           {/* Reset button */}
-          <button onClick={() => { setMessages([]); setHistory([]); setStage('welcome'); setUnread(0); }}
+          <button onClick={() => { setMessages([]); setHistory([]); setQuickReplies(['Solo yo','Para 2','Para 3–4','Para 5 o más']); setUnread(0); }}
             title="Nuevo chat"
             style={{ background:'rgba(255,255,255,.07)', border:'none', color:'rgba(255,255,255,.4)', width:28, height:28, borderRadius:'50%', cursor:'pointer', fontSize:13, display:'flex', alignItems:'center', justifyContent:'center', marginRight:4, transition:'all .15s' }}
             onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.15)';e.currentTarget.style.color='#fff'}}
@@ -257,7 +257,7 @@ export default function ChatBot({ onNavigate }) {
         {qrs.length > 0 && !loading && (
           <div style={{ padding:'8px 10px 4px', display:'flex', gap:6, flexWrap:'wrap', flexShrink:0, borderTop:`1px solid ${S.border}`, background:'#fff' }}>
             {qrs.map((qr,i) => (
-              <button key={i} onClick={() => { setStage('free'); send(qr); }}
+              <button key={i} onClick={() => { setQuickReplies([]); send(qr); }}
                 style={{
                   background: S.cream, border:`1.5px solid ${S.border}`,
                   borderRadius:20, padding:'7px 14px',
@@ -279,7 +279,7 @@ export default function ChatBot({ onNavigate }) {
         <div style={{ padding:'10px 12px', borderTop:`1px solid ${S.border}`, background:S.cream, flexShrink:0, paddingBottom:isMobile?'calc(10px + env(safe-area-inset-bottom,0px))':10 }}>
           <div style={{ display:'flex', gap:8, alignItems:'flex-end' }}>
             <textarea ref={inputRef} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={onKey}
-              placeholder={stage==='welcome'?'O escribe directamente lo que quieres...':'Escribe tu pedido o pregunta...'}
+              placeholder='Escribe tu pedido o pregunta...'
               rows={1} disabled={loading}
               style={{ flex:1, background:'#fff', border:`1.5px solid ${S.border}`, borderRadius:20, padding:'9px 14px', fontSize:13, fontFamily:'inherit', color:S.dark, resize:'none', maxHeight:80, lineHeight:1.4, transition:'border-color .2s' }}
               onFocus={e=>e.target.style.borderColor=S.dark}
