@@ -347,7 +347,7 @@ export default function CheckoutPage({ onNavigate }) {
         layout: { type: 'tabs', defaultCollapsed: false },
         defaultValues: { billingDetails: { address: { country: 'ES' } } },
         wallets: { applePay: 'auto', googlePay: 'auto' },
-        fields: { billingDetails: { address: { country: 'never' } } },
+
       });
       paymentEl.mount('#stripe-payment-element');
       cardRef.current = paymentEl;
@@ -378,6 +378,7 @@ export default function CheckoutPage({ onNavigate }) {
               name:  formData.name,
               email: formData.email,
               phone: formData.phone,
+              address: { country: 'ES' },
             },
           },
           receipt_email: formData.email,
