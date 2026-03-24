@@ -238,7 +238,7 @@ function MenuEditor() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {items.map(item => (
               <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
-                <span style={{ fontSize: 22 }}>{item.emoji}</span>
+                <div style={{ width:32,height:32,background:"#1a1008",borderRadius:6,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0 }}><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><rect x=".5" y=".5" width="13" height="10" stroke="rgba(255,255,255,.2)" strokeWidth="1"/><circle cx="3.5" cy="3.5" r="1.5" stroke="rgba(255,255,255,.2)"/><path d="M.5 8l3-2.5 2.5 2 2-2.5 5 3.5" stroke="rgba(255,255,255,.2)" strokeLinejoin="round"/></svg></div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.name}</p>
                   <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '1px 0 0' }}>{item.weight}</p>

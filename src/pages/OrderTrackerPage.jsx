@@ -300,7 +300,7 @@ export default function OrderTrackerPage({ onNavigate }) {
                 <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 12px' }}>Artículos</p>
                 {order.items.map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: i < order.items.length - 1 ? '1px solid #1A1000' : 'none' }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#FAF5EC', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17, flexShrink: 0 }}>{item.emoji}</div>
+                    <div style={{ width: 36, height: 36, background: '#1a1008', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x=".5" y=".5" width="15" height="11" stroke="rgba(255,255,255,.15)" strokeWidth="1"/><circle cx="4.5" cy="4" r="1.5" stroke="rgba(255,255,255,.15)"/><path d="M.5 9l3.5-3 3 2 3-3.5 5.5 4.5" stroke="rgba(255,255,255,.15)" strokeLinejoin="round"/></svg></div>
                     <div style={{ flex: 1 }}>
                       <p style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.qty}× {item.name}</p>
                     </div>

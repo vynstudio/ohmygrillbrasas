@@ -1,300 +1,229 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+const S = { cream:'#FAF6EF', dark:'#1a1008', yellow:'#F5C842', border:'rgba(26,16,8,.1)', sub:'rgba(26,16,8,.5)', faint:'rgba(26,16,8,.3)', surface:'#F2EDE4' };
+
+function PhotoBlock({ height=200, radius=12, label='' }) {
+  return (
+    <div style={{ width:'100%', height, background:S.dark, borderRadius:radius, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', overflow:'hidden', position:'relative' }}>
+      <svg width="44" height="36" viewBox="0 0 44 36" fill="none">
+        <rect x="1" y="1" width="42" height="34" stroke="rgba(255,255,255,.08)" strokeWidth="1.5"/>
+        <circle cx="13" cy="12" r="5" stroke="rgba(255,255,255,.08)" strokeWidth="1.5"/>
+        <path d="M1 26l12-10 9 7 8-10 14 12" stroke="rgba(255,255,255,.08)" strokeWidth="1.5" strokeLinejoin="round"/>
+      </svg>
+      {label && <span style={{ position:'absolute', bottom:10, left:12, fontSize:9, fontWeight:600, letterSpacing:'1.5px', color:'rgba(255,255,255,.18)', textTransform:'uppercase' }}>{label}</span>}
+    </div>
+  );
+}
+
+const STAR = <svg width="13" height="13" viewBox="0 0 16 16" fill="#F5C842"><path d="M8 1l1.8 5h5.2l-4.2 3 1.6 5L8 11l-4.4 3 1.6-5L1 6h5.2z"/></svg>;
+const REVIEWS = [
+  { name:'Carlos M.', detail:'Zaragoza', quote:'"El chuletón llegó perfecto, caliente y en su punto. Impresionante para ser delivery."' },
+  { name:'Ana R.', detail:'Delicias · Pack Familiar', quote:'"Pack Familiar para el cumpleaños de mi padre. Las costillas ibéricas, una locura. Repetiremos."' },
+  { name:'Javier L.', detail:'Centro · Desde 2021', quote:'"Tres años pidiendo el pollo de corral todos los viernes. No hay nada igual en Zaragoza."' },
+];
 
 export default function AboutPage({ onNavigate }) {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
-  const [formState, setFormState] = useState('idle'); // idle | sending | sent | error
-  const [errors, setErrors] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth<768);
+  useEffect(()=>{ const fn=()=>setIsMobile(window.innerWidth<768); window.addEventListener('resize',fn); return ()=>window.removeEventListener('resize',fn); },[]);
 
-  useEffect(() => {
-    const fn = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', fn);
-    return () => window.removeEventListener('resize', fn);
-  }, []);
-
-  const validate = () => {
-    const e = {};
-    if (!formData.name.trim()) e.name = 'Introduce tu nombre';
-    if (!formData.email.trim()) e.email = 'Introduce tu email';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = 'Email no válido';
-    if (!formData.message.trim()) e.message = 'Escribe tu mensaje';
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const handleSubmit = async () => {
-    if (!validate()) return;
-    setFormState('sending');
-    // Simulate send — wire to Netlify Forms or Resend later
-    await new Promise(r => setTimeout(r, 1500));
-    setFormState('sent');
-  };
-
-  const inputStyle = (hasError) => ({
-    width: '100%', padding: '12px 14px',
-    border: `1.5px solid ${hasError ? '#E24B4A' : '#2A1A00'}`,
-    borderRadius: 0, fontFamily: "'Outfit', sans-serif",
-    fontSize: 14, color: '#0F0800', background: '#FAF5EC',
-    boxSizing: 'border-box', outline: 'none', transition: 'border-color 0.15s',
-  });
-
-  const team = [
-    { name: 'María García', role: 'Fundadora & Chef', years: '+12 años en brasas', emoji: '👩‍🍳' },
-    { name: 'Carlos Ruiz', role: 'Maestro de la brasa', years: '+8 años de oficio', emoji: '🔥' },
-    { name: 'Ana López', role: 'Atención al cliente', years: 'El alma del local', emoji: '😊' },
-  ];
-
-  const values = [
-    { icon: '🔥', title: 'Leña de encina', desc: 'Solo usamos leña de encina aragonesa. Le da a la carne ese aroma inconfundible que no consigue ningún otro combustible.' },
-    { icon: '🥩', title: 'Producto local', desc: 'Trabajamos con ganaderos de Aragón y La Rioja. Carne madurada en nuestra propia cámara, nunca congelada.' },
-    { icon: '⏰', title: '+10 años en Zaragoza', desc: 'Desde 2013 sirviendo brasas en Zaragoza. Hemos crecido gracias a los clientes que repiten, no a la publicidad.' },
-    { icon: '📦', title: 'Ahora online', desc: 'Pedidos a domicilio para toda Zaragoza. La misma calidad del local, en tu mesa en menos de 90 minutos.' },
-  ];
+  const today = new Date().getDay();
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAF5EC', minHeight: '100vh' }}>
+    <div style={{ background:S.cream, minHeight:'100vh', fontFamily:"'Outfit',sans-serif" }}>
 
-      {/* ── HERO ── */}
-      <section style={{ background: '#FAF5EC', padding: isMobile ? '56px 20px 48px' : '80px 0 72px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', bottom: -40, right: -20, fontFamily: "'Fraunces', serif", fontSize: 200, fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none' }}>OMG</div>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative', zIndex: 1 }}>
-          <span style={{ display: 'inline-block', background: '#FAF5EC', border: '1px solid #FFD43A', color: '#FFD43A', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 0, marginBottom: 20, textTransform: 'uppercase' }}>
-            Nuestra historia
-          </span>
-          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 38 : 58, fontWeight: 600, color: '#0F0800', margin: '0 0 20px', lineHeight: 1.0, letterSpacing: '-1px' }}>
-            Más de diez años<br />
-            <em style={{ color: '#FFD43A', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
+      {/* Hero */}
+      <section style={{ background:S.dark, padding: isMobile?'32px 20px 28px':'72px 56px 64px', position:'relative', overflow:'hidden' }}>
+        <div style={{ position:'absolute', top:-60, right:-60, width:240, height:240, background:'radial-gradient(circle,rgba(245,200,66,.06) 0%,transparent 70%)', pointerEvents:'none' }} />
+        <div style={{ maxWidth:680, position:'relative' }}>
+          <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:20 }}>Nuestra historia</div>
+          <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?40:56, fontWeight:400, color:'#fff', lineHeight:.92, letterSpacing:'-2px', marginBottom:20 }}>
+            Diez años<br/>encendiendo<br/><em style={{ fontStyle:'italic', fontWeight:300, color:S.yellow }}>la brasa.</em>
           </h1>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(15,8,0,0.5)', lineHeight: 1.75, maxWidth: 580, margin: 0 }}>
-            Producto aragonés de calidad, marinado honesto y paciencia sobre el carbón. Eso es OhMyGrill Brasas.
+          <p style={{ fontSize: isMobile?14:16, color:'rgba(255,255,255,.44)', lineHeight:1.75, marginBottom:32, maxWidth:480 }}>
+            OhMyGrill nació en Zaragoza en 2013 con una sola obsesión: la mejor carne a la brasa de la ciudad. Sin atajos, sin gas, sin concesiones.
           </p>
-        </div>
-      </section>
-
-      {/* ── STORY ── */}
-      <section style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px' : '72px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 64, alignItems: 'center' }}>
-          <div>
-            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 28 : 38, fontWeight: 600, color: '#0F0800', margin: '0 0 20px', lineHeight: 1.1 }}>
-              Empezamos con<br />una brasa y una idea.
-            </h2>
-            <p style={{ fontSize: 15, color: 'rgba(15,8,0,0.45)', lineHeight: 1.8, margin: '0 0 16px' }}>
-              En 2013, María García abrió un pequeño local en el centro de Zaragoza con una sola obsesión: hacer la brasa como debe hacerse. Sin atajos, sin gas, sin congelados.
-            </p>
-            <p style={{ fontSize: 15, color: 'rgba(15,8,0,0.45)', lineHeight: 1.8, margin: '0 0 16px' }}>
-              Lo que empezó como un restaurante de barrio se convirtió en una referencia en la ciudad. Los clientes volvían. Y traían a sus familias. Y a sus amigos.
-            </p>
-            <p style={{ fontSize: 15, color: 'rgba(15,8,0,0.45)', lineHeight: 1.8, margin: 0 }}>
-              Hoy, más de diez años después, seguimos usando la misma leña de encina, los mismos ganaderos de Aragón y la misma receta de siempre. Solo añadimos la posibilidad de pedirlo desde casa.
-            </p>
-          </div>
-          {/* Visual stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            {[
-              { num: '2013', label: 'Año de apertura', sub: 'Zaragoza, España' },
-              { num: '+10', label: 'Años de oficio', sub: 'Siempre en la misma brasa' },
-              { num: '100%', label: 'Leña de encina', sub: 'Nunca gas, nunca carbón' },
-              { num: '4.9★', label: 'Google Maps', sub: 'Más de 200 reseñas' },
-            ].map(s => (
-              <div key={s.label} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '22px 18px' }}>
-                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontWeight: 600, color: '#FFD43A', margin: '0 0 4px', lineHeight: 1 }}>{s.num}</p>
-                <p style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', margin: '0 0 3px' }}>{s.label}</p>
-                <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{s.sub}</p>
-              </div>
+          <div style={{ display:'flex', gap: isMobile?28:48, paddingTop:22, borderTop:'1px solid rgba(255,255,255,.07)' }}>
+            {[{n:'2013',l:'fundación'},{n:'+10k',l:'pedidos'},{n:'4.9★',l:'Google'}].map(s=>(
+              <div key={s.l}><div style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:S.yellow }}>{s.n}</div><div style={{ fontSize:10, color:'rgba(255,255,255,.3)', marginTop:3 }}>{s.l}</div></div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── VALUES ── */}
-      <section style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px' : '72px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px' }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#0F0800', margin: '0 0 8px', textAlign: 'center' }}>Lo que nos define</h2>
-          <p style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', textAlign: 'center', margin: '0 0 36px' }}>Por qué nuestros clientes llevan más de diez años volviendo</p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4,1fr)', gap: 16 }}>
-            {values.map(v => (
-              <div key={v.title} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 18, padding: '24px 20px' }}>
-                <div style={{ width: 52, height: 52, borderRadius: '50%', background: '#FAF5EC', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 16 }}>{v.icon}</div>
-                <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 8px' }}>{v.title}</h3>
-                <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', lineHeight: 1.65, margin: 0 }}>{v.desc}</p>
+      {/* Photo grid */}
+      <div style={{ display:'grid', gridTemplateColumns: isMobile?'1fr 1fr':'1fr 1fr 1fr 1fr', gap:2, background:'#0d0804' }}>
+        {['Brasa encendida','Chuletón en brasa','Leña de encina','Equipo OhMyGrill'].map(l=>(
+          <div key={l} style={{ height: isMobile?140:200, background:'#1a1008', display:'flex', alignItems:'center', justifyContent:'center' }}>
+            <span style={{ fontSize:9, fontWeight:600, letterSpacing:'1.5px', color:'rgba(255,255,255,.18)', textTransform:'uppercase', textAlign:'center', padding:10 }}>{l}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Story */}
+      <section style={{ padding: isMobile?'32px 20px':'72px 56px', borderBottom:`1px solid ${S.border}`, display: isMobile?'block':'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start' }}>
+        <div>
+          <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:18 }}>El origen</div>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?30:42, fontWeight:400, color:S.dark, letterSpacing:'-1.2px', lineHeight:.95, marginBottom:24 }}>Una obsesión por la <em style={{ fontStyle:'italic', fontWeight:300 }}>brasa</em> bien hecha</h2>
+          <p style={{ fontSize:15, color:S.sub, lineHeight:1.8, marginBottom:18 }}>Todo empezó en 2013, cuando Miguel Montoya decidió que Zaragoza merecía una brasa de verdad. La que se hace con leña de encina aragonesa, con tiempo, y con los cortes que merece ese fuego.</p>
+          <div style={{ borderLeft:`3px solid ${S.yellow}`, padding:'6px 0 6px 20px', margin:'24px 0' }}>
+            <p style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:400, fontStyle:'italic', color:S.dark, lineHeight:1.4 }}>"La brasa no perdona el mal producto. Por eso empezamos por ahí."</p>
+            <cite style={{ fontSize:11, fontWeight:700, color:S.sub, letterSpacing:'1px', textTransform:'uppercase', display:'block', marginTop:8, fontStyle:'normal' }}>— Miguel Montoya, fundador</cite>
+          </div>
+          <p style={{ fontSize:15, color:S.sub, lineHeight:1.8 }}>Hoy somos el referente de la carne a domicilio en Zaragoza, pero el proceso es exactamente el mismo que el primer día.</p>
+        </div>
+        {!isMobile && (
+          <div>
+            <PhotoBlock height={280} label="Cocina / brasa" />
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginTop:12 }}>
+              <PhotoBlock height={160} label="Maduración" />
+              <PhotoBlock height={160} label="Servicio" />
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* Values */}
+      <section style={{ background:S.dark, padding: isMobile?'32px 20px':'64px 56px', borderBottom:'1px solid rgba(255,255,255,.06)' }}>
+        <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:14 }}>Lo que nos define</div>
+        <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?28:38, fontWeight:400, color:'#fff', letterSpacing:'-1px', marginBottom:36 }}>Tres principios.<br/>Sin excepciones.</h2>
+        <div style={{ display:'grid', gridTemplateColumns: isMobile?'1fr':'repeat(3,1fr)', gap: isMobile?12:16 }}>
+          {[
+            { n:'01', title:'Leña de encina, siempre', desc:'No usamos gas. No usamos carbón de bolsa. Solo leña de encina aragonesa, cortada y curada para dar el calor correcto.' },
+            { n:'02', title:'Producto de primera', desc:'Cada corte se selecciona personalmente. Maduración propia, ibéricos de bellota certificados, aves criadas en libertad en Aragón.' },
+            { n:'03', title:'El tiempo que toca', desc:'Un buen chuletón necesita su tiempo en la brasa. No lo aceleramos. Cuando está, está. Por eso pedimos que pidas con algo de margen.' },
+          ].map(v=>(
+            <div key={v.n} style={{ background:'rgba(255,255,255,.04)', border:'1px solid rgba(255,255,255,.07)', borderRadius:14, padding:isMobile?'20px':'28px 24px', transition:'border-color .2s' }}>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:40, fontWeight:300, color:'rgba(245,200,66,.2)', lineHeight:1, marginBottom:14, letterSpacing:'-1px' }}>{v.n}</div>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:400, color:'#fff', marginBottom:10, letterSpacing:'-.2px' }}>{v.title}</div>
+              <div style={{ fontSize:13, color:'rgba(255,255,255,.4)', lineHeight:1.75 }}>{v.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Numbers */}
+      <div style={{ background:S.yellow, padding:'0', display:'grid', gridTemplateColumns: isMobile?'1fr 1fr':'repeat(4,1fr)', borderTop:'1px solid rgba(0,0,0,.06)' }}>
+        {[{n:'+10',l:'años en Zaragoza'},{n:'100%',l:'leña de encina'},{n:'4.9★',l:'Google Maps'},{n:'+10k',l:'pedidos completados'}].map((s,i)=>(
+          <div key={s.l} style={{ padding:'24px 16px', textAlign:'center', borderRight: i<3?'1px solid rgba(26,16,8,.1)':'none', borderBottom: isMobile&&i<2?'1px solid rgba(26,16,8,.1)':'none' }}>
+            <div style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?28:44, fontWeight:600, color:S.dark, lineHeight:1, letterSpacing:'-1.5px' }}>{s.n}</div>
+            <div style={{ fontSize: isMobile?11:13, color:'rgba(26,16,8,.5)', marginTop:4 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Process */}
+      <section style={{ padding: isMobile?'32px 20px':'72px 56px', borderBottom:`1px solid ${S.border}` }}>
+        <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:14 }}>Cómo lo hacemos</div>
+        <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?28:38, fontWeight:400, color:S.dark, letterSpacing:'-1px', marginBottom: isMobile?28:48 }}>De la maduración a tu puerta</h2>
+        <div style={{ display:'grid', gridTemplateColumns: isMobile?'1fr':'repeat(4,1fr)', gap: isMobile?0:0, border:`1px solid ${S.border}` }}>
+          {[
+            { n:'01', title:'Selección', desc:'Elegimos los cortes cada mañana. Si no llega bien, no sale a la carta.' },
+            { n:'02', title:'Maduración', desc:'Los cortes que lo requieren maduran en nuestra propia cámara. El chuletón, mínimo 45 días.' },
+            { n:'03', title:'La brasa', desc:'Leña de encina, el tiempo que necesita cada corte. Sin prisas. Sin gas.' },
+            { n:'04', title:'En tu puerta', desc:'Embalado para conservar el calor. En 90 minutos o 25 si vienes a recoger.' },
+          ].map((p,i)=>(
+            <div key={p.n} style={{ padding:'28px 24px', borderRight: !isMobile&&i<3?`1px solid ${S.border}`:'none', borderBottom: isMobile&&i<3?`1px solid ${S.border}`:'none', position:'relative' }}>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:32, fontWeight:300, color:'rgba(26,16,8,.1)', lineHeight:1, marginBottom:14, letterSpacing:'-1px' }}>{p.n}</div>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:400, color:S.dark, marginBottom:8 }}>{p.title}</div>
+              <div style={{ fontSize:13, color:S.sub, lineHeight:1.65 }}>{p.desc}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Reviews */}
+      <section style={{ background:S.surface, padding: isMobile?'32px 20px':'64px 56px', borderBottom:`1px solid ${S.border}` }}>
+        <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:14 }}>Lo que dicen</div>
+        <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?26:34, fontWeight:400, color:S.dark, letterSpacing:'-.8px', marginBottom:28 }}>Clientes que repiten</h2>
+        <div style={{ display: isMobile?'flex':'grid', gridTemplateColumns:'repeat(3,1fr)', gap:16, overflowX: isMobile?'auto':'visible', scrollSnapType: isMobile?'x mandatory':'none', scrollbarWidth:'none', paddingBottom: isMobile?4:0 }}>
+          {REVIEWS.map((r,i)=>(
+            <div key={i} style={{ background:'#fff', border:`1px solid ${S.border}`, borderRadius:14, padding:'22px 20px', flexShrink: isMobile?0:'unset', width: isMobile?280:'auto', scrollSnapAlign: isMobile?'start':'unset' }}>
+              <div style={{ display:'flex', gap:3, marginBottom:12 }}>{[1,2,3,4,5].map(n=><span key={n}>{STAR}</span>)}</div>
+              <p style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:400, color:S.dark, fontStyle:'italic', lineHeight:1.55, marginBottom:16 }}>{r.quote}</p>
+              <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+                <div style={{ width:32, height:32, background:S.dark, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div>
+                  <div style={{ fontSize:12, fontWeight:700, color:S.dark }}>{r.name}</div>
+                  <div style={{ fontSize:11, color:S.sub, marginTop:1 }}>{r.detail}</div>
+                </div>
+                <span style={{ marginLeft:'auto', fontSize:9, fontWeight:700, color:S.faint, background:S.surface, padding:'3px 8px', borderRadius:10, whiteSpace:'nowrap' }}>Google</span>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact + Hours */}
+      <section style={{ padding: isMobile?'32px 20px':'72px 56px', borderBottom:`1px solid ${S.border}`, display: isMobile?'block':'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start' }}>
+        <div>
+          <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:14 }}>Encuéntranos</div>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?28:40, fontWeight:400, color:S.dark, letterSpacing:'-1px', marginBottom:20 }}>Estamos en Zaragoza</h2>
+          {[
+            { icon:<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={S.dark} strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>, lbl:'Dirección', val:'Calle de las Brasas, 12', sub:'50001 Zaragoza · Casco Histórico' },
+            { icon:<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={S.dark} strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.61 4.48 2 2 0 0 1 3.6 2.28h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.88-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.78 17z"/></svg>, lbl:'Teléfono', val:'+34 976 000 000', sub:'También por WhatsApp' },
+            { icon:<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={S.dark} strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>, lbl:'Email', val:'hola@ohmygrillbrasas.com', sub:'Respondemos en menos de 24h' },
+          ].map(r=>(
+            <div key={r.lbl} style={{ display:'flex', alignItems:'flex-start', gap:14, marginBottom:20 }}>
+              <div style={{ width:40, height:40, background:S.surface, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>{r.icon}</div>
+              <div>
+                <div style={{ fontSize:10, fontWeight:700, letterSpacing:'1px', textTransform:'uppercase', color:S.faint, marginBottom:3 }}>{r.lbl}</div>
+                <div style={{ fontSize:15, fontWeight:600, color:S.dark }}>{r.val}</div>
+                <div style={{ fontSize:12, color:S.sub, marginTop:2 }}>{r.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginTop: isMobile?24:0 }}>
+          <div style={{ background:S.dark, borderRadius:14, padding:'22px 20px', marginBottom:14 }}>
+            <div style={{ fontSize:10, fontWeight:600, letterSpacing:'2px', textTransform:'uppercase', color:S.yellow, marginBottom:16 }}>Horario de pedidos</div>
+            {[{id:'lj',days:'Lun – Jue',time:'13:00 – 22:00',d:[1,2,3,4]},{id:'vs',days:'Vie – Sáb',time:'13:00 – 23:00',d:[5,6]},{id:'dom',days:'Domingo',time:'13:00 – 21:00',d:[0]}].map(h=>{
+              const isToday = h.d.includes(today);
+              return (
+                <div key={h.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'11px 0', borderBottom:'1px solid rgba(255,255,255,.06)' }}>
+                  <span style={{ fontSize:13, fontWeight:500, color:isToday?S.yellow:'rgba(255,255,255,.5)' }}>{h.days}</span>
+                  <span style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:isToday?S.yellow:'#fff' }}>{h.time}</span>
+                </div>
+              );
+            })}
+          </div>
+          <button onClick={()=>window.open('https://maps.google.com/?q=Zaragoza','_blank')} style={{ width:'100%', background:S.surface, border:`1px solid ${S.border}`, borderRadius:12, padding:'16px 18px', display:'flex', alignItems:'center', gap:12, cursor:'pointer', fontFamily:'inherit', transition:'background .15s' }}
+            onMouseEnter={e=>e.currentTarget.style.background='#ede8df'} onMouseLeave={e=>e.currentTarget.style.background=S.surface}>
+            <div style={{ width:40, height:40, background:S.dark, borderRadius:9, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div style={{ textAlign:'left', flex:1 }}>
+              <div style={{ fontSize:14, fontWeight:600, color:S.dark }}>Abrir en Google Maps</div>
+              <div style={{ fontSize:12, color:S.sub, marginTop:2 }}>Calle de las Brasas, 12 · Zaragoza</div>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={S.faint} strokeWidth="2" strokeLinecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </button>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <div style={{ background:S.yellow, padding: isMobile?'28px 20px':'40px 56px', textAlign: isMobile?'center':'left', display:'flex', flexDirection: isMobile?'column':'row', alignItems:'center', justifyContent:'space-between', gap:20 }}>
+        <div>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?26:34, fontWeight:400, color:S.dark, letterSpacing:'-.8px', marginBottom:6 }}>¿Listo para pedir?</h2>
+          <p style={{ fontSize:14, color:'rgba(26,16,8,.55)', lineHeight:1.6 }}>Entrega en 90 min o recogida en el local · Toda Zaragoza · Todos los días.</p>
+        </div>
+        <button onClick={()=>onNavigate('menu')} style={{ background:S.dark, color:S.yellow, border:'none', borderRadius:50, padding:'15px 36px', fontSize:15, fontWeight:600, cursor:'pointer', fontFamily:'inherit', flexShrink:0 }}>Ver la carta →</button>
+      </div>
+
+      {/* Footer */}
+      {!isMobile && (
+        <footer style={{ background:S.dark, padding:'20px 56px', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <div style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:S.yellow }}>OhMyGrill Brasas</div>
+          <div style={{ display:'flex', gap:24 }}>
+            {['home','menu','packs'].map(id=>(
+              <button key={id} onClick={()=>onNavigate(id)} style={{ background:'none', border:'none', fontSize:12, color:'rgba(255,255,255,.28)', cursor:'pointer', fontFamily:'inherit' }}>{{home:'Inicio',menu:'Carta',packs:'Packs'}[id]}</button>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── TEAM ── */}
-      <section style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px' : '72px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px' }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#0F0800', margin: '0 0 8px', textAlign: 'center' }}>El equipo</h2>
-          <p style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', textAlign: 'center', margin: '0 0 36px' }}>Las personas detrás de cada brasa</p>
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: 20 }}>
-            {team.map(member => (
-              <div key={member.name} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '28px 24px', textAlign: 'center' }}>
-                <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#FAF5EC', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px' }}>{member.emoji}</div>
-                <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 19, fontWeight: 600, color: '#0F0800', margin: '0 0 4px' }}>{member.name}</h3>
-                <p style={{ fontSize: 13, color: '#FFD43A', fontWeight: 500, margin: '0 0 6px' }}>{member.role}</p>
-                <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{member.years}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CONTACT ── */}
-      <section id="contact" style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px' : '72px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 40 : 64 }}>
-
-          {/* Left — info */}
-          <div>
-            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 28 : 38, fontWeight: 600, color: '#0F0800', margin: '0 0 12px', lineHeight: 1.1 }}>
-              Hablemos
-            </h2>
-            <p style={{ fontSize: 15, color: 'rgba(15,8,0,0.45)', lineHeight: 1.75, margin: '0 0 36px' }}>
-              ¿Tienes una pregunta sobre un pedido, una alergia o quieres hacer un pedido grande para un evento? Escríbenos.
-            </p>
-
-            {/* Contact cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {[
-                { icon: '📍', label: 'Dirección', value: 'Calle de las Brasas, 12', sub: '50001 Zaragoza, España' },
-                { icon: '📞', label: 'Teléfono', value: '+34 976 000 000', sub: 'Lun–Dom 13:00–22:00' },
-                { icon: '💬', label: 'WhatsApp', value: '+34 600 000 000', sub: 'Respuesta en menos de 1 hora' },
-                { icon: '📸', label: 'Instagram', value: '@ohmygrillbrasas', sub: 'Síguenos para novedades' },
-              ].map(item => (
-                <div key={item.label} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 0, background: '#FAF5EC', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>{item.icon}</div>
-                  <div>
-                    <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 2px' }}>{item.label}</p>
-                    <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: '0 0 2px' }}>{item.value}</p>
-                    <p style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{item.sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Hours */}
-            <div style={{ background: '#FAF5EC', borderRadius: 0, padding: '22px 20px', marginTop: 20 }}>
-              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#FFD43A', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 14px' }}>Horario de pedidos</p>
-              {[
-                { day: 'Lunes – Jueves', hours: '13:00 – 22:00' },
-                { day: 'Viernes – Sábado', hours: '13:00 – 23:00' },
-                { day: 'Domingo', hours: '13:00 – 21:00' },
-              ].map(h => (
-                <div key={h.day} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>{h.day}</span>
-                  <span style={{ fontSize: 13, fontWeight: 500, color: '#0F0800' }}>{h.hours}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — contact form */}
-          <div>
-            <div style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: isMobile ? '28px 20px' : '36px 32px' }}>
-              {formState === 'sent' ? (
-                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
-                  <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#FAF5EC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>✅</div>
-                  <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 900, color: '#0F0800', margin: '0 0 10px' }}>¡Mensaje enviado!</h3>
-                  <p style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', lineHeight: 1.65, margin: '0 0 24px' }}>Te responderemos en menos de 24 horas. También puedes contactarnos por WhatsApp para una respuesta más rápida.</p>
-                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
-                    Enviar otro mensaje
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 900, color: '#0F0800', margin: '0 0 6px' }}>Envíanos un mensaje</h3>
-                  <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: '0 0 24px' }}>Respondemos en menos de 24 horas</p>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
-                    <div>
-                      <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Nombre *</label>
-                      <input type="text" placeholder="Tu nombre" value={formData.name} onChange={e => setFormData(d => ({ ...d, name: e.target.value }))}
-                        style={inputStyle(errors.name)}
-                        onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.name ? '#E24B4A' : '#2A1A00'} />
-                      {errors.name && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.name}</p>}
-                    </div>
-                    <div>
-                      <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Teléfono</label>
-                      <input type="tel" placeholder="+34 600..." value={formData.phone} onChange={e => setFormData(d => ({ ...d, phone: e.target.value }))}
-                        style={inputStyle(false)}
-                        onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = '#2A1A00'} />
-                    </div>
-                  </div>
-
-                  <div style={{ marginBottom: 14 }}>
-                    <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Email *</label>
-                    <input type="email" placeholder="tu@email.com" value={formData.email} onChange={e => setFormData(d => ({ ...d, email: e.target.value }))}
-                      style={inputStyle(errors.email)}
-                      onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.email ? '#E24B4A' : '#2A1A00'} />
-                    {errors.email && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.email}</p>}
-                  </div>
-
-                  <div style={{ marginBottom: 24 }}>
-                    <label style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', display: 'block', marginBottom: 6 }}>Mensaje *</label>
-                    <textarea placeholder="¿En qué podemos ayudarte?" value={formData.message} onChange={e => setFormData(d => ({ ...d, message: e.target.value }))} rows={5}
-                      style={{ ...inputStyle(errors.message), resize: 'vertical' }}
-                      onFocus={e => e.target.style.borderColor = '#FFD43A'} onBlur={e => e.target.style.borderColor = errors.message ? '#E24B4A' : '#2A1A00'} />
-                    {errors.message && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.message}</p>}
-                  </div>
-
-                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                    {formState === 'sending' ? (
-                      <><span style={{ display: 'inline-block', width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />Enviando...</>
-                    ) : 'Enviar mensaje →'}
-                  </button>
-                  <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
-                    <div style={{ flex: 1, height: 1, background: '#FAF5EC' }} />
-                    <span style={{ fontSize: 12, color: 'rgba(15,8,0,0.45)' }}>o</span>
-                    <div style={{ flex: 1, height: 1, background: '#FAF5EC' }} />
-                  </div>
-
-                  <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 14, background: '#FAF5EC', color: '#fff', border: 'none', borderRadius: 0, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
-                    <span style={{ fontSize: 18 }}>📱</span> Escríbenos por WhatsApp
-                  </a>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── MAP PLACEHOLDER ── */}
-      <section style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px' : '64px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 48, alignItems: 'center' }}>
-          <div>
-            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Encuéntranos</h2>
-            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: '0 0 28px' }}>
-              Estamos en el centro de Zaragoza. Si prefieres venir a recoger tu pedido, estaremos encantados de atenderte en el local.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[
-                { icon: '📍', text: 'Calle de las Brasas, 12 · 50001 Zaragoza' },
-                { icon: '🅿️', text: 'Parking público a 2 minutos' },
-                { icon: '🚌', text: 'Líneas de bus: 21, 34, 52' },
-              ].map(item => (
-                <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 16 }}>{item.icon}</span>
-                  <span style={{ fontSize: 14, color: 'rgba(15,8,0,0.5)' }}>{item.text}</span>
-                </div>
-              ))}
-            </div>
-            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
-              Pedir ahora →
-            </button>
-          </div>
-
-          {/* Map embed placeholder */}
-          <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 0, overflow: 'hidden', height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
-            <span style={{ fontSize: 40 }}>🗺️</span>
-            <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: 'rgba(15,8,0,0.4)', margin: 0 }}>Google Maps</p>
-            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', margin: 0 }}>Integración pendiente de API key</p>
-          </div>
-        </div>
-      </section>
-
+          <div style={{ fontSize:11, color:'rgba(255,255,255,.15)' }}>© 2025 OhMyGrill Brasas · Zaragoza</div>
+        </footer>
+      )}
     </div>
   );
 }

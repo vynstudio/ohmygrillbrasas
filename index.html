@@ -19,26 +19,20 @@
     <title>OhMyGrill Brasas · Zaragoza</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Outfit:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { font-size: 16px; -webkit-font-smoothing: antialiased; }
-      body { background: #FAF5EC; color: #0F0800; }
+      body { background: #FAF6EF; color: #1a1008; font-family: 'Outfit', sans-serif; }
       ::-webkit-scrollbar { width: 5px; }
-      ::-webkit-scrollbar-track { background: #FAF5EC; }
-      ::-webkit-scrollbar-thumb { background: #0F0800; border-radius: 0; }
+      ::-webkit-scrollbar-track { background: #FAF6EF; }
+      ::-webkit-scrollbar-thumb { background: #1a1008; border-radius: 0; }
       button { font-family: inherit; }
-      select, textarea, input { font-family: inherit; outline: none; }
+      input, select, textarea { font-family: inherit; outline: none; }
       a { color: inherit; text-decoration: none; }
-
-      /* Marquee animation */
-      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-      .marquee-track { display: flex; animation: marquee 18s linear infinite; white-space: nowrap; will-change: transform; }
-      .marquee-track:hover { animation-play-state: paused; }
-
-      /* Fade in */
-      @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-      .fade-up { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+      @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      .ticker-track { display: flex; white-space: nowrap; animation: ticker 22s linear infinite; will-change: transform; }
+      .ticker-track:hover { animation-play-state: paused; }
     </style>
   </head>
   <body>

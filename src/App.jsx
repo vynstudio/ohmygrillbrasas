@@ -20,7 +20,7 @@ function AppContent() {
   const navigate = (p) => {
     setPage(p);
     window.location.hash = p === 'home' ? '' : p;
-    window.scrollTo({ top:0, behavior:'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -47,9 +47,10 @@ function AppContent() {
   };
 
   return (
-    <div style={{ minHeight:'100vh', background:'#FAF5EC' }}>
+    <div style={{ minHeight:'100vh', background:'#FAF6EF' }}>
+      {/* Desktop: sticky navbar. Mobile: null (BottomNav handles nav) */}
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
-      <main style={{ paddingBottom: isMobile ? 120 : 0 }}>
+      <main style={{ paddingBottom: isMobile ? 72 : 0 }}>
         {renderPage()}
       </main>
       {!isMobile && (
