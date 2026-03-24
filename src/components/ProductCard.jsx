@@ -20,7 +20,7 @@ export default function ProductCard({ product, size = 'normal' }) {
     <div style={{
       background: '#fff',
       borderRadius: 16,
-      border: '1px solid #EDE9E3',
+      border: '1px solid #F0E4C8',
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
@@ -52,7 +52,7 @@ export default function ProductCard({ product, size = 'normal' }) {
             position: 'absolute',
             top: 10,
             left: 10,
-            background: product.badgeColor || '#1C1A14',
+            background: product.badgeColor || '#1A1500',
             color: '#fff',
             fontSize: 10,
             fontFamily: "'Outfit', sans-serif",
@@ -94,7 +94,7 @@ export default function ProductCard({ product, size = 'normal' }) {
               fontFamily: "'Fraunces', serif",
               fontSize: isSmall ? 15 : 17,
               fontWeight: 600,
-              color: '#1C1A14',
+              color: '#1A1500',
               margin: 0,
               lineHeight: 1.2,
             }}>
@@ -103,8 +103,8 @@ export default function ProductCard({ product, size = 'normal' }) {
             <span style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: 11,
-              color: '#9A8F85',
-              background: '#F5F1EC',
+              color: '#8B7355',
+              background: '#FFF8E7',
               padding: '2px 8px',
               borderRadius: 10,
               whiteSpace: 'nowrap',
@@ -117,7 +117,7 @@ export default function ProductCard({ product, size = 'normal' }) {
             <p style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: 12.5,
-              color: '#7A6E63',
+              color: '#7A6030',
               lineHeight: 1.55,
               margin: '0 0 14px 0',
             }}>
@@ -139,7 +139,7 @@ export default function ProductCard({ product, size = 'normal' }) {
           <button
             onClick={handleAdd}
             style={{
-              background: added ? '#1a7a4a' : '#1C1A14',
+              background: added ? '#1a7a4a' : '#1A1500',
               color: '#fff',
               border: 'none',
               borderRadius: 24,
