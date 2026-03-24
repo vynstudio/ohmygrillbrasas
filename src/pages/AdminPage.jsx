@@ -38,7 +38,7 @@ function AdminLogin({ onLogin }) {
   const [error, setError] = useState(false);
 
   const handle = () => {
-    if (pw === 'omg2025') { onLogin(); setError(false); }
+    if (pw === (import.meta.env.VITE_ADMIN_PASSWORD || 'omg2025')) { sessionStorage.setItem('omg_admin_token', pw); onLogin(); setError(false); }
     else { setError(true); setTimeout(() => setError(false), 2000); }
   };
 
@@ -58,7 +58,7 @@ function AdminLogin({ onLogin }) {
         <button onClick={handle} style={{ width: '100%', background: '#F5C842', color: '#1a1008', border: 'none', borderRadius: 0, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
           Entrar →
         </button>
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
+        
       </div>
     </div>
   );
@@ -161,8 +161,8 @@ function MenuEditor() {
 
   useEffect(() => {
     db.getMenu()
-      .then(data => { if (data && data.length > 0) setMenuItems(data.map(d => ({...d, badgeColor: d.badge_color}))); else setMenuItems(initialProducts); })
-      .catch(() => { try { const s = localStorage.getItem("omg_menu"); setMenuItems(s ? JSON.parse(s) : initialProducts); } catch(e) { setMenuItems(initialProducts); } })
+      .then(data => { setMenuItems(data && data.length > 0 ? data : initialProducts); })
+      .catch(() => setMenuItems(initialProducts))
       .finally(() => setLoading(false));
   }, []);
 
@@ -171,11 +171,10 @@ function MenuEditor() {
     const newVal = !item.available;
     // Optimistic update
     setMenuItems(items => items.map(i => i.id === id ? { ...i, available: newVal } : i));
-    db.updateItem(id, { available: newVal }).catch(console.error);
-    setMenuItems(prev => {
-      const updated = prev.map(i => i.id === id ? { ...i, available: newVal } : i);
-      localStorage.setItem('omg_menu', JSON.stringify(updated));
-      return updated;
+    db.updateItem(id, { available: newVal }).catch(err => {
+      console.error('Toggle failed:', err.message);
+      // Revert optimistic update on error
+      setMenuItems(items => items.map(i => i.id === id ? { ...i, available: !newVal } : i));
     });
   };
 
@@ -187,13 +186,12 @@ function MenuEditor() {
     setSaving(true);
     setSaveError('');
     try {
-      // Upsert all items at once
       await db.saveMenu(menuItems);
       setSaved(true);
-      setTimeout(() => setSaved(false), 2500);
+      setTimeout(() => setSaved(false), 3000);
     } catch (err) {
-      setSaveError(err.message || 'Error al guardar. Inténtalo de nuevo.');
-      console.error(err);
+      setSaveError('Error al guardar en Supabase: ' + (err.message || 'Inténtalo de nuevo.'));
+      console.error('saveMenu error:', err);
     } finally {
       setSaving(false);
     }

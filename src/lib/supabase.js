@@ -1,56 +1,66 @@
-// Simple localStorage-based persistence
-// Prices and availability saved locally, synced via URL params for now
-// Supabase can be reconnected later when project is not paused
+import { createClient } from '@supabase/supabase-js';
 
-const MENU_KEY = 'omg_menu_v1';
+const SUPA_URL  = import.meta.env.VITE_SUPABASE_URL;
+const SUPA_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Public anon client — read-only queries (menu, etc.)
+export const supabase = (SUPA_URL && SUPA_ANON) ? createClient(SUPA_URL, SUPA_ANON) : null;
+
+// Admin token stored in sessionStorage after login
+const getToken = () => sessionStorage.getItem('omg_admin_token') || 'omg2025';
+
+async function adminFetch(body) {
+  const res = await fetch('/.netlify/functions/admin-menu', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-token': getToken(),
+    },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
 
 export const db = {
-  async getMenu() {
-    try {
-      const saved = localStorage.getItem(MENU_KEY);
-      if (saved) return JSON.parse(saved);
-    } catch(e) {}
-    return null;
-  },
-  async updateItem(id, data) {
-    try {
-      const saved = localStorage.getItem(MENU_KEY);
-      const items = saved ? JSON.parse(saved) : [];
-      const idx = items.findIndex(i => i.id === id);
-      if (idx >= 0) items[idx] = { ...items[idx], ...data };
-      localStorage.setItem(MENU_KEY, JSON.stringify(items));
-    } catch(e) {}
-    return true;
-  },
-  async saveMenu(items) {
-    localStorage.setItem(MENU_KEY, JSON.stringify(items));
-    return true;
-  },
-  async insertOrder(order) {
-    try {
-      const saved = localStorage.getItem('omg_orders') || '[]';
-      const orders = JSON.parse(saved);
-      orders.unshift({ ...order, created_at: new Date().toISOString() });
-      localStorage.setItem('omg_orders', JSON.stringify(orders));
-    } catch(e) {}
-    return true;
-  },
-  async getOrders() {
-    try {
-      const saved = localStorage.getItem('omg_orders');
-      return saved ? JSON.parse(saved) : [];
-    } catch(e) { return []; }
-  },
-  async updateOrder(id, data) {
-    try {
-      const saved = localStorage.getItem('omg_orders') || '[]';
-      const orders = JSON.parse(saved);
-      const idx = orders.findIndex(o => o.id === id);
-      if (idx >= 0) orders[idx] = { ...orders[idx], ...data };
-      localStorage.setItem('omg_orders', JSON.stringify(orders));
-    } catch(e) {}
-    return true;
-  },
-};
 
-export const supabase = null;
+  // ── Menu reads (anon client — public) ──────────────────────────────────────
+  async getMenu() {
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from('menu_items')
+      .select('id, name, price, available, description, badge, weight, category')
+      .order('category').order('id');
+    if (error) { console.error('getMenu:', error.message); return null; }
+    return data?.length ? data : null;
+  },
+
+  // ── Menu writes (service key via Netlify function) ─────────────────────────
+  async updateItem(id, patch) {
+    return adminFetch({ action: 'update_item', id, patch });
+  },
+
+  async saveMenu(items) {
+    return adminFetch({ action: 'save_menu', items });
+  },
+
+  // ── Order reads (anon client) ──────────────────────────────────────────────
+  async getOrders() {
+    if (!supabase) return [];
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(200);
+    if (error) { console.error('getOrders:', error.message); return []; }
+    return data || [];
+  },
+
+  // ── Order writes ───────────────────────────────────────────────────────────
+  async updateOrder(id, patch) {
+    return adminFetch({ action: 'update_order', id, patch });
+  },
+
+  async insertOrder() { return true; }, // handled by create-payment-intent
+};
