@@ -19,9 +19,9 @@ const hhmm = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:
 // ── Guided flow stages ────────────────────────────────────────────────────────
 // Each stage defines what quick replies to show BEFORE the user sends anything
 const STAGE_REPLIES = {
-  welcome:   ['Solo yo','Para 2','Para 3–4','Para 5 o más'],
-  size_done: ['Sí, lo quiero','Ver otras opciones','Quiero elegir yo'],
-  upsell:    ['Sí, añádelo','No gracias, así está bien'],
+  welcome:   ['Solo yo','Para 2 personas','Para 3–4','Para 5 o más'],
+  size_done: ['Sí, perfecto','Prefiero otra cosa','Quiero elegir yo'],
+  upsell:    ['Sí, ponlo','No gracias'],
   free:      [],
 };
 
@@ -29,9 +29,9 @@ const STAGE_REPLIES = {
 function detectStage(text) {
   const t = text.toLowerCase();
   if (t.includes('para cuántos') || t.includes('cuántos coméis')) return 'welcome';
-  if (t.includes('sí, lo quiero') || t.includes('ver otras opciones') || t.includes('quiero elegir')) return 'size_done';
-  if (t.includes('le añadimos') || t.includes('pan de cristal') || t.includes('chimichurri')) return 'upsell';
-  if (t.includes('checkout') || t.includes('resumen') || t.includes('buen pedido')) return 'free';
+  if (t.includes('os va bien') || t.includes('preferís otra') || t.includes('quieres otra') || t.includes('te va bien')) return 'size_done';
+  if (t.includes('le añadimos') || t.includes('le ponemos') || t.includes('pan de cristal') || t.includes('chimichurri')) return 'upsell';
+  if (t.includes('oh my, perfecto') || t.includes('aquí va tu pedido') || t.includes('aquí tienes tu pedido')) return 'free';
   return null;
 }
 
@@ -181,14 +181,14 @@ export default function ChatBot({ onNavigate }) {
         ...(isMobile ? {
           bottom: open ? TAB_H : 0,
           left:0, right:0,
-          height:'72dvh',
+          height:'68dvh',
           borderRadius:'20px 20px 0 0',
         } : {
-          bottom: 108,
+          bottom: 100,
           left: 32,
-          width: 390,
-          height: 580,
-          borderRadius: 16,
+          width: 360,
+          height: Math.min(520, window.innerHeight - 140),
+          borderRadius: 14,
         }),
         background: S.cream,
         display:'flex', flexDirection:'column',
