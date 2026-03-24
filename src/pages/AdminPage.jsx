@@ -44,15 +44,15 @@ function AdminLogin({ onLogin }) {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0C0A06', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-      <div style={{ background: '#1A1500', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
+      <div style={{ background: '#0F0800', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 20 }}>🔥</div>
-        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#F5DFA0', margin: '0 0 6px' }}>Panel de administración</h1>
+        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#FFF8DC', margin: '0 0 6px' }}>Panel de administración</h1>
         <p style={{ fontSize: 13, color: 'rgba(240,235,227,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
         <input
           type="password" placeholder="Contraseña"
           value={pw} onChange={e => setPw(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handle()}
-          style={{ width: '100%', padding: '13px 16px', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#F5DFA0', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
+          style={{ width: '100%', padding: '13px 16px', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#FFF8DC', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
         <button onClick={handle} style={{ width: '100%', background: '#ffd43a', color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
@@ -70,22 +70,22 @@ function OrderCard({ order, onStatusChange }) {
   const cfg = STATUS_CONFIG[order.status];
 
   return (
-    <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#3D2200'}`, borderRadius: 16, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
+    <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#2A1A00'}`, borderRadius: 16, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
       {/* Header */}
       <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid #F0EDE8' : 'none' }} onClick={() => setExpanded(!expanded)}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#1A1500' }}>{order.id}</span>
+            <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#0F0800' }}>{order.id}</span>
             <Badge status={order.status} />
             {order.status === 'pending' && <span style={{ fontSize: 10, background: '#ffd43a', color: '#fff', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
           </div>
-          <p style={{ fontSize: 13, color: '#C4A265', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
+          <p style={{ fontSize: 13, color: '#C8860A', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
           <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#ffd43a', margin: 0 }}>€{order.total.toFixed(2)}</p>
-          <p style={{ fontSize: 11, color: '#C4A265', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
+          <p style={{ fontSize: 11, color: '#C8860A', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
         </div>
-        <span style={{ fontSize: 16, color: '#C4A265', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
+        <span style={{ fontSize: 16, color: '#C8860A', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
       </div>
 
       {/* Expanded detail */}
@@ -93,11 +93,11 @@ function OrderCard({ order, onStatusChange }) {
         <div style={{ padding: '16px 18px' }}>
           {/* Items */}
           <div style={{ marginBottom: 14 }}>
-            <p style={{ fontSize: 11, letterSpacing: '1.5px', color: '#C4A265', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 8px' }}>Artículos</p>
+            <p style={{ fontSize: 11, letterSpacing: '1.5px', color: '#C8860A', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 8px' }}>Artículos</p>
             {order.items.map((item, i) => (
-              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, padding: '5px 0', borderBottom: '1px solid #2A1800' }}>
-                <span style={{ color: '#1A1500' }}>{item.qty}× {item.name}</span>
-                <span style={{ color: '#C4A265', fontWeight: 500 }}>€{(item.price * item.qty).toFixed(2)}</span>
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, padding: '5px 0', borderBottom: '1px solid #1A1000' }}>
+                <span style={{ color: '#0F0800' }}>{item.qty}× {item.name}</span>
+                <span style={{ color: '#C8860A', fontWeight: 500 }}>€{(item.price * item.qty).toFixed(2)}</span>
               </div>
             ))}
           </div>
@@ -111,30 +111,30 @@ function OrderCard({ order, onStatusChange }) {
               { label: 'Zona', val: order.zone || '—' },
             ].map(item => (
               <div key={item.label}>
-                <p style={{ fontSize: 11, color: '#C4A265', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 2px' }}>{item.label}</p>
-                <p style={{ fontSize: 13, color: '#1A1500', margin: 0 }}>{item.val}</p>
+                <p style={{ fontSize: 11, color: '#C8860A', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', margin: '0 0 2px' }}>{item.label}</p>
+                <p style={{ fontSize: 13, color: '#0F0800', margin: 0 }}>{item.val}</p>
               </div>
             ))}
           </div>
 
           {order.address && (
-            <div style={{ background: '#1C0F00', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
-              <p style={{ fontSize: 11, color: '#C4A265', margin: '0 0 2px' }}>📍 Dirección</p>
-              <p style={{ fontSize: 13, color: '#1A1500', margin: 0 }}>{order.address}</p>
+            <div style={{ background: '#0F0800', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
+              <p style={{ fontSize: 11, color: '#C8860A', margin: '0 0 2px' }}>📍 Dirección</p>
+              <p style={{ fontSize: 13, color: '#0F0800', margin: 0 }}>{order.address}</p>
             </div>
           )}
 
           {order.notes && (
             <div style={{ background: '#FEF3EE', border: '1px solid rgba(232,88,32,0.2)', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
               <p style={{ fontSize: 11, color: '#ffd43a', margin: '0 0 2px', fontWeight: 600 }}>📝 Notas</p>
-              <p style={{ fontSize: 13, color: '#C4A265', margin: 0 }}>{order.notes}</p>
+              <p style={{ fontSize: 13, color: '#C8860A', margin: 0 }}>{order.notes}</p>
             </div>
           )}
 
           {/* Actions */}
           <div style={{ display: 'flex', gap: 8 }}>
             {cfg.next && (
-              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#1A1500', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#0F0800', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
                 {cfg.nextLabel} →
               </button>
             )}
@@ -208,8 +208,8 @@ function MenuEditor() {
   const catLabels = { carnes: 'Carnes', aves: 'Aves', verduras: 'Verduras', salsas: 'Salsas y extras' };
 
   if (loading) return (
-    <div style={{ textAlign: 'center', padding: '48px 20px', color: '#C4A265' }}>
-      <div style={{ width: 32, height: 32, border: '3px solid #3D2200', borderTopColor: '#ffd43a', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+    <div style={{ textAlign: 'center', padding: '48px 20px', color: '#C8860A' }}>
+      <div style={{ width: 32, height: 32, border: '3px solid #2A1A00', borderTopColor: '#ffd43a', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
       <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 14 }}>Cargando carta desde Supabase...</p>
     </div>
   );
@@ -218,8 +218,8 @@ function MenuEditor() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#1A1500', margin: 0 }}>Editor de carta</h3>
-          <p style={{ fontSize: 13, color: '#C4A265', margin: '3px 0 0' }}>Activa/desactiva platos y actualiza precios</p>
+          <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#0F0800', margin: 0 }}>Editor de carta</h3>
+          <p style={{ fontSize: 13, color: '#C8860A', margin: '3px 0 0' }}>Activa/desactiva platos y actualiza precios</p>
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
@@ -231,33 +231,33 @@ function MenuEditor() {
 
       {Object.entries(grouped).map(([cat, items]) => (
         <div key={cat} style={{ marginBottom: 28 }}>
-          <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#1A1500', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 10 }}>
             {catLabels[cat]}
-            <span style={{ width: 32, height: 1, background: '#3D2200', display: 'inline-block' }} />
+            <span style={{ width: 32, height: 1, background: '#2A1A00', display: 'inline-block' }} />
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {items.map(item => (
-              <div key={item.id} style={{ background: item.available ? '#fff' : '#2A1800', border: '1px solid #3D2200', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
+              <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '1px solid #2A1A00', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
                 <span style={{ fontSize: 22 }}>{item.emoji}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 14, fontWeight: 500, color: '#1A1500', margin: 0 }}>{item.name}</p>
-                  <p style={{ fontSize: 11, color: '#C4A265', margin: '1px 0 0' }}>{item.weight}</p>
+                  <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.name}</p>
+                  <p style={{ fontSize: 11, color: '#C8860A', margin: '1px 0 0' }}>{item.weight}</p>
                 </div>
                 {/* Price editor */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 13, color: '#C4A265' }}>€</span>
+                  <span style={{ fontSize: 13, color: '#C8860A' }}>€</span>
                   <input
                     type="number" step="0.5" min="0"
                     value={item.price}
                     onChange={e => handlePriceChange(item.id, e.target.value)}
-                    style={{ width: 64, padding: '6px 8px', border: '1.5px solid #3D2200', borderRadius: 8, fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, color: '#1A1500', textAlign: 'center', outline: 'none' }}
+                    style={{ width: 64, padding: '6px 8px', border: '1.5px solid #2A1A00', borderRadius: 8, fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, color: '#0F0800', textAlign: 'center', outline: 'none' }}
                     onFocus={e => e.target.style.borderColor = '#ffd43a'}
-                    onBlur={e => e.target.style.borderColor = '#3D2200'}
+                    onBlur={e => e.target.style.borderColor = '#2A1A00'}
                   />
                 </div>
                 {/* Toggle */}
-                <button onClick={() => handleToggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: item.available ? '#EDFBF3' : '#2A1800', border: 'none', borderRadius: 20, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12, fontWeight: 500, color: item.available ? '#1a7a4a' : '#C4A265', whiteSpace: 'nowrap' }}>
-                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: item.available ? '#1a7a4a' : '#C4A265', display: 'inline-block' }} />
+                <button onClick={() => handleToggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: item.available ? '#EDFBF3' : '#1A1000', border: 'none', borderRadius: 20, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12, fontWeight: 500, color: item.available ? '#1a7a4a' : '#C8860A', whiteSpace: 'nowrap' }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: item.available ? '#1a7a4a' : '#C8860A', display: 'inline-block' }} />
                   {item.available ? 'Disponible' : 'No disponible'}
                 </button>
               </div>
@@ -292,13 +292,13 @@ function StatsSection({ orders }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 24 }}>
       {stats.map(s => (
-        <div key={s.label} style={{ background: '#fff', border: '1px solid #3D2200', borderRadius: 14, padding: '16px 18px' }}>
+        <div key={s.label} style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 14, padding: '16px 18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 18 }}>{s.icon}</span>
-            <span style={{ fontSize: 11, color: '#C4A265', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</span>
+            <span style={{ fontSize: 11, color: '#C8860A', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</span>
           </div>
           <p style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: s.color, margin: '0 0 3px', lineHeight: 1 }}>{s.value}</p>
-          <p style={{ fontSize: 12, color: '#C4A265', margin: 0 }}>{s.sub}</p>
+          <p style={{ fontSize: 12, color: '#C8860A', margin: 0 }}>{s.sub}</p>
         </div>
       ))}
     </div>
@@ -393,13 +393,13 @@ export default function AdminPage() {
   ];
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#2A1800', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#1A1000', minHeight: '100vh' }}>
 
       {/* Top bar */}
-      <div style={{ background: '#1A1500', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ background: '#0F0800', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 20 }}>🔥</span>
-          <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#F5DFA0' }}>OhMyGrill</span>
+          <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#FFF8DC' }}>OhMyGrill</span>
           <span style={{ fontSize: 11, color: 'rgba(240,235,227,0.35)', background: 'rgba(255,255,255,0.08)', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -415,9 +415,9 @@ export default function AdminPage() {
       </div>
 
       {/* Tab bar */}
-      <div style={{ background: '#fff', borderBottom: '1px solid #3D2200', padding: '0 20px', display: 'flex', gap: 4 }}>
+      <div style={{ background: '#fff', borderBottom: '1px solid #2A1A00', padding: '0 20px', display: 'flex', gap: 4 }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#ffd43a' : '#C4A265', borderBottom: `2px solid ${tab === t.id ? '#ffd43a' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
+          <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#ffd43a' : '#C8860A', borderBottom: `2px solid ${tab === t.id ? '#ffd43a' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
             {t.label}
             {t.badge && <span style={{ background: '#ffd43a', color: '#fff', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
           </button>
@@ -435,7 +435,7 @@ export default function AdminPage() {
             {/* Filter bar */}
             <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
               {[{ id: 'all', label: 'Todos' }, ...Object.entries(STATUS_CONFIG).map(([id, cfg]) => ({ id, label: cfg.label }))].map(f => (
-                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#1A1500' : '#fff', color: filterStatus === f.id ? '#fff' : '#C4A265', border: '1px solid #3D2200', borderRadius: 20, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#0F0800' : '#fff', color: filterStatus === f.id ? '#fff' : '#C8860A', border: '1px solid #2A1A00', borderRadius: 20, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   {f.label} {f.id !== 'all' && <span style={{ opacity: 0.6 }}>({orders.filter(o => o.status === f.id).length})</span>}
                 </button>
               ))}
@@ -443,9 +443,9 @@ export default function AdminPage() {
 
             {/* Orders list */}
             {filteredOrders.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#C4A265' }}>
+              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#C8860A' }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>📭</div>
-                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#1A1500', marginBottom: 6 }}>Sin pedidos</p>
+                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#0F0800', marginBottom: 6 }}>Sin pedidos</p>
                 <p style={{ fontSize: 13 }}>No hay pedidos con este filtro</p>
               </div>
             ) : (
@@ -465,7 +465,7 @@ export default function AdminPage() {
 
         {/* ── MENU TAB ── */}
         {tab === 'menu' && (
-          <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #3D2200', padding: isMobile ? '24px 20px' : '32px' }}>
+          <div style={{ background: '#fff', borderRadius: 20, border: '1px solid #2A1A00', padding: isMobile ? '24px 20px' : '32px' }}>
             <MenuEditor />
           </div>
         )}
@@ -473,20 +473,20 @@ export default function AdminPage() {
         {/* ── STATS TAB ── */}
         {tab === 'stats' && (
           <div>
-            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#1A1500', margin: '0 0 20px' }}>Resumen de actividad</h3>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 20px' }}>Resumen de actividad</h3>
 
             {orders.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '48px', color: '#C4A265' }}>
+              <div style={{ textAlign: 'center', padding: '48px', color: '#C8860A' }}>
                 <div style={{ fontSize: 40, marginBottom: 12 }}>📊</div>
-                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#1A1500', marginBottom: 6 }}>Sin datos todavía</p>
+                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: '#0F0800', marginBottom: 6 }}>Sin datos todavía</p>
                 <p style={{ fontSize: 13 }}>Las estadísticas aparecerán cuando haya pedidos completados.</p>
               </div>
             )}
 
             {orders.length > 0 && <>
             {/* Revenue by zone */}
-            <div style={{ background: '#fff', border: '1px solid #3D2200', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
-              <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#1A1500', margin: '0 0 16px' }}>Ingresos por zona</h4>
+            <div style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
+              <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Ingresos por zona</h4>
               {Object.entries(
                 orders.reduce((acc, o) => {
                   const zone = o.zone || 'Recogida en local';
@@ -500,10 +500,10 @@ export default function AdminPage() {
                 return (
                   <div key={zone} style={{ marginBottom: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                      <span style={{ fontSize: 13, color: '#1A1500' }}>{zone}</span>
+                      <span style={{ fontSize: 13, color: '#0F0800' }}>{zone}</span>
                       <span style={{ fontSize: 13, fontWeight: 500, color: '#ffd43a' }}>€{rev.toFixed(0)}</span>
                     </div>
-                    <div style={{ height: 6, background: '#2A1800', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: 6, background: '#1A1000', borderRadius: 3, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${pct}%`, background: '#ffd43a', borderRadius: 3, transition: 'width 0.5s ease' }} />
                     </div>
                   </div>
@@ -512,17 +512,17 @@ export default function AdminPage() {
             </div>
 
             {/* Top products */}
-            <div style={{ background: '#fff', border: '1px solid #3D2200', borderRadius: 20, padding: '24px' }}>
-              <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#1A1500', margin: '0 0 16px' }}>Platos más pedidos</h4>
+            <div style={{ background: '#fff', border: '1px solid #2A1A00', borderRadius: 20, padding: '24px' }}>
+              <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Platos más pedidos</h4>
               {Object.entries(
                 orders.flatMap(o => o.items).reduce((acc, item) => {
                   acc[item.name] = (acc[item.name] || 0) + item.qty;
                   return acc;
                 }, {})
               ).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([name, qty], i) => (
-                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < 5 ? '1px solid #2A1800' : 'none' }}>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#C4A265', minWidth: 20 }}>{i + 1}</span>
-                  <span style={{ fontSize: 13, color: '#1A1500', flex: 1 }}>{name}</span>
+                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < 5 ? '1px solid #1A1000' : 'none' }}>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#C8860A', minWidth: 20 }}>{i + 1}</span>
+                  <span style={{ fontSize: 13, color: '#0F0800', flex: 1 }}>{name}</span>
                   <span style={{ background: '#FEF3EE', color: '#ffd43a', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
                 </div>
               ))}
