@@ -19,12 +19,10 @@ const hhmm = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:
 // ── Guided flow stages ────────────────────────────────────────────────────────
 // Each stage defines what quick replies to show BEFORE the user sends anything
 const STAGE_REPLIES = {
-  welcome:    ['Para 1 persona','Para 2','Para 3–4','Para 5 o más','Ver la carta'],
-  size_done:  ['Sí, lo quiero','Ver otras opciones','Quiero elegir yo'],
-  upsell:     ['Sí, añádelo','No gracias, así está bien'],
-  delivery:   ['A domicilio','Recojo yo (~25 min, gratis)'],
-  zone:       ['1. Centro €3','2. Delicias €3.50','3. Oliver €3.50','4. Las Fuentes €4','5. Torrero €4','6. Casablanca €4.50'],
-  free:       [], // free text, no guided replies
+  welcome:   ['Solo yo','Para 2','Para 3–4','Para 5 o más'],
+  size_done: ['Sí, lo quiero','Ver otras opciones','Quiero elegir yo'],
+  upsell:    ['Sí, añádelo','No gracias, así está bien'],
+  free:      [],
 };
 
 // Detect which stage we're at based on bot response
@@ -33,10 +31,8 @@ function detectStage(text) {
   if (t.includes('para cuántos') || t.includes('cuántos coméis')) return 'welcome';
   if (t.includes('sí, lo quiero') || t.includes('ver otras opciones') || t.includes('quiero elegir')) return 'size_done';
   if (t.includes('le añadimos') || t.includes('pan de cristal') || t.includes('chimichurri')) return 'upsell';
-  if (t.includes('a domicilio o recog') || t.includes('domicilio o recog') || t.includes('recoges en el local')) return 'delivery';
-  if (t.includes('1. centro') || t.includes('qué zona') || t.includes('zona de zaragoza')) return 'zone';
-  if (t.includes('__order__') || t.includes('resumen') || t.includes('confirmar')) return 'free';
-  return null; // keep previous stage
+  if (t.includes('checkout') || t.includes('resumen') || t.includes('buen pedido')) return 'free';
+  return null;
 }
 
 // ── Order card ────────────────────────────────────────────────────────────────
@@ -240,7 +236,7 @@ export default function ChatBot({ onNavigate }) {
         <div style={{ height:2, background:S.surface, flexShrink:0 }}>
           <div style={{
             height:'100%', background:S.yellow, transition:'width .4s ease',
-            width: stage==='welcome'?'16%' : stage==='size_done'?'32%' : stage==='upsell'?'50%' : stage==='delivery'?'66%' : stage==='zone'?'83%' : '100%',
+            width: stage==='welcome'?'25%' : stage==='size_done'?'55%' : stage==='upsell'?'80%' : '100%',
           }} />
         </div>
 
@@ -320,6 +316,7 @@ export default function ChatBot({ onNavigate }) {
           border:`2px solid ${open?'rgba(255,255,255,.1)':'rgba(26,16,8,.15)'}`,
           borderRadius:24, padding:'9px 20px 9px 10px',
           cursor:'pointer', zIndex:1001, fontFamily:'inherit',
+          minWidth:160, whiteSpace:'nowrap',
           boxShadow: open ? '0 4px 20px rgba(0,0,0,.25)' : '0 4px 20px rgba(245,200,66,.45)',
           transition:'all .2s',
         }}
