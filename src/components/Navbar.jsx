@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 
-const LOGO_SVG = (
-  <svg width="19" height="17" viewBox="0 0 20 18" fill="none">
-    <path d="M3 14 Q3 4 10 4 Q17 4 17 14" stroke="#F5C842" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="1" y1="17" x2="19" y2="17" stroke="#F5C842" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="4" y1="17" x2="4" y2="14" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="10" y1="17" x2="10" y2="13" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="16" y1="17" x2="16" y2="14" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
 const TICKER_ITEMS = ['Leña de encina','Desde 2013','Entrega 90 min','Zaragoza','Carnes premium','4.9 Google'];
 
 export default function Navbar({ activePage, onNavigate, onCartOpen }) {
@@ -49,7 +39,7 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
         <div style={{ maxWidth:1400, margin:'0 auto', padding:'0 56px', display:'flex', alignItems:'center', width:'100%' }}>
           {/* Logo */}
           <button onClick={() => onNavigate('home')} style={{ background:'none', border:'none', cursor:'pointer', display:'flex', alignItems:'center', gap:10, padding:0, flexShrink:0, marginRight:32 }}>
-            <div style={{ width:40, height:40, background:'#1a1008', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{LOGO_SVG}</div>
+            <img src="/logo.png" alt="OhMyGrill Brasas" style={{ width:44, height:44, borderRadius:'50%', objectFit:'cover', flexShrink:0 }}/>
             <div>
               <div style={{ fontFamily:"'Fraunces',serif", fontSize:15, fontWeight:600, color:'#1a1008', lineHeight:1, letterSpacing:'-.2px' }}>OhMyGrill</div>
               <div style={{ fontSize:10, color:'rgba(26,16,8,.35)', letterSpacing:'1.5px', textTransform:'uppercase' }}>Brasas</div>

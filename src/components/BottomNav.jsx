@@ -1,15 +1,5 @@
 import { useCart } from '../context/CartContext';
 
-const LOGO_SVG = (
-  <svg width="15" height="14" viewBox="0 0 20 18" fill="none">
-    <path d="M3 14 Q3 4 10 4 Q17 4 17 14" stroke="#F5C842" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="1" y1="17" x2="19" y2="17" stroke="#F5C842" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="4" y1="17" x2="4" y2="14" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="10" y1="17" x2="10" y2="13" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-    <line x1="16" y1="17" x2="16" y2="14" stroke="#F5C842" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
 const TABS = [
   { id:'home', label:'Inicio', icon:(a) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={a?'#1a1008':'rgba(26,16,8,.3)'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
   { id:'menu', label:'Carta', icon:(a) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={a?'#1a1008':'rgba(26,16,8,.3)'} strokeWidth="2" strokeLinecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> },

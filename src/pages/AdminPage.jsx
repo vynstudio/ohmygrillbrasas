@@ -45,7 +45,7 @@ function AdminLogin({ onLogin }) {
   return (
     <div style={{ minHeight: '100vh', background: '#0C0A06', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
       <div style={{ background: '#FAF6EF', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 0, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
-        <div style={{ fontSize: 48, marginBottom: 20 }}>🔥</div>
+        <img src="/logo.png" alt="OhMyGrill" style={{ width:80, height:80, borderRadius:"50%", objectFit:"cover", margin:"0 auto 20px", display:"block" }}/>
         <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#1a1008', margin: '0 0 6px' }}>Panel de administración</h1>
         <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
         <input
