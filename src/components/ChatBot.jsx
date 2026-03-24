@@ -16,23 +16,11 @@ const fmt = t => t
 
 const hhmm = () => new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
 
-// ── Guided flow stages ────────────────────────────────────────────────────────
-// Each stage defines what quick replies to show BEFORE the user sends anything
-const STAGE_REPLIES = {
-  welcome:   ['Solo yo','Para 2 personas','Para 3–4','Para 5 o más'],
-  size_done: ['Sí, perfecto','Prefiero otra cosa','Quiero elegir yo'],
-  upsell:    ['Sí, ponlo','No gracias'],
-  free:      [],
-};
-
-// Detect which stage we're at based on bot response
-function detectStage(text) {
-  const t = text.toLowerCase();
-  if (t.includes('para cuántos') || t.includes('cuántos coméis')) return 'welcome';
-  if (t.includes('os va bien') || t.includes('preferís otra') || t.includes('quieres otra') || t.includes('te va bien')) return 'size_done';
-  if (t.includes('le añadimos') || t.includes('le ponemos') || t.includes('pan de cristal') || t.includes('chimichurri')) return 'upsell';
-  if (t.includes('oh my, perfecto') || t.includes('aquí va tu pedido') || t.includes('aquí tienes tu pedido')) return 'free';
-  return null;
+// ── Parse __OPTIONS__ from bot response ──────────────────────────────────────
+function parseOptions(text) {
+  const m = text.match(/__OPTIONS__(.+?)__END__/);
+  if (!m) return [];
+  return m[1].split('|').map(s => s.trim()).filter(Boolean).slice(0, 3);
 }
 
 // ── Order card ────────────────────────────────────────────────────────────────
@@ -74,7 +62,7 @@ export default function ChatBot({ onNavigate }) {
   const [input, setInput]         = useState('');
   const [loading, setLoading]     = useState(false);
   const [unread, setUnread]       = useState(0);
-  const [stage, setStage]         = useState('welcome');
+
   const [isMobile, setIsMobile]   = useState(window.innerWidth < 768);
   const msgRef  = useRef(null);
   const inputRef = useRef(null);
@@ -93,7 +81,7 @@ export default function ChatBot({ onNavigate }) {
         role:'bot', time:hhmm(),
         text:'¡Oh my! Soy **OMG**, el asistente de OhMyGrill. Vamos a hacerte el pedido perfecto. ¿Para cuántos coméis hoy?',
       }]);
-      setStage('welcome');
+      setQuickReplies(['Solo yo','Para 2','Para 3–4','Para 5 o más']);
       setTimeout(scrollBot, 80);
     }
     if (open) { setUnread(0); setTimeout(() => inputRef.current?.focus(), 200); }
@@ -150,12 +138,12 @@ export default function ChatBot({ onNavigate }) {
       let displayText = raw.replace(/__ORDER__.+?__END__/s,'').trim();
       if (orderMatch) { try { orderData = JSON.parse(orderMatch[1]); } catch(e) {} }
 
-      setMessages(prev => [...prev, { role:'bot', text:displayText, time:hhmm(), order:orderData }]);
+      // Parse options from bot response
+      const options = parseOptions(raw);
+      const cleanText = displayText.replace(/__OPTIONS__.+?__END__/s,'').trim();
 
-      // Advance stage based on response content
-      const newStage = detectStage(displayText);
-      if (newStage) setStage(newStage);
-      else if (orderData) setStage('free');
+      setMessages(prev => [...prev, { role:'bot', text:cleanText, time:hhmm(), order:orderData }]);
+      setQuickReplies(options);
 
       if (!open) setUnread(u => u+1);
 
@@ -170,7 +158,7 @@ export default function ChatBot({ onNavigate }) {
 
   const onKey = e => { if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
 
-  const qrs = STAGE_REPLIES[stage] || [];
+  const qrs = quickReplies;
   const TAB_H = 72;
 
   return (
@@ -236,7 +224,7 @@ export default function ChatBot({ onNavigate }) {
         <div style={{ height:2, background:S.surface, flexShrink:0 }}>
           <div style={{
             height:'100%', background:S.yellow, transition:'width .4s ease',
-            width: stage==='welcome'?'25%' : stage==='size_done'?'55%' : stage==='upsell'?'80%' : '100%',
+            width: messages.length <= 1 ? '10%' : messages.length <= 3 ? '35%' : messages.length <= 5 ? '65%' : quickReplies.some(q=>q.includes('Confirmar')) ? '100%' : '80%',
           }} />
         </div>
 
