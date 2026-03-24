@@ -67,7 +67,7 @@ export default function ChatBot({ onNavigate }) {
   const [isMobile, setIsMobile]   = useState(window.innerWidth < 768);
   const msgRef  = useRef(null);
   const inputRef = useRef(null);
-  const { addItem } = useCart();
+  const { addItem, itemCount } = useCart();
 
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
@@ -182,7 +182,7 @@ export default function ChatBot({ onNavigate }) {
         background: S.cream,
         display:'flex', flexDirection:'column',
         boxShadow:'0 24px 80px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.07)',
-        zIndex:998,
+        zIndex:149,
         transform: open
           ? 'translateY(0) scale(1)'
           : isMobile ? 'translateY(100%)' : 'translateY(14px) scale(.97)',
@@ -304,7 +304,7 @@ export default function ChatBot({ onNavigate }) {
           background: open ? S.dark : S.yellow,
           border:`2px solid ${open?'rgba(255,255,255,.1)':'rgba(26,16,8,.15)'}`,
           borderRadius:24, padding:'9px 20px 9px 10px',
-          cursor:'pointer', zIndex:1001, fontFamily:'inherit',
+          cursor:'pointer', zIndex:150, fontFamily:'inherit',
           minWidth:160, whiteSpace:'nowrap',
           boxShadow: open ? '0 4px 20px rgba(0,0,0,.25)' : '0 4px 20px rgba(245,200,66,.45)',
           transition:'all .2s',
@@ -326,7 +326,9 @@ export default function ChatBot({ onNavigate }) {
       {/* ══ MOBILE BAR — above tab bar ══ */}
       {isMobile && (
         <button onClick={() => setOpen(o=>!o)} style={{
-          position:'fixed', bottom:TAB_H, left:0, right:0,
+          position:'fixed',
+          bottom: itemCount > 0 && !open ? TAB_H + 48 : TAB_H,
+          left:0, right:0,
           background: open ? S.dark : S.yellow,
           border:'none', borderTop:`1px solid ${open?'rgba(255,255,255,.08)':'rgba(26,16,8,.12)'}`,
           padding:'11px 20px', display:'flex', alignItems:'center', justifyContent:'space-between',
