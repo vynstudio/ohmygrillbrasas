@@ -40,7 +40,7 @@ function AppContent() {
       case 'packs':    return <PacksPage onNavigate={navigate} />;
       case 'checkout': return <CheckoutPage onNavigate={navigate} />;
       case 'about':    return <AboutPage onNavigate={navigate} />;
-      case 'contact':  return <AboutPage onNavigate={navigate} />;
+      case 'contact':  return <AboutPage onNavigate={navigate} initialSection='contact' />;
       case 'tracker':  return <OrderTrackerPage onNavigate={navigate} />;
       default:         return <HomePage onNavigate={navigate} />;
     }

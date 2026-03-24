@@ -27,7 +27,7 @@ export default function BottomNav({ activePage, onNavigate }) {
       {itemCount > 0 && !isCheckout && (
         <button onClick={() => onNavigate('checkout')} style={{ position:'fixed', bottom:72, left:'50%', transform:'translateX(-50%)', width:'100%', maxWidth:430, background:'#F5C842', color:'#1a1008', border:'none', borderTop:'1px solid rgba(26,16,8,.12)', padding:'13px 20px', display:'flex', alignItems:'center', justifyContent:'space-between', cursor:'pointer', fontFamily:"'Outfit',sans-serif", zIndex:199 }}>
           <span style={{ fontSize:13, fontWeight:700 }}>🛒 {itemCount} artículo{itemCount>1?'s':''}</span>
-          <span style={{ fontSize:13, fontWeight:700 }}>Ver pedido · €{subtotal.toFixed(2)} →</span>
+          <span style={{ fontSize:13, fontWeight:700 }}>Finalizar pedido · €{subtotal.toFixed(2)} →</span>
         </button>
       )}
 

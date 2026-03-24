@@ -62,7 +62,7 @@ function OrderPanel({ onNavigate }) {
           <div style={{ display:'flex', justifyContent:'space-between', marginBottom:12, fontSize:13, color:S.sub }}><span>Envío</span><span style={{ fontWeight:600, color:S.dark }}>{deliveryType==='pickup'?'Gratis':deliveryZone?`€${deliveryFee.toFixed(2)}`:'—'}</span></div>
         </>)}
         <button onClick={()=>onNavigate(itemCount>0?'checkout':'menu')} style={{ width:'100%', background:S.dark, color:S.yellow, border:'none', borderRadius:12, padding:14, fontFamily:'inherit', fontSize:13, fontWeight:600, cursor:'pointer' }}>
-          {itemCount>0?`Finalizar pedido · €${(deliveryType==='delivery'&&deliveryZone?total:subtotal).toFixed(2)} →`:'Ver la carta →'}
+          {itemCount>0?`Finalizar pedido · €${(deliveryType==='delivery'&&deliveryZone?total:subtotal).toFixed(2)} →`:'Pedir ahora →'}
         </button>
       </div>
     </div>
@@ -133,7 +133,7 @@ function MobileHero({ onNavigate }) {
           <h1 style={{ fontFamily:"'Fraunces',serif", fontSize:44, fontWeight:400, color:S.yellow, lineHeight:.9, letterSpacing:'-1.8px', fontStyle:'italic', marginBottom:16 }}>como tiene que ser.</h1>
           <p style={{ fontSize:14, color:'rgba(255,255,255,.5)', lineHeight:1.65, marginBottom:22, maxWidth:280 }}>Carnes premium a la brasa de leña de encina. Pedidos para Zaragoza.</p>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10 }}>
-            <button onClick={()=>onNavigate('menu')} style={{ background:S.yellow, color:S.dark, border:'none', borderRadius:50, padding:'14px 18px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>Ver la carta →</button>
+            <button onClick={()=>onNavigate('menu')} style={{ background:S.yellow, color:S.dark, border:'none', borderRadius:50, padding:'14px 18px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>Pedir ahora →</button>
             <button onClick={()=>onNavigate('packs')} style={{ background:'rgba(255,255,255,.1)', color:'rgba(255,255,255,.8)', border:'1px solid rgba(255,255,255,.2)', borderRadius:50, padding:'14px 18px', fontSize:14, fontWeight:500, cursor:'pointer', fontFamily:'inherit' }}>Ver packs</button>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function HomePage({ onNavigate }) {
             <h1 style={{ fontFamily:"'Fraunces',serif", fontSize:72, fontWeight:400, color:S.yellow, fontStyle:'italic', lineHeight:.9, letterSpacing:'-2.5px', marginBottom:26 }}>como tiene que ser.</h1>
             <p style={{ fontSize:16, color:'rgba(255,255,255,.48)', lineHeight:1.75, maxWidth:400, marginBottom:38 }}>Carnes premium a la brasa de leña de encina. Pedidos para toda Zaragoza.</p>
             <div style={{ display:'flex', gap:12 }}>
-              <button onClick={()=>onNavigate('menu')} style={{ background:S.yellow, color:S.dark, border:'none', borderRadius:32, padding:'15px 34px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>Ver la carta →</button>
+              <button onClick={()=>onNavigate('menu')} style={{ background:S.yellow, color:S.dark, border:'none', borderRadius:32, padding:'15px 34px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>Pedir ahora →</button>
               <button onClick={()=>onNavigate('packs')} style={{ background:'rgba(255,255,255,.08)', color:'rgba(255,255,255,.8)', border:'1px solid rgba(255,255,255,.18)', borderRadius:32, padding:'15px 30px', fontSize:14, fontWeight:500, cursor:'pointer', fontFamily:'inherit' }}>Ver packs</button>
             </div>
             <div style={{ display:'flex', gap:28, marginTop:44, paddingTop:28, borderTop:'1px solid rgba(255,255,255,.08)' }}>

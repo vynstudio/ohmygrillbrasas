@@ -66,9 +66,9 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
           </div>
 
           {/* Cart */}
-          <button onClick={onCartOpen} style={{ display:'flex', alignItems:'center', gap:8, background: itemCount>0 ? '#1a1008' : '#FAF6EF', border:`1.5px solid ${itemCount>0 ? '#1a1008' : 'rgba(26,16,8,.12)'}`, borderRadius:24, padding:'9px 20px', cursor:'pointer', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:600, color: itemCount>0 ? '#F5C842' : '#1a1008', transition:'all .2s', flexShrink:0 }}>
+          <button onClick={itemCount>0 ? onCartOpen : ()=>onNavigate('menu')} style={{ display:'flex', alignItems:'center', gap:8, background: itemCount>0 ? '#1a1008' : '#FAF6EF', border:`1.5px solid ${itemCount>0 ? '#1a1008' : 'rgba(26,16,8,.12)'}`, borderRadius:24, padding:'9px 20px', cursor:'pointer', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:600, color: itemCount>0 ? '#F5C842' : '#1a1008', transition:'all .2s', flexShrink:0 }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-            {itemCount > 0 ? `Carrito (${itemCount})` : 'Carrito'}
+            {itemCount > 0 ? `Carrito (${itemCount})` : 'Pedir ahora'}
           </button>
         </div>
       </nav>

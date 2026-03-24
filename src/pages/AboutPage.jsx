@@ -22,9 +22,10 @@ const REVIEWS = [
   { name:'Javier L.', detail:'Centro · Desde 2021', quote:'"Tres años pidiendo el pollo de corral todos los viernes. No hay nada igual en Zaragoza."' },
 ];
 
-export default function AboutPage({ onNavigate }) {
+export default function AboutPage({ onNavigate, initialSection }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth<768);
   useEffect(()=>{ const fn=()=>setIsMobile(window.innerWidth<768); window.addEventListener('resize',fn); return ()=>window.removeEventListener('resize',fn); },[]);
+  useEffect(()=>{ if(initialSection==='contact'){ setTimeout(()=>{ const el=document.getElementById('contact-section'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },120); } },[initialSection]);
 
   const today = new Date().getDay();
 
@@ -156,7 +157,7 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* Contact + Hours */}
-      <section style={{ padding: isMobile?'32px 20px':'72px 56px', borderBottom:`1px solid ${S.border}`, display: isMobile?'block':'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start' }}>
+      <section id="contact-section" style={{ padding: isMobile?'32px 20px':'72px 56px', borderBottom:`1px solid ${S.border}`, display: isMobile?'block':'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start' }}>
         <div>
           <div style={{ fontSize:11, fontWeight:600, letterSpacing:'2.5px', textTransform:'uppercase', color:S.yellow, marginBottom:14 }}>Encuéntranos</div>
           <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?28:40, fontWeight:400, color:S.dark, letterSpacing:'-1px', marginBottom:20 }}>Estamos en Zaragoza</h2>
@@ -209,7 +210,7 @@ export default function AboutPage({ onNavigate }) {
           <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile?26:34, fontWeight:400, color:S.dark, letterSpacing:'-.8px', marginBottom:6 }}>¿Listo para pedir?</h2>
           <p style={{ fontSize:14, color:'rgba(26,16,8,.55)', lineHeight:1.6 }}>Entrega en 90 min o recogida en el local · Toda Zaragoza · Todos los días.</p>
         </div>
-        <button onClick={()=>onNavigate('menu')} style={{ background:S.dark, color:S.yellow, border:'none', borderRadius:50, padding:'15px 36px', fontSize:15, fontWeight:600, cursor:'pointer', fontFamily:'inherit', flexShrink:0 }}>Ver la carta →</button>
+        <button onClick={()=>onNavigate('menu')} style={{ background:S.dark, color:S.yellow, border:'none', borderRadius:50, padding:'15px 36px', fontSize:15, fontWeight:600, cursor:'pointer', fontFamily:'inherit', flexShrink:0 }}>Pedir ahora →</button>
       </div>
 
       {/* Footer */}

@@ -142,7 +142,7 @@ export default function PacksPage({ onNavigate }) {
       {!isMobile && (
         <footer style={{ background:S.dark, padding:'20px 56px', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
           <div style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:S.yellow }}>OhMyGrill Brasas</div>
-          <button onClick={()=>onNavigate('menu')} style={{ background:'none', border:'none', fontSize:12, color:'rgba(255,255,255,.3)', cursor:'pointer', fontFamily:'inherit' }}>← Volver a la carta</button>
+          <button onClick={()=>onNavigate('menu')} style={{ background:S.yellow, color:S.dark, border:'none', borderRadius:50, padding:'12px 28px', fontSize:13, fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>Pedir ahora →</button>
           <div style={{ fontSize:11, color:'rgba(255,255,255,.15)' }}>© 2025 OhMyGrill Brasas</div>
         </footer>
       )}
