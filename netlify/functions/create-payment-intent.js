@@ -1,4 +1,5 @@
 const Stripe = require('stripe');
+const { sendOrderNotification } = require('./notify-order');
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -110,6 +111,17 @@ exports.handler = async (event) => {
         console.error('Supabase insert failed:', dbErr.message);
       }
     }
+
+    // Send WhatsApp notifications (non-blocking)
+    sendOrderNotification({
+      orderId,
+      items,
+      total: totalCents / 100,
+      deliveryType,
+      deliveryZone,
+      contact,
+      address,
+    }).catch(e => console.error('Notification error:', e.message));
 
     return {
       statusCode: 200,
