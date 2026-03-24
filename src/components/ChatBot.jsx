@@ -184,7 +184,7 @@ export default function ChatBot({ onNavigate, activePage }) {
           borderRadius:'20px 20px 0 0',
         } : {
             bottom: 108,
-          right: 32,
+          left: 32,
           width: 380,
           height: 560,
           borderRadius: 16,
@@ -288,7 +288,7 @@ export default function ChatBot({ onNavigate, activePage }) {
         <button onClick={() => setOpen(o=>!o)} style={{
           position:'fixed',
           bottom: 32,
-          right: 32,
+          left: 32,
           top: 'auto',
           display:'flex', alignItems:'center', gap:9,
           background: open ? S.surface : S.dark,
