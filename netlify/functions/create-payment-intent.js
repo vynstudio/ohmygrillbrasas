@@ -26,8 +26,8 @@ exports.handler = async (event) => {
     const deliveryFeeCents  = deliveryType === 'pickup' ? 0 : subtotalCents >= 3500 ? 0 : Math.round((deliveryZone?.deliveryFee ?? 0) * 100);
     const totalCents        = subtotalCents + deliveryFeeCents;
 
-    if (totalCents < 100) {
-      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Pedido demasiado pequeño' }) };
+    if (totalCents < 50) {
+      return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Pedido demasiado pequeño (mínimo €0.50)' }) };
     }
 
     const orderId     = 'OMG-' + Date.now().toString(36).toUpperCase();
