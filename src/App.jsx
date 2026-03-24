@@ -12,19 +12,19 @@ import AdminPage from './pages/AdminPage';
 import OrderTrackerPage from './pages/OrderTrackerPage';
 
 function AppContent() {
-  const getInitialPage = () => window.location.hash.replace('#', '') || 'home';
-  const [page, setPage] = useState(getInitialPage);
+  const getPage = () => window.location.hash.replace('#','') || 'home';
+  const [page, setPage] = useState(getPage);
   const [cartOpen, setCartOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const navigate = (p) => {
     setPage(p);
     window.location.hash = p === 'home' ? '' : p;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top:0, behavior:'smooth' });
   };
 
   useEffect(() => {
-    const onHash = () => setPage(window.location.hash.replace('#', '') || 'home');
+    const onHash = () => setPage(window.location.hash.replace('#','') || 'home');
     const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('hashchange', onHash);
     window.addEventListener('resize', onResize);
@@ -34,7 +34,7 @@ function AppContent() {
   if (page === 'admin') return <AdminPage onNavigate={navigate} />;
 
   const renderPage = () => {
-    switch (page) {
+    switch(page) {
       case 'home':     return <HomePage onNavigate={navigate} />;
       case 'menu':     return <MenuPage onNavigate={navigate} />;
       case 'packs':    return <PacksPage onNavigate={navigate} />;
@@ -47,13 +47,14 @@ function AppContent() {
   };
 
   return (
-    <div style={{ minHeight:'100vh', background:'#FFFFFF' }}>
+    <div style={{ minHeight:'100vh', background:'#FAF5EC' }}>
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
       <main style={{ paddingBottom: isMobile ? 120 : 0 }}>
         {renderPage()}
       </main>
       {!isMobile && (
-        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
+        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)}
+          onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
       )}
       {isMobile && <BottomNav activePage={page} onNavigate={navigate} />}
     </div>

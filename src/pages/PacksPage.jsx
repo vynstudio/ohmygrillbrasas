@@ -18,8 +18,8 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: '#F5F0E8',
-        borderRadius: 24,
+        background: '#FAF5EC',
+        borderRadius: 0,
         border: `2px solid ${hovered ? accent : '#2A1A00'}`,
         overflow: 'hidden',
         transition: 'all 0.25s ease',
@@ -30,12 +30,12 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
       }}
     >
       {/* Top band */}
-      <div style={{ background: '#FFFFFF', padding: '28px 28px 24px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: '#FAF5EC', padding: '28px 28px 24px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', bottom: -24, right: -16, fontSize: 100, opacity: 0.07, userSelect: 'none' }}>{pack.emoji}</div>
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14 }}>
             <div>
-              <span style={{ background: accent, color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 20, letterSpacing: '0.3px', display: 'inline-block', marginBottom: 10 }}>
+              <span style={{ background: accent, color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 0, letterSpacing: '0.3px', display: 'inline-block', marginBottom: 10 }}>
                 {pack.badge}
               </span>
               <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 26, fontWeight: 600, color: '#0F0800', margin: 0, lineHeight: 1.1 }}>{pack.name}</h2>
@@ -68,7 +68,7 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
               <span style={{ fontFamily: "'Fraunces', serif", fontSize: 34, fontWeight: 600, color: '#FFD43A', lineHeight: 1 }}>€{pack.price}</span>
               <span style={{ fontSize: 14, color: 'rgba(15,8,0,0.45)', textDecoration: 'line-through' }}>€{pack.originalPrice}</span>
             </div>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: accentLight, borderRadius: 20, padding: '3px 10px', marginTop: 6 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: accentLight, borderRadius: 0, padding: '3px 10px', marginTop: 6 }}>
               <span style={{ fontSize: 11, color: accent, fontWeight: 600 }}>Ahorras €{pack.savings}</span>
             </div>
           </div>
@@ -83,7 +83,7 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
           onClick={() => onAdd(pack)}
           style={{
             width: '100%', background: added ? '#2A3A00' : '#FFD43A',
-            color: '#0F0800', border: 'none', borderRadius: 14,
+            color: '#0F0800', border: 'none', borderRadius: 0,
             padding: '14px', fontFamily: "'Outfit', sans-serif",
             fontSize: 15, fontWeight: 500, cursor: 'pointer',
             transition: 'all 0.2s', display: 'flex', alignItems: 'center',
@@ -110,9 +110,9 @@ function ComparisonTable({ isMobile }) {
   const accents = ['#FFD43A', '#FFD43A', '#FFD43A'];
 
   return (
-    <div style={{ background: '#F5F0E8', borderRadius: 20, border: '1px solid rgba(15,8,0,0.12)', overflow: 'hidden' }}>
+    <div style={{ background: '#FAF5EC', borderRadius: 0, border: '2px solid rgba(15,8,0,0.15)', overflow: 'hidden' }}>
       {/* Header */}
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '120px repeat(3,1fr)' : '180px repeat(3,1fr)', background: '#FFFFFF' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '120px repeat(3,1fr)' : '180px repeat(3,1fr)', background: '#FAF5EC' }}>
         <div style={{ padding: '16px 20px' }} />
         {cols.map((col, i) => (
           <div key={col} style={{ padding: '16px 12px', textAlign: 'center', borderLeft: '1px solid rgba(15,8,0,0.12)' }}>
@@ -157,13 +157,13 @@ export default function PacksPage({ onNavigate }) {
   const itemCount = items.reduce((s, i) => s + i.qty, 0);
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FFFFFF', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAF5EC', minHeight: '100vh' }}>
 
       {/* Hero header */}
-      <div style={{ background: '#FFFFFF', padding: isMobile ? '48px 20px 40px' : '64px 0 56px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: '#FAF5EC', padding: isMobile ? '48px 20px 40px' : '64px 0 56px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: -40, right: -40, fontSize: 220, opacity: 0.03, userSelect: 'none', fontFamily: "'Fraunces', serif", fontWeight: 900, lineHeight: 1 }}>PACK</div>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative', zIndex: 1 }}>
-          <span style={{ display: 'inline-block', background: '#F5F0E8', border: '1px solid #FFD43A', color: '#FFD43A', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 20, marginBottom: 16, textTransform: 'uppercase' }}>
+          <span style={{ display: 'inline-block', background: '#FAF5EC', border: '1px solid #FFD43A', color: '#FFD43A', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 0, marginBottom: 16, textTransform: 'uppercase' }}>
             Combos especiales
           </span>
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 36 : 52, fontWeight: 600, color: '#0F0800', margin: '0 0 12px', letterSpacing: '-1px', lineHeight: 1.05 }}>
@@ -176,7 +176,7 @@ export default function PacksPage({ onNavigate }) {
           <div style={{ display: 'flex', gap: isMobile ? 16 : 32, flexWrap: 'wrap' }}>
             {[{ num: '3 packs', label: 'disponibles' }, { num: 'Hasta €14', label: 'de ahorro' }, { num: '90 min', label: 'entrega Zaragoza' }].map(s => (
               <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#FFD43A' }}>{s.num}</span>
+                <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 900, color: '#FFD43A' }}>{s.num}</span>
                 <span style={{ fontSize: 13, color: 'rgba(15,8,0,0.35)' }}>{s.label}</span>
               </div>
             ))}
@@ -212,7 +212,7 @@ export default function PacksPage({ onNavigate }) {
               { q: '¿Cuánto tarda en llegar?', a: 'Entre 30 y 65 minutos según tu zona. Lo verás antes de confirmar el pedido en el checkout.' },
               { q: '¿Puedo combinar un pack con platos de la carta?', a: 'Sí, puedes añadir cualquier plato de la carta además de un pack en el mismo pedido.' },
             ].map(faq => (
-              <div key={faq.q} style={{ background: '#F5F0E8', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 14, padding: '20px 22px' }}>
+              <div key={faq.q} style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '20px 22px' }}>
                 <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800', margin: '0 0 8px' }}>{faq.q}</h4>
                 <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', lineHeight: 1.65, margin: 0 }}>{faq.a}</p>
               </div>
@@ -221,7 +221,7 @@ export default function PacksPage({ onNavigate }) {
         </div>
 
         {/* CTA */}
-        <div style={{ background: '#FFFFFF', borderRadius: 24, padding: isMobile ? '36px 24px' : '48px 56px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr auto', gap: 24, alignItems: 'center' }}>
+        <div style={{ background: '#FAF5EC', borderRadius: 0, padding: isMobile ? '36px 24px' : '48px 56px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr auto', gap: 24, alignItems: 'center' }}>
           <div>
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 32, fontWeight: 600, color: '#0F0800', margin: '0 0 10px', lineHeight: 1.1 }}>
               ¿Prefieres elegir tú mismo?
@@ -230,7 +230,7 @@ export default function PacksPage({ onNavigate }) {
               Explora la carta completa y monta tu pedido a tu gusto.
             </p>
           </div>
-          <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: isMobile ? '14px 24px' : '14px 32px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap', width: isMobile ? '100%' : 'auto' }}>
+          <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: isMobile ? '14px 24px' : '14px 32px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap', width: isMobile ? '100%' : 'auto' }}>
             Ver la carta →
           </button>
         </div>
@@ -238,8 +238,8 @@ export default function PacksPage({ onNavigate }) {
 
       {/* Mobile floating cart bar */}
       {isMobile && itemCount > 0 && (
-        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 16px', background: '#FFFFFF', borderTop: '1px solid rgba(15,8,0,0.12)', zIndex: 50, boxShadow: '0 -4px 20px rgba(0,0,0,0.08)' }}>
-          <button onClick={() => onNavigate('checkout')} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: '15px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 16px', background: '#FAF5EC', borderTop: '1px solid rgba(15,8,0,0.12)', zIndex: 50, boxShadow: '0 -4px 20px rgba(0,0,0,0.08)' }}>
+          <button onClick={() => onNavigate('checkout')} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '15px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span>🛒 {itemCount} {itemCount === 1 ? 'artículo' : 'artículos'}</span>
             <span>Ver pedido · €{subtotal.toFixed(2)} →</span>
           </button>

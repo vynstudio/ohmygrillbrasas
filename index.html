@@ -8,32 +8,37 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ohmygrillbrasas.com/" />
     <meta property="og:title" content="OhMyGrill Brasas · Carnes a la brasa · Zaragoza" />
-    <meta property="og:description" content="Carnes premium a la brasa de leña de encina. Pedidos online para toda Zaragoza. Entrega en 90 min." />
+    <meta property="og:description" content="Carnes premium a la brasa de leña de encina. Pedidos online para toda Zaragoza." />
     <meta property="og:image" content="https://ohmygrillbrasas.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="OhMyGrill Brasas" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="OhMyGrill Brasas · Carnes a la brasa · Zaragoza" />
-    <meta name="twitter:description" content="Carnes premium a la brasa de leña de encina. Pedidos online para toda Zaragoza. Entrega en 90 min." />
     <meta name="twitter:image" content="https://ohmygrillbrasas.com/og-image.png" />
     <meta name="apple-mobile-web-app-title" content="OhMyGrill Brasas" />
     <link rel="apple-touch-icon" href="/logo.png" />
     <title>OhMyGrill Brasas · Zaragoza</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300;1,9..144,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Outfit:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { font-size: 16px; -webkit-font-smoothing: antialiased; }
-      body { background: #FFFFFF; color: #0F0800; }
+      body { background: #FAF5EC; color: #0F0800; }
       ::-webkit-scrollbar { width: 5px; }
-      ::-webkit-scrollbar-track { background: #F5F0E8; }
-      ::-webkit-scrollbar-thumb { background: #0F0800; border-radius: 3px; }
+      ::-webkit-scrollbar-track { background: #FAF5EC; }
+      ::-webkit-scrollbar-thumb { background: #0F0800; border-radius: 0; }
       button { font-family: inherit; }
       select, textarea, input { font-family: inherit; outline: none; }
       a { color: inherit; text-decoration: none; }
+
+      /* Marquee animation */
+      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      .marquee-track { display: flex; animation: marquee 18s linear infinite; white-space: nowrap; will-change: transform; }
+      .marquee-track:hover { animation-play-state: paused; }
+
+      /* Fade in */
+      @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+      .fade-up { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
     </style>
   </head>
   <body>

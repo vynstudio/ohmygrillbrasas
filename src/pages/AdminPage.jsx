@@ -29,7 +29,7 @@ function timeAgo(date) {
 
 function Badge({ status }) {
   const cfg = STATUS_CONFIG[status];
-  return <span style={{ background: cfg.bg, color: cfg.color, fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, whiteSpace: 'nowrap' }}>{cfg.label}</span>;
+  return <span style={{ background: cfg.bg, color: cfg.color, fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 0, whiteSpace: 'nowrap' }}>{cfg.label}</span>;
 }
 
 // ── Login screen ───────────────────────────────────────────────────────────────
@@ -44,7 +44,7 @@ function AdminLogin({ onLogin }) {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0C0A06', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-      <div style={{ background: '#FFFFFF', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
+      <div style={{ background: '#FAF5EC', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 0, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 20 }}>🔥</div>
         <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#0F0800', margin: '0 0 6px' }}>Panel de administración</h1>
         <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
@@ -52,10 +52,10 @@ function AdminLogin({ onLogin }) {
           type="password" placeholder="Contraseña"
           value={pw} onChange={e => setPw(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handle()}
-          style={{ width: '100%', padding: '13px 16px', background: '#F5F0E8', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#0F0800', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
+          style={{ width: '100%', padding: '13px 16px', background: '#FAF5EC', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 0, color: '#0F0800', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
-        <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+        <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
           Entrar →
         </button>
         <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
@@ -70,19 +70,19 @@ function OrderCard({ order, onStatusChange }) {
   const cfg = STATUS_CONFIG[order.status];
 
   return (
-    <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#2A1A00'}`, borderRadius: 16, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
+    <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#2A1A00'}`, borderRadius: 0, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
       {/* Header */}
       <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid rgba(15,8,0,0.12)' : 'none' }} onClick={() => setExpanded(!expanded)}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#0F0800' }}>{order.id}</span>
             <Badge status={order.status} />
-            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#FFD43A', color: '#0F0800', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
+            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#FFD43A', color: '#0F0800', padding: '2px 6px', borderRadius: 0, fontWeight: 700 }}>NUEVO</span>}
           </div>
           <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
-          <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#FFD43A', margin: 0 }}>€{order.total.toFixed(2)}</p>
+          <p style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 900, color: '#FFD43A', margin: 0 }}>€{order.total.toFixed(2)}</p>
           <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '2px 0 0' }}>{order.deliveryType === 'pickup' ? '🏪 Recogida' : '🛵 Entrega'}</p>
         </div>
         <span style={{ fontSize: 16, color: 'rgba(15,8,0,0.45)', transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▾</span>
@@ -118,14 +118,14 @@ function OrderCard({ order, onStatusChange }) {
           </div>
 
           {order.address && (
-            <div style={{ background: '#FFFFFF', borderRadius: 10, padding: '10px 12px', marginBottom: 12 }}>
+            <div style={{ background: '#FAF5EC', borderRadius: 0, padding: '10px 12px', marginBottom: 12 }}>
               <p style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', margin: '0 0 2px' }}>📍 Dirección</p>
               <p style={{ fontSize: 13, color: '#0F0800', margin: 0 }}>{order.address}</p>
             </div>
           )}
 
           {order.notes && (
-            <div style={{ background: '#F5F0E8', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 10, padding: '10px 12px', marginBottom: 14 }}>
+            <div style={{ background: '#FAF5EC', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '10px 12px', marginBottom: 14 }}>
               <p style={{ fontSize: 11, color: '#FFD43A', margin: '0 0 2px', fontWeight: 600 }}>📝 Notas</p>
               <p style={{ fontSize: 13, color: 'rgba(15,8,0,0.45)', margin: 0 }}>{order.notes}</p>
             </div>
@@ -134,14 +134,14 @@ function OrderCard({ order, onStatusChange }) {
           {/* Actions */}
           <div style={{ display: 'flex', gap: 8 }}>
             {cfg.next && (
-              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#FFFFFF', color: '#fff', border: 'none', borderRadius: 10, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onStatusChange(order.id, cfg.next)} style={{ flex: 1, background: '#FAF5EC', color: '#fff', border: 'none', borderRadius: 0, padding: '11px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
                 {cfg.nextLabel} →
               </button>
             )}
-            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#F5F0E8', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#FAF5EC', color: '#FFD43A', border: 'none', borderRadius: 0, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               📞 Llamar
             </a>
-            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#F5F0E8', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#FAF5EC', color: '#FFD43A', border: 'none', borderRadius: 0, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               💬 WA
             </a>
           </div>
@@ -223,7 +223,7 @@ function MenuEditor() {
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
-          <button onClick={handleSave} disabled={saving} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+          <button onClick={handleSave} disabled={saving} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 0, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
             {saving ? <><span style={{ width:14, height:14, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite', display:'inline-block' }} />Guardando...</> : saved ? '✓ Guardado en Supabase' : 'Guardar cambios'}
           </button>
         </div>
@@ -233,11 +233,11 @@ function MenuEditor() {
         <div key={cat} style={{ marginBottom: 28 }}>
           <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 10 }}>
             {catLabels[cat]}
-            <span style={{ width: 32, height: 1, background: '#F5F0E8', display: 'inline-block' }} />
+            <span style={{ width: 32, height: 1, background: '#FAF5EC', display: 'inline-block' }} />
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {items.map(item => (
-              <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
+              <div key={item.id} style={{ background: item.available ? '#fff' : '#1A1000', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12, opacity: item.available ? 1 : 0.6 }}>
                 <span style={{ fontSize: 22 }}>{item.emoji}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: 14, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.name}</p>
@@ -256,7 +256,7 @@ function MenuEditor() {
                   />
                 </div>
                 {/* Toggle */}
-                <button onClick={() => handleToggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: item.available ? '#FFD43A' : '#2A1A00', border: 'none', borderRadius: 20, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12, fontWeight: 500, color: item.available ? '#0F0800' : 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>
+                <button onClick={() => handleToggle(item.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, background: item.available ? '#FFD43A' : '#2A1A00', border: 'none', borderRadius: 0, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12, fontWeight: 500, color: item.available ? '#0F0800' : 'rgba(255,255,255,0.55)', whiteSpace: 'nowrap' }}>
                   <span style={{ width: 8, height: 8, borderRadius: '50%', background: item.available ? '#0F0800' : 'rgba(255,255,255,0.35)', display: 'inline-block' }} />
                   {item.available ? 'Disponible' : 'No disponible'}
                 </button>
@@ -292,7 +292,7 @@ function StatsSection({ orders }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 24 }}>
       {stats.map(s => (
-        <div key={s.label} style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 14, padding: '16px 18px' }}>
+        <div key={s.label} style={{ background: '#fff', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '16px 18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 18 }}>{s.icon}</span>
             <span style={{ fontSize: 11, color: 'rgba(15,8,0,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>{s.label}</span>
@@ -393,22 +393,22 @@ export default function AdminPage() {
   ];
 
   return (
-    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#F5F0E8', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Outfit', sans-serif", background: '#FAF5EC', minHeight: '100vh' }}>
 
       {/* Top bar */}
-      <div style={{ background: '#FFFFFF', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
+      <div style={{ background: '#FAF5EC', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 56, position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 20 }}>🔥</span>
           <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#0F0800' }}>OhMyGrill</span>
-          <span style={{ fontSize: 11, color: 'rgba(15,8,0,0.35)', background: '#F5F0E8', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
+          <span style={{ fontSize: 11, color: 'rgba(15,8,0,0.35)', background: '#FAF5EC', padding: '2px 8px', borderRadius: 0 }}>Admin</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {pendingCount > 0 && (
-            <span style={{ background: '#FFD43A', color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20 }}>
+            <span style={{ background: '#FFD43A', color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 0 }}>
               {pendingCount} nuevo{pendingCount > 1 ? 's' : ''}
             </span>
           )}
-          <button onClick={handleLogout} style={{ background: '#F5F0E8', color: 'rgba(255,255,255,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
+          <button onClick={handleLogout} style={{ background: '#FAF5EC', color: 'rgba(255,255,255,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
             Cerrar sesión
           </button>
         </div>
@@ -435,7 +435,7 @@ export default function AdminPage() {
             {/* Filter bar */}
             <div style={{ display: 'flex', gap: 8, marginBottom: 16, overflowX: 'auto', paddingBottom: 4 }}>
               {[{ id: 'all', label: 'Todos' }, ...Object.entries(STATUS_CONFIG).map(([id, cfg]) => ({ id, label: cfg.label }))].map(f => (
-                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#FFD43A' : '#1A1000', color: filterStatus === f.id ? '#0F0800' : 'rgba(255,255,255,0.45)', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                <button key={f.id} onClick={() => setFilterStatus(f.id)} style={{ background: filterStatus === f.id ? '#FFD43A' : '#1A1000', color: filterStatus === f.id ? '#0F0800' : 'rgba(255,255,255,0.45)', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '7px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   {f.label} {f.id !== 'all' && <span style={{ opacity: 0.6 }}>({orders.filter(o => o.status === f.id).length})</span>}
                 </button>
               ))}
@@ -465,7 +465,7 @@ export default function AdminPage() {
 
         {/* ── MENU TAB ── */}
         {tab === 'menu' && (
-          <div style={{ background: '#fff', borderRadius: 20, border: '1px solid rgba(15,8,0,0.12)', padding: isMobile ? '24px 20px' : '32px' }}>
+          <div style={{ background: '#fff', borderRadius: 0, border: '2px solid rgba(15,8,0,0.15)', padding: isMobile ? '24px 20px' : '32px' }}>
             <MenuEditor />
           </div>
         )}
@@ -473,7 +473,7 @@ export default function AdminPage() {
         {/* ── STATS TAB ── */}
         {tab === 'stats' && (
           <div>
-            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 20px' }}>Resumen de actividad</h3>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 900, color: '#0F0800', margin: '0 0 20px' }}>Resumen de actividad</h3>
 
             {orders.length === 0 && (
               <div style={{ textAlign: 'center', padding: '48px', color: 'rgba(15,8,0,0.45)' }}>
@@ -485,7 +485,7 @@ export default function AdminPage() {
 
             {orders.length > 0 && <>
             {/* Revenue by zone */}
-            <div style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '24px', marginBottom: 16 }}>
+            <div style={{ background: '#fff', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '24px', marginBottom: 16 }}>
               <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Ingresos por zona</h4>
               {Object.entries(
                 orders.reduce((acc, o) => {
@@ -503,7 +503,7 @@ export default function AdminPage() {
                       <span style={{ fontSize: 13, color: '#0F0800' }}>{zone}</span>
                       <span style={{ fontSize: 13, fontWeight: 500, color: '#FFD43A' }}>€{rev.toFixed(0)}</span>
                     </div>
-                    <div style={{ height: 6, background: '#F5F0E8', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ height: 6, background: '#FAF5EC', borderRadius: 3, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${pct}%`, background: '#FFD43A', borderRadius: 3, transition: 'width 0.5s ease' }} />
                     </div>
                   </div>
@@ -512,7 +512,7 @@ export default function AdminPage() {
             </div>
 
             {/* Top products */}
-            <div style={{ background: '#fff', border: '1px solid rgba(15,8,0,0.12)', borderRadius: 20, padding: '24px' }}>
+            <div style={{ background: '#fff', border: '2px solid rgba(15,8,0,0.15)', borderRadius: 0, padding: '24px' }}>
               <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#0F0800', margin: '0 0 16px' }}>Platos más pedidos</h4>
               {Object.entries(
                 orders.flatMap(o => o.items).reduce((acc, item) => {
@@ -523,7 +523,7 @@ export default function AdminPage() {
                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: i < 5 ? '1px solid #1A1000' : 'none' }}>
                   <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: 'rgba(15,8,0,0.45)', minWidth: 20 }}>{i + 1}</span>
                   <span style={{ fontSize: 13, color: '#0F0800', flex: 1 }}>{name}</span>
-                  <span style={{ background: '#F5F0E8', color: '#FFD43A', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 20 }}>{qty} uds</span>
+                  <span style={{ background: '#FAF5EC', color: '#FFD43A', fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 0 }}>{qty} uds</span>
                 </div>
               ))}
             </div>
