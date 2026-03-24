@@ -16,7 +16,7 @@ function Steps({ current }) {
             <div style={{ display:'flex', alignItems:'center', gap:8 }}>
               <div style={{
                 width:28, height:28, borderRadius:'50%',
-                background: done ? '#1a7a4a' : active ? '#F5C518' : '#EDE9E3',
+                background: done ? '#1a7a4a' : active ? '#ffd43a' : '#EDE9E3',
                 color: done || active ? '#fff' : '#B8AFA8',
                 display:'flex', alignItems:'center', justifyContent:'center',
                 fontSize:12, fontWeight:600, flexShrink:0, transition:'all 0.3s',
@@ -78,7 +78,7 @@ function OrderSummary({ isMobile }) {
           </div>
           <div style={{ display:'flex', justifyContent:'space-between' }}>
             <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#1C1A14' }}>Total</span>
-            <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#F5C518' }}>€{total.toFixed(2)}</span>
+            <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#ffd43a' }}>€{total.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -116,9 +116,9 @@ function StepDelivery({ data, onChange, onNext }) {
       {/* Delivery type toggle */}
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:24 }}>
         {[{ id:'delivery', icon:'🛵', title:'A domicilio', desc:'Entrega en tu dirección' }, { id:'pickup', icon:'🏪', title:'Recogida', desc:'Recoge en el local' }].map(opt => (
-          <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{ padding:'14px 16px', border:`2px solid ${deliveryType===opt.id ? '#F5C518' : '#EDE9E3'}`, borderRadius:14, background: deliveryType===opt.id ? '#FEF3EE' : '#fff', cursor:'pointer', textAlign:'left', transition:'all 0.15s' }}>
+          <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{ padding:'14px 16px', border:`2px solid ${deliveryType===opt.id ? '#ffd43a' : '#EDE9E3'}`, borderRadius:14, background: deliveryType===opt.id ? '#FEF3EE' : '#fff', cursor:'pointer', textAlign:'left', transition:'all 0.15s' }}>
             <div style={{ fontSize:22, marginBottom:6 }}>{opt.icon}</div>
-            <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight: deliveryType===opt.id ? 500 : 400, color: deliveryType===opt.id ? '#F5C518' : '#1C1A14', margin:'0 0 2px' }}>{opt.title}</p>
+            <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight: deliveryType===opt.id ? 500 : 400, color: deliveryType===opt.id ? '#ffd43a' : '#1C1A14', margin:'0 0 2px' }}>{opt.title}</p>
             <p style={{ fontSize:12, color:'#9A8F85', margin:0 }}>{opt.desc}</p>
           </button>
         ))}
@@ -140,7 +140,7 @@ function StepDelivery({ data, onChange, onNext }) {
           {/* Address */}
           <div style={{ marginBottom:16 }}>
             <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>Dirección de entrega *</label>
-            <input type="text" placeholder="Calle, número, piso..." value={data.address || ''} onChange={e => onChange('address', e.target.value)} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.address ? '#E24B4A' : '#EDE9E3'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#F5C518'} onBlur={e => e.target.style.borderColor= errors.address ? '#E24B4A' : '#EDE9E3'} />
+            <input type="text" placeholder="Calle, número, piso..." value={data.address || ''} onChange={e => onChange('address', e.target.value)} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.address ? '#E24B4A' : '#EDE9E3'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor= errors.address ? '#E24B4A' : '#EDE9E3'} />
             {errors.address && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{errors.address}</p>}
           </div>
         </>
@@ -148,7 +148,7 @@ function StepDelivery({ data, onChange, onNext }) {
 
       {deliveryType === 'pickup' && (
         <div style={{ background:'#FEF3EE', border:'1px solid rgba(232,88,32,0.2)', borderRadius:12, padding:'14px 16px', marginBottom:16 }}>
-          <p style={{ fontSize:13, fontWeight:500, color:'#F5C518', margin:'0 0 4px' }}>📍 Dirección del local</p>
+          <p style={{ fontSize:13, fontWeight:500, color:'#ffd43a', margin:'0 0 4px' }}>📍 Dirección del local</p>
           <p style={{ fontSize:13, color:'#7A6E63', margin:0 }}>Calle de las Brasas, 12 · 50001 Zaragoza</p>
           <p style={{ fontSize:12, color:'#9A8F85', margin:'6px 0 0' }}>Listo en ~25 minutos desde la confirmación</p>
         </div>
@@ -157,10 +157,10 @@ function StepDelivery({ data, onChange, onNext }) {
       {/* Notes */}
       <div style={{ marginBottom:24 }}>
         <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>Notas del pedido <span style={{ color:'#9A8F85', fontWeight:400 }}>(opcional)</span></label>
-        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #EDE9E3', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#F5C518'} onBlur={e => e.target.style.borderColor='#EDE9E3'} />
+        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #EDE9E3', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor='#EDE9E3'} />
       </div>
 
-      <button onClick={() => { if (validate()) onNext(); }} style={{ width:'100%', background:'#F5C518', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', transition:'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity='0.9'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
+      <button onClick={() => { if (validate()) onNext(); }} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', transition:'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity='0.9'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
         Continuar → Datos de contacto
       </button>
     </div>
@@ -196,11 +196,11 @@ function StepContact({ data, onChange, onNext, onBack }) {
       {fields.map(f => (
         <div key={f.key} style={{ marginBottom:16 }}>
           <label style={{ fontSize:13, fontWeight:500, color:'#1C1A14', display:'block', marginBottom:6 }}>
-            {f.label} {f.required && <span style={{ color:'#F5C518' }}>*</span>}
+            {f.label} {f.required && <span style={{ color:'#ffd43a' }}>*</span>}
           </label>
           <input type={f.type} placeholder={f.placeholder} value={data[f.key] || ''} onChange={e => onChange(f.key, e.target.value)}
             style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors[f.key] ? '#E24B4A' : '#EDE9E3'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1C1A14', boxSizing:'border-box', outline:'none' }}
-            onFocus={e => e.target.style.borderColor='#F5C518'} onBlur={e => e.target.style.borderColor = errors[f.key] ? '#E24B4A' : '#EDE9E3'} />
+            onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor = errors[f.key] ? '#E24B4A' : '#EDE9E3'} />
           {errors[f.key] && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{errors[f.key]}</p>}
         </div>
       ))}
@@ -214,7 +214,7 @@ function StepContact({ data, onChange, onNext, onBack }) {
         <button onClick={onBack} style={{ background:'transparent', color:'#7A6E63', border:'1.5px solid #EDE9E3', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
           ← Atrás
         </button>
-        <button onClick={() => { if (validate()) onNext(); }} style={{ background:'#F5C518', color:'#fff', border:'none', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+        <button onClick={() => { if (validate()) onNext(); }} style={{ background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
           Continuar → Pago
         </button>
       </div>
@@ -246,7 +246,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
           fontSize: '15px',
           color: '#1C1A14',
           '::placeholder': { color: '#B8AFA8' },
-          iconColor: '#F5C518',
+          iconColor: '#ffd43a',
         },
         invalid: { color: '#E24B4A', iconColor: '#E24B4A' },
       },
@@ -342,7 +342,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
             <p style={{ fontSize:12, color:'rgba(240,235,227,0.5)', margin:0 }}>Total a pagar</p>
             <p style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#F0EBE3', margin:'2px 0 0' }}>€{total.toFixed(2)}</p>
           </div>
-          <button onClick={handlePay} disabled={loading} style={{ background: loading ? '#9A8F85' : '#F5C518', color:'#fff', border:'none', borderRadius:12, padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor: loading ? 'not-allowed' : 'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:8, minWidth:140, justifyContent:'center' }}>
+          <button onClick={handlePay} disabled={loading} style={{ background: loading ? '#9A8F85' : '#ffd43a', color:'#fff', border:'none', borderRadius:12, padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor: loading ? 'not-allowed' : 'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:8, minWidth:140, justifyContent:'center' }}>
             {loading ? (
               <>
                 <span style={{ display:'inline-block', width:16, height:16, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
@@ -391,7 +391,7 @@ export default function CheckoutPage({ onNavigate }) {
         <div style={{ fontSize:52 }}>🛒</div>
         <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:26, fontWeight:600, color:'#1C1A14', margin:0 }}>Tu carrito está vacío</h2>
         <p style={{ fontSize:14, color:'#9A8F85' }}>Añade platos de la carta antes de pagar.</p>
-        <button onClick={() => onNavigate('menu')} style={{ background:'#F5C518', color:'#fff', border:'none', borderRadius:24, padding:'13px 28px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
+        <button onClick={() => onNavigate('menu')} style={{ background:'#ffd43a', color:'#fff', border:'none', borderRadius:24, padding:'13px 28px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
           Ver la carta →
         </button>
       </div>
@@ -413,7 +413,7 @@ export default function CheckoutPage({ onNavigate }) {
           <div style={{ background:'#fff', border:'1px solid #EDE9E3', borderRadius:16, padding:'20px 24px', marginBottom:24, textAlign:'left' }}>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12, paddingBottom:12, borderBottom:'1px solid #F0EDE8' }}>
               <span style={{ fontSize:13, color:'#9A8F85' }}>Número de pedido</span>
-              <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#F5C518' }}>{orderResult.orderId}</span>
+              <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#ffd43a' }}>{orderResult.orderId}</span>
             </div>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
               <span style={{ fontSize:13, color:'#9A8F85' }}>Total pagado</span>
@@ -428,11 +428,11 @@ export default function CheckoutPage({ onNavigate }) {
           <div style={{ background:'#FEF3EE', border:'1px solid rgba(232,88,32,0.2)', borderRadius:12, padding:'14px 16px', marginBottom:28, display:'flex', gap:10, alignItems:'center' }}>
             <span style={{ fontSize:20 }}>📱</span>
             <p style={{ fontSize:13, color:'#7A6E63', margin:0, lineHeight:1.5 }}>
-              ¿Tienes dudas? Escríbenos por WhatsApp: <strong style={{ color:'#F5C518' }}>+34 600 000 000</strong>
+              ¿Tienes dudas? Escríbenos por WhatsApp: <strong style={{ color:'#ffd43a' }}>+34 600 000 000</strong>
             </p>
           </div>
 
-          <button onClick={() => onNavigate('tracker')} style={{ width:'100%', background:'#F5C518', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', marginBottom:10 }}>
+          <button onClick={() => onNavigate('tracker')} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', marginBottom:10 }}>
             🛵 Seguir mi pedido en tiempo real
           </button>
           <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'#9A8F85', border:'none', padding:'12px', fontFamily:"'Outfit',sans-serif", fontSize:14, cursor:'pointer' }}>
@@ -480,7 +480,7 @@ export default function CheckoutPage({ onNavigate }) {
           <details style={{ background:'#fff', borderRadius:16, border:'1px solid #EDE9E3', overflow:'hidden' }}>
             <summary style={{ padding:'16px 20px', fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#1C1A14', cursor:'pointer', listStyle:'none', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
               Ver resumen del pedido
-              <span style={{ fontSize:12, color:'#F5C518' }}>▼</span>
+              <span style={{ fontSize:12, color:'#ffd43a' }}>▼</span>
             </summary>
             <OrderSummary isMobile />
           </details>

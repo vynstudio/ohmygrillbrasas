@@ -218,14 +218,14 @@ export default function OrderTrackerPage({ onNavigate }) {
                 fontSize: 16, letterSpacing: '2px',
                 outline: 'none', boxSizing: 'border-box',
               }}
-              onFocus={e => e.target.style.borderColor = '#F5C518'}
+              onFocus={e => e.target.style.borderColor = '#ffd43a'}
               onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.12)'}
             />
             <button
               onClick={() => handleSearch()}
               disabled={loading}
               style={{
-                background: loading ? '#9A8F85' : '#F5C518',
+                background: loading ? '#9A8F85' : '#ffd43a',
                 color: '#fff', border: 'none', borderRadius: 12,
                 padding: '13px 24px', fontFamily: "'Outfit', sans-serif",
                 fontSize: 14, fontWeight: 500, cursor: loading ? 'not-allowed' : 'pointer',
@@ -254,7 +254,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {/* Status hero card */}
           <div style={{
             background: isDelivered ? '#EDFBF3' : isReady ? '#FEF3EE' : '#fff',
-            border: `1px solid ${isDelivered ? '#1a7a4a' : isReady ? '#F5C518' : '#EDE9E3'}`,
+            border: `1px solid ${isDelivered ? '#1a7a4a' : isReady ? '#ffd43a' : '#EDE9E3'}`,
             borderRadius: 20, padding: '24px', marginBottom: 20,
             display: 'flex', alignItems: 'center', gap: 16,
           }}>
@@ -278,7 +278,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#F5C518', margin: 0 }}>€{order.total.toFixed(2)}</p>
+              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, fontWeight: 600, color: '#ffd43a', margin: 0 }}>€{order.total.toFixed(2)}</p>
               <p style={{ fontSize: 11, color: '#9A8F85', margin: '3px 0 0' }}>
                 <TimeAgo date={order.createdAt} />
               </p>
@@ -309,7 +309,7 @@ export default function OrderTrackerPage({ onNavigate }) {
                 ))}
                 <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 12, borderTop: '1px solid #EDE9E3', marginTop: 8 }}>
                   <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#1C1A14' }}>Total</span>
-                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#F5C518' }}>€{order.total.toFixed(2)}</span>
+                  <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#ffd43a' }}>€{order.total.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -353,7 +353,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {isDelivered && (
             <div style={{ marginTop: 20, textAlign: 'center' }}>
               <p style={{ fontSize: 14, color: '#9A8F85', marginBottom: 12 }}>¿Te ha gustado? ¡Repite!</p>
-              <button onClick={() => onNavigate('menu')} style={{ background: '#F5C518', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background: '#ffd43a', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
                 Hacer otro pedido →
               </button>
             </div>
