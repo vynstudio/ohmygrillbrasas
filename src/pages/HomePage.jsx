@@ -135,7 +135,7 @@ export default function HomePage({ onNavigate }) {
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
           <div style={{ display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom: isMobile ? 24 : 36 }}>
             <div>
-              <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFFFFF', margin:0 }}>Los más pedidos</h2>
+              <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1C0F00', margin:0 }}>Los más pedidos</h2>
               {!isMobile && <p style={{ fontSize:14, color:'#8B5E3C', marginTop:6 }}>Los platos que hacen volver a nuestros clientes</p>}
             </div>
             <button onClick={() => onNavigate('menu')} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#ffd43a', fontFamily:"'Outfit',sans-serif", fontWeight:500, textDecoration:'underline', textUnderlineOffset:3, whiteSpace:'nowrap' }}>
@@ -152,7 +152,7 @@ export default function HomePage({ onNavigate }) {
       <section style={{ padding: isMobile ? '48px 0' : '72px 0', background:'#FFFBEE' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
           <div style={{ textAlign:'center', marginBottom: isMobile ? 28 : 44 }}>
-            <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFFFFF', margin:`0 0 ${isMobile ? 6 : 8}px` }}>Packs y promociones</h2>
+            <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1C0F00', margin:`0 0 ${isMobile ? 6 : 8}px` }}>Packs y promociones</h2>
             <p style={{ fontSize:14, color:'#8B5E3C' }}>Combina y ahorra. Pensados para compartir.</p>
           </div>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 14 : 20 }}>
@@ -191,7 +191,7 @@ export default function HomePage({ onNavigate }) {
       {/* ── HOW IT WORKS ── */}
       <section style={{ background:'#FFFFFF', padding: isMobile ? '48px 0' : '72px 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
-          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#8B4513', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFD43A', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 28 : 40 }}>
             {[
               {step:'01',icon:'📋',title:'Elige tu plato',desc:'Explora la carta, elige tus cortes favoritos y personaliza tu pedido con notas especiales.'},
@@ -204,7 +204,7 @@ export default function HomePage({ onNavigate }) {
                 </div>
                 <div>
                   <span style={{ fontSize:11, letterSpacing:'2px', color:'#ffd43a', fontWeight:600, display:'block', marginBottom:4 }}>{s.step}</span>
-                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFFFFF', margin:'0 0 6px' }}>{s.title}</h3>
+                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C0F00', margin:'0 0 6px' }}>{s.title}</h3>
                   <p style={{ fontSize:14, color:'#8B5E3C', lineHeight:1.6, margin:0 }}>{s.desc}</p>
                 </div>
               </div>
@@ -216,7 +216,7 @@ export default function HomePage({ onNavigate }) {
       {/* ── CTA ── */}
       <section style={{ background:'#FFFBEE', padding: isMobile ? '56px 20px' : '80px 24px' }}>
         <div style={{ maxWidth:800, margin:'0 auto', textAlign:'center' }}>
-          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 32 : 44, fontWeight:600, color:'#FFFFFF', margin:`0 0 ${isMobile ? 12 : 16}px`, lineHeight:1.1 }}>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 32 : 44, fontWeight:600, color:'#1C0F00', margin:`0 0 ${isMobile ? 12 : 16}px`, lineHeight:1.1 }}>
             ¿Listo para el mejor chuletón{' '}
             <em style={{ color:'#ffd43a' }}>de Zaragoza?</em>
           </h2>
@@ -234,7 +234,7 @@ export default function HomePage({ onNavigate }) {
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '2fr 1fr 1fr 1fr', gap: isMobile ? 28 : 40, marginBottom: isMobile ? 28 : 40 }}>
             <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
-              <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFFFFF', marginBottom:10 }}>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#1C0F00', marginBottom:10 }}>
                 Oh<em style={{ color:'#ffd43a' }}>My</em>Grill Brasas
               </div>
               <p style={{ fontSize:13, color:'rgba(240,235,227,0.4)', lineHeight:1.65, maxWidth:260 }}>
