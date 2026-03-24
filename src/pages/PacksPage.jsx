@@ -10,8 +10,8 @@ const packProducts = {
 
 function PackHero({ pack, idx, onAdd, added, isMobile }) {
   const [hovered, setHovered] = useState(false);
-  const accent = idx === 2 ? '#FFD43A' : idx === 0 ? '#1a7a4a' : '#185FA5';
-  const accentLight = idx === 2 ? 'rgba(255,212,58,0.1)' : idx === 0 ? 'rgba(255,212,58,0.1)' : 'rgba(255,212,58,0.1)';
+  const accent = '#FFD43A';
+  const accentLight = 'rgba(255,212,58,0.12)';
 
   return (
     <div
@@ -35,7 +35,7 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14 }}>
             <div>
-              <span style={{ background: accent, color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 20, letterSpacing: '0.3px', display: 'inline-block', marginBottom: 10 }}>
+              <span style={{ background: accent, color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 20, letterSpacing: '0.3px', display: 'inline-block', marginBottom: 10 }}>
                 {pack.badge}
               </span>
               <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 26, fontWeight: 600, color: '#FFFFFF', margin: 0, lineHeight: 1.1 }}>{pack.name}</h2>
@@ -52,7 +52,7 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
         <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', marginBottom: 12 }}>Incluye</p>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {pack.items.map((item, i) => (
-            <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', borderBottom: i < pack.items.length - 1 ? '1px solid #1A1000' : 'none' }}>
+            <li key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 0', borderBottom: i < pack.items.length - 1 ? '1px solid #2A1A00' : 'none' }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: accent, flexShrink: 0 }} />
               <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)' }}>{item}</span>
             </li>
@@ -61,11 +61,11 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '16px 28px 24px', borderTop: '1px solid #1A1000' }}>
+      <div style={{ padding: '16px 28px 24px', borderTop: '1px solid #2A1A00' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 34, fontWeight: 600, color: '#0F0800', lineHeight: 1 }}>€{pack.price}</span>
+              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 34, fontWeight: 600, color: '#FFD43A', lineHeight: 1 }}>€{pack.price}</span>
               <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', textDecoration: 'line-through' }}>€{pack.originalPrice}</span>
             </div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: accentLight, borderRadius: 20, padding: '3px 10px', marginTop: 6 }}>
@@ -82,8 +82,8 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
         <button
           onClick={() => onAdd(pack)}
           style={{
-            width: '100%', background: added ? '#1a7a4a' : accent,
-            color: '#fff', border: 'none', borderRadius: 14,
+            width: '100%', background: added ? '#2A5C2A' : '#FFD43A',
+            color: '#0F0800', border: 'none', borderRadius: 14,
             padding: '14px', fontFamily: "'Outfit', sans-serif",
             fontSize: 15, fontWeight: 500, cursor: 'pointer',
             transition: 'all 0.2s', display: 'flex', alignItems: 'center',
@@ -107,7 +107,7 @@ function ComparisonTable({ isMobile }) {
     { label: 'Ahorro', vals: ['€14', '€8', '€12'] },
   ];
   const cols = ['Pack Familiar', 'Pack Pareja', 'Pack Carnívoro'];
-  const accents = ['#1a7a4a', '#185FA5', '#FFD43A'];
+  const accents = ['#FFD43A', '#FFD43A', '#FFD43A'];
 
   return (
     <div style={{ background: '#1A1000', borderRadius: 20, border: '1px solid #2A1A00', overflow: 'hidden' }}>
@@ -115,20 +115,20 @@ function ComparisonTable({ isMobile }) {
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '120px repeat(3,1fr)' : '180px repeat(3,1fr)', background: '#0F0800' }}>
         <div style={{ padding: '16px 20px' }} />
         {cols.map((col, i) => (
-          <div key={col} style={{ padding: '16px 12px', textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.07)' }}>
+          <div key={col} style={{ padding: '16px 12px', textAlign: 'center', borderLeft: '1px solid #2A1A00' }}>
             <p style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 13 : 15, fontWeight: 600, color: accents[i], margin: 0 }}>{col}</p>
           </div>
         ))}
       </div>
       {/* Rows */}
       {rows.map((row, ri) => (
-        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: isMobile ? '120px repeat(3,1fr)' : '180px repeat(3,1fr)', background: ri % 2 === 0 ? '#fff' : '#0F0800', borderTop: '1px solid #2A1A00' }}>
+        <div key={row.label} style={{ display: 'grid', gridTemplateColumns: isMobile ? '120px repeat(3,1fr)' : '180px repeat(3,1fr)', background: ri % 2 === 0 ? '#1A1000' : '#0F0800', borderTop: '1px solid #2A1A00' }}>
           <div style={{ padding: isMobile ? '12px 16px' : '14px 20px', display: 'flex', alignItems: 'center' }}>
             <span style={{ fontSize: isMobile ? 12 : 13, fontWeight: 500, color: 'rgba(255,255,255,0.45)' }}>{row.label}</span>
           </div>
           {row.vals.map((val, vi) => (
             <div key={vi} style={{ padding: isMobile ? '12px 8px' : '14px 12px', textAlign: 'center', borderLeft: '1px solid #2A1A00', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: isMobile ? 12 : 13, color: '#0F0800', fontWeight: row.label === 'Ahorro' ? 600 : 400, color: row.label === 'Ahorro' ? accents[vi] : '#0F0800' }}>{val}</span>
+              <span style={{ fontSize: isMobile ? 12 : 13, fontWeight: row.label === 'Ahorro' ? 700 : 400, color: row.label === 'Ahorro' ? '#FFD43A' : '#FFFFFF' }}>{val}</span>
             </div>
           ))}
         </div>
@@ -195,7 +195,7 @@ export default function PacksPage({ onNavigate }) {
 
         {/* Comparison table */}
         <div style={{ marginBottom: 56 }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 30, fontWeight: 600, color: '#0F0800', margin: '0 0 6px' }}>Compara los packs</h2>
+          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 30, fontWeight: 600, color: '#FFFFFF', margin: '0 0 6px' }}>Compara los packs</h2>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', margin: '0 0 24px' }}>¿No sabes cuál elegir? Aquí lo ves claro.</p>
           <div style={{ overflowX: 'auto' }}>
             <ComparisonTable isMobile={isMobile} />
@@ -204,7 +204,7 @@ export default function PacksPage({ onNavigate }) {
 
         {/* FAQ */}
         <div style={{ marginBottom: 56 }}>
-          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 30, fontWeight: 600, color: '#0F0800', margin: '0 0 20px' }}>Preguntas frecuentes</h2>
+          <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 30, fontWeight: 600, color: '#FFFFFF', margin: '0 0 20px' }}>Preguntas frecuentes</h2>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 14 }}>
             {[
               { q: '¿Puedo personalizar el pack?', a: 'Usa el campo de notas en el checkout para indicar preferencias — punto de la carne, salsas alternativas, alergias.' },
@@ -230,7 +230,7 @@ export default function PacksPage({ onNavigate }) {
               Explora la carta completa y monta tu pedido a tu gusto.
             </p>
           </div>
-          <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: isMobile ? '14px 24px' : '14px 32px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap', width: isMobile ? '100%' : 'auto' }}>
+          <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: isMobile ? '14px 24px' : '14px 32px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', whiteSpace: 'nowrap', width: isMobile ? '100%' : 'auto' }}>
             Ver la carta →
           </button>
         </div>
@@ -238,8 +238,8 @@ export default function PacksPage({ onNavigate }) {
 
       {/* Mobile floating cart bar */}
       {isMobile && itemCount > 0 && (
-        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 16px', background: '#1A1000', borderTop: '1px solid #2A1A00', zIndex: 50, boxShadow: '0 -4px 20px rgba(0,0,0,0.08)' }}>
-          <button onClick={() => onNavigate('checkout')} style={{ width: '100%', background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '15px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 16px', background: '#0F0800', borderTop: '1px solid #2A1A00', zIndex: 50, boxShadow: '0 -4px 20px rgba(0,0,0,0.08)' }}>
+          <button onClick={() => onNavigate('checkout')} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: '15px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span>🛒 {itemCount} {itemCount === 1 ? 'artículo' : 'artículos'}</span>
             <span>Ver pedido · €{subtotal.toFixed(2)} →</span>
           </button>

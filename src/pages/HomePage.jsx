@@ -157,7 +157,7 @@ export default function HomePage({ onNavigate }) {
           </div>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 14 : 20 }}>
             {packs.map((pack, idx) => (
-              <div key={pack.id} style={{ background: idx===2 ? '#0F0800' : '#fff', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: idx===2 ? 'none' : '1px solid #2A1A00', position:'relative', overflow:'hidden' }}>
+              <div key={pack.id} style={{ background: '#1A1000', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: '1px solid #2A1A00', position:'relative', overflow:'hidden' }}>
                 <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:14 }}>
                   <div>
                     <span style={{ display:'inline-block', background: idx===2 ? '#FFD43A' : '#1A1000', color: idx===2 ? '#fff' : '#FFD43A', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
@@ -191,7 +191,7 @@ export default function HomePage({ onNavigate }) {
       {/* ── HOW IT WORKS ── */}
       <section style={{ background:'#1A1000', padding: isMobile ? '48px 0' : '72px 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
-          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFD43A', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFFFFF', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 28 : 40 }}>
             {[
               {step:'01',icon:'📋',title:'Elige tu plato',desc:'Explora la carta, elige tus cortes favoritos y personaliza tu pedido con notas especiales.'},
