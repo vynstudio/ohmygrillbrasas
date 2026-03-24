@@ -32,7 +32,7 @@ export default function HomePage({ onNavigate }) {
   const open = isOpen();
 
   return (
-    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#0F0800' }}>
+    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FFFBEE' }}>
 
       {/* ── HERO ── */}
       <section style={{ position:'relative', minHeight: isDesktop ? '92vh' : isMobile ? '100svh' : '80vh', display:'flex', alignItems:'center', overflow:'hidden', background:'#0C0A06' }}>
@@ -131,12 +131,12 @@ export default function HomePage({ onNavigate }) {
       </section>
 
       {/* ── FEATURED PRODUCTS ── */}
-      <section style={{ background:'#1A1000', padding: isMobile ? '48px 0' : '72px 0' }}>
+      <section style={{ background:'#FFFFFF', padding: isMobile ? '48px 0' : '72px 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
           <div style={{ display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom: isMobile ? 24 : 36 }}>
             <div>
-              <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFF8DC', margin:0 }}>Los más pedidos</h2>
-              {!isMobile && <p style={{ fontSize:14, color:'#C8860A', marginTop:6 }}>Los platos que hacen volver a nuestros clientes</p>}
+              <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1C0F00', margin:0 }}>Los más pedidos</h2>
+              {!isMobile && <p style={{ fontSize:14, color:'#8B5E3C', marginTop:6 }}>Los platos que hacen volver a nuestros clientes</p>}
             </div>
             <button onClick={() => onNavigate('menu')} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#ffd43a', fontFamily:"'Outfit',sans-serif", fontWeight:500, textDecoration:'underline', textUnderlineOffset:3, whiteSpace:'nowrap' }}>
               Ver todo →
@@ -149,36 +149,36 @@ export default function HomePage({ onNavigate }) {
       </section>
 
       {/* ── PACKS ── */}
-      <section style={{ padding: isMobile ? '48px 0' : '72px 0', background:'#0F0800' }}>
+      <section style={{ padding: isMobile ? '48px 0' : '72px 0', background:'#FFFBEE' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
           <div style={{ textAlign:'center', marginBottom: isMobile ? 28 : 44 }}>
-            <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFF8DC', margin:`0 0 ${isMobile ? 6 : 8}px` }}>Packs y promociones</h2>
-            <p style={{ fontSize:14, color:'#C8860A' }}>Combina y ahorra. Pensados para compartir.</p>
+            <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1C0F00', margin:`0 0 ${isMobile ? 6 : 8}px` }}>Packs y promociones</h2>
+            <p style={{ fontSize:14, color:'#8B5E3C' }}>Combina y ahorra. Pensados para compartir.</p>
           </div>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 14 : 20 }}>
             {packs.map((pack, idx) => (
-              <div key={pack.id} style={{ background: idx===2 ? '#0F0800' : '#fff', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: idx===2 ? 'none' : '1px solid #2A1A00', position:'relative', overflow:'hidden' }}>
+              <div key={pack.id} style={{ background: idx===2 ? '#FFFBEE' : '#fff', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: idx===2 ? 'none' : '1px solid #EDE0C8', position:'relative', overflow:'hidden' }}>
                 <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:14 }}>
                   <div>
                     <span style={{ display:'inline-block', background: idx===2 ? '#ffd43a' : '#FEF3EE', color: idx===2 ? '#fff' : '#ffd43a', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
-                    <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color: idx===2 ? '#FFF8DC' : '#0F0800', margin:0 }}>{pack.name}</h3>
-                    <p style={{ fontSize:12, color: idx===2 ? 'rgba(240,235,227,0.5)' : '#C8860A', marginTop:2 }}>{pack.subtitle}</p>
+                    <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color: idx===2 ? '#1C0F00' : '#FFFBEE', margin:0 }}>{pack.name}</h3>
+                    <p style={{ fontSize:12, color: idx===2 ? 'rgba(240,235,227,0.5)' : '#8B5E3C', marginTop:2 }}>{pack.subtitle}</p>
                   </div>
                   <span style={{ fontSize:30 }}>{pack.emoji}</span>
                 </div>
                 <ul style={{ margin:'0 0 16px', padding:0, listStyle:'none' }}>
                   {pack.items.map(item => (
-                    <li key={item} style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.65)' : '#C8860A', padding:'3px 0', display:'flex', alignItems:'center', gap:8 }}>
+                    <li key={item} style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.65)' : '#8B5E3C', padding:'3px 0', display:'flex', alignItems:'center', gap:8 }}>
                       <span style={{ color:'#ffd43a', fontSize:10 }}>●</span>{item}
                     </li>
                   ))}
                 </ul>
                 <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
                   <div>
-                    <span style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color: idx===2 ? '#FFF8DC' : '#0F0800' }}>€{pack.price}</span>
-                    <span style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.4)' : '#C8860A', marginLeft:8, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
+                    <span style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color: idx===2 ? '#1C0F00' : '#FFFBEE' }}>€{pack.price}</span>
+                    <span style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.4)' : '#8B5E3C', marginLeft:8, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
                   </div>
-                  <button onClick={() => onNavigate('packs')} style={{ background: idx===2 ? '#ffd43a' : '#0F0800', color:'#fff', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
+                  <button onClick={() => onNavigate('packs')} style={{ background: idx===2 ? '#ffd43a' : '#FFFBEE', color:'#fff', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
                     Pedir pack
                   </button>
                 </div>
@@ -189,7 +189,7 @@ export default function HomePage({ onNavigate }) {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section style={{ background:'#1A1000', padding: isMobile ? '48px 0' : '72px 0' }}>
+      <section style={{ background:'#FFFFFF', padding: isMobile ? '48px 0' : '72px 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
           <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFD43A', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 28 : 40 }}>
@@ -199,13 +199,13 @@ export default function HomePage({ onNavigate }) {
               {step:'03',icon:'🛵',title:'Lo recibes caliente',desc:'Preparamos y enviamos tu pedido. Seguimiento en tiempo real hasta tu puerta en Zaragoza.'},
             ].map(s => (
               <div key={s.step} style={{ display:'flex', flexDirection: isMobile ? 'row' : 'column', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 16 : 0, textAlign: isMobile ? 'left' : 'center' }}>
-                <div style={{ width:56, height:56, borderRadius:'50%', background:'#2A1A00', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontSize:24, marginBottom: isMobile ? 0 : 16 }}>
+                <div style={{ width:56, height:56, borderRadius:'50%', background:'#EDE0C8', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontSize:24, marginBottom: isMobile ? 0 : 16 }}>
                   {s.icon}
                 </div>
                 <div>
                   <span style={{ fontSize:11, letterSpacing:'2px', color:'#ffd43a', fontWeight:600, display:'block', marginBottom:4 }}>{s.step}</span>
-                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', margin:'0 0 6px' }}>{s.title}</h3>
-                  <p style={{ fontSize:14, color:'#C8860A', lineHeight:1.6, margin:0 }}>{s.desc}</p>
+                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C0F00', margin:'0 0 6px' }}>{s.title}</h3>
+                  <p style={{ fontSize:14, color:'#8B5E3C', lineHeight:1.6, margin:0 }}>{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -214,9 +214,9 @@ export default function HomePage({ onNavigate }) {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ background:'#0F0800', padding: isMobile ? '56px 20px' : '80px 24px' }}>
+      <section style={{ background:'#FFFBEE', padding: isMobile ? '56px 20px' : '80px 24px' }}>
         <div style={{ maxWidth:800, margin:'0 auto', textAlign:'center' }}>
-          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 32 : 44, fontWeight:600, color:'#FFF8DC', margin:`0 0 ${isMobile ? 12 : 16}px`, lineHeight:1.1 }}>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 32 : 44, fontWeight:600, color:'#1C0F00', margin:`0 0 ${isMobile ? 12 : 16}px`, lineHeight:1.1 }}>
             ¿Listo para el mejor chuletón{' '}
             <em style={{ color:'#ffd43a' }}>de Zaragoza?</em>
           </h2>
@@ -234,7 +234,7 @@ export default function HomePage({ onNavigate }) {
         <div style={{ maxWidth:1200, margin:'0 auto' }}>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '2fr 1fr 1fr 1fr', gap: isMobile ? 28 : 40, marginBottom: isMobile ? 28 : 40 }}>
             <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
-              <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFF8DC', marginBottom:10 }}>
+              <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#1C0F00', marginBottom:10 }}>
                 Oh<em style={{ color:'#ffd43a' }}>My</em>Grill Brasas
               </div>
               <p style={{ fontSize:13, color:'rgba(240,235,227,0.4)', lineHeight:1.65, maxWidth:260 }}>
