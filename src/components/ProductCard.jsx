@@ -53,7 +53,7 @@ export default function ProductCard({ product, size = 'normal' }) {
           <span style={{ fontFamily:"'Fraunces',serif", fontSize: isSmall ? 18 : 22, fontWeight:600, color:'#FFD43A' }}>
             €{product.price % 1 === 0 ? product.price : product.price.toFixed(2)}
           </span>
-          <button onClick={handleAdd} style={{ background: added ? '#2A5C2A' : '#FFD43A', color: added ? '#FFFFFF' : '#0F0800', border:'none', borderRadius:24, padding: isSmall ? '6px 14px' : '8px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:700, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+          <button onClick={handleAdd} style={{ background: added ? '#2A3A00' : '#FFD43A', color: added ? '#FFFFFF' : '#0F0800', border:'none', borderRadius:24, padding: isSmall ? '6px 14px' : '8px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:700, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:6 }}>
             {added ? <>✓ Añadido</> : <>+ Añadir</>}
           </button>
         </div>

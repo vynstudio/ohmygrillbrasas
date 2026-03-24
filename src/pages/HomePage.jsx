@@ -44,7 +44,7 @@ export default function HomePage({ onNavigate }) {
           <div style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? 'translateY(0)' : 'translateY(28px)', transition:'all 0.8s cubic-bezier(0.4,0,0.2,1)' }}>
             <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom: isMobile ? 20 : 28 }}>
               <span style={{ display:'inline-flex', alignItems:'center', gap:6, background: '#1A1000', color: open ? '#FFD43A' : 'rgba(255,255,255,0.55)', border:'1px solid #2A1A00', fontSize:12, fontWeight:500, padding:'5px 14px', borderRadius:20, backdropFilter:'blur(8px)' }}>
-                <span style={{ width:7, height:7, borderRadius:'50%', background: open ? '#4ade80' : '#fb923c', boxShadow: open ? '0 0 8px #4ade80' : 'none', display:'inline-block' }} />
+                <span style={{ width:7, height:7, borderRadius:'50%', background: open ? '#FFD43A' : 'rgba(255,255,255,0.35)', display:'inline-block' }} />
                 {open ? 'Abierto ahora' : 'Cerrado ahora'}
               </span>
               <span style={{ fontSize:12, color:'rgba(255,255,255,0.35)' }}>· Zaragoza</span>
@@ -55,7 +55,7 @@ export default function HomePage({ onNavigate }) {
               <em style={{ color:'#FFD43A', fontStyle:'italic' }}>como tiene<br />que ser.</em>
             </h1>
 
-            <p style={{ fontSize: isMobile ? 15 : 17, color:'rgba(245,239,230,0.60)', lineHeight:1.75, maxWidth:440, margin:`0 0 ${isMobile ? 28 : 40}px` }}>
+            <p style={{ fontSize: isMobile ? 15 : 17, color:'rgba(255,255,255,0.60)', lineHeight:1.75, maxWidth:440, margin:`0 0 ${isMobile ? 28 : 40}px` }}>
               Carnes premium a la brasa de leña de encina. Pedidos online para toda Zaragoza.
             </p>
 
@@ -63,7 +63,7 @@ export default function HomePage({ onNavigate }) {
               <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:700, cursor:'pointer', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
                 Ver la carta →
               </button>
-              <button onClick={() => onNavigate('packs')} style={{ background:'rgba(255,255,255,0.08)', color:'rgba(245,239,230,0.85)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', backdropFilter:'blur(8px)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
+              <button onClick={() => onNavigate('packs')} style={{ background:'rgba(255,255,255,0.08)', color:'rgba(255,255,255,0.85)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', backdropFilter:'blur(8px)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
                 Ver packs
               </button>
             </div>
@@ -72,7 +72,7 @@ export default function HomePage({ onNavigate }) {
               {[{icon:'🔥',text:'Leña de encina'},{icon:'⏱',text:'Entrega 90 min'},{icon:'🌿',text:'Ingredientes frescos'}].map(b => (
                 <div key={b.text} style={{ display:'flex', alignItems:'center', gap:6 }}>
                   <span style={{ fontSize:14 }}>{b.icon}</span>
-                  <span style={{ fontSize:12, color:'rgba(245,239,230,0.45)' }}>{b.text}</span>
+                  <span style={{ fontSize:12, color:'rgba(255,255,255,0.45)' }}>{b.text}</span>
                 </div>
               ))}
             </div>
@@ -88,7 +88,7 @@ export default function HomePage({ onNavigate }) {
                     <span style={{ fontSize:38 }}>🥩</span>
                     <div>
                       <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F5EFE6', margin:0 }}>Chuletón de buey</p>
-                      <p style={{ fontSize:12, color:'rgba(245,239,230,0.40)', margin:'3px 0 0' }}>1 kg · Madurado 45 días · Sal Maldon</p>
+                      <p style={{ fontSize:12, color:'rgba(255,255,255,0.40)', margin:'3px 0 0' }}>1 kg · Madurado 45 días · Sal Maldon</p>
                     </div>
                     <span style={{ marginLeft:'auto', fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#FFD43A' }}>€48</span>
                   </div>
@@ -100,7 +100,7 @@ export default function HomePage({ onNavigate }) {
                   {[{num:'+4 años',label:'en Zaragoza'},{num:'100%',label:'leña encina'},{num:'4.9 ★',label:'Google Maps'}].map(s => (
                     <div key={s.label} style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:12, padding:'12px 10px', textAlign:'center' }}>
                       <p style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#F5EFE6', margin:0 }}>{s.num}</p>
-                      <p style={{ fontSize:11, color:'rgba(245,239,230,0.35)', margin:'3px 0 0' }}>{s.label}</p>
+                      <p style={{ fontSize:11, color:'rgba(255,255,255,0.35)', margin:'3px 0 0' }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -114,7 +114,7 @@ export default function HomePage({ onNavigate }) {
               {[{num:'+4 años',label:'Zaragoza'},{num:'100%',label:'Leña encina'},{num:'4.9 ★',label:'Google'}].map(s => (
                 <div key={s.label} style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:10, padding:'10px 8px', textAlign:'center' }}>
                   <p style={{ fontFamily:"'Fraunces',serif", fontSize:14, fontWeight:600, color:'#F5EFE6', margin:0 }}>{s.num}</p>
-                  <p style={{ fontSize:10, color:'rgba(245,239,230,0.35)', margin:'2px 0 0' }}>{s.label}</p>
+                  <p style={{ fontSize:10, color:'rgba(255,255,255,0.35)', margin:'2px 0 0' }}>{s.label}</p>
                 </div>
               ))}
             </div>
@@ -178,7 +178,7 @@ export default function HomePage({ onNavigate }) {
                     <span style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color: '#FFFFFF' }}>€{pack.price}</span>
                     <span style={{ fontSize:13, color: 'rgba(255,255,255,0.35)', marginLeft:8, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
                   </div>
-                  <button onClick={() => onNavigate('packs')} style={{ background: idx===2 ? '#FFD43A' : '#0F0800', color:'#fff', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
+                  <button onClick={() => onNavigate('packs')} style={{ background: '#FFD43A', color:'#0F0800', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
                     Pedir pack
                   </button>
                 </div>
@@ -220,7 +220,7 @@ export default function HomePage({ onNavigate }) {
             ¿Listo para el mejor chuletón{' '}
             <em style={{ color:'#FFD43A' }}>de Zaragoza?</em>
           </h2>
-          <p style={{ fontSize: isMobile ? 14 : 15, color:'rgba(240,235,227,0.5)', lineHeight:1.65, marginBottom: isMobile ? 28 : 36 }}>
+          <p style={{ fontSize: isMobile ? 14 : 15, color:'rgba(255,255,255,0.5)', lineHeight:1.65, marginBottom: isMobile ? 28 : 36 }}>
             Pedido mínimo €20 · Envío gratis +€35 · Toda Zaragoza
           </p>
           <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:32, padding: isMobile ? '15px 32px' : '16px 40px', fontSize: isMobile ? 15 : 16, fontWeight:700, cursor:'pointer', fontFamily:"'Outfit',sans-serif", width: isMobile ? '100%' : 'auto' }}>
@@ -237,34 +237,34 @@ export default function HomePage({ onNavigate }) {
               <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFFFFF', marginBottom:10 }}>
                 Oh<em style={{ color:'#FFD43A' }}>My</em>Grill Brasas
               </div>
-              <p style={{ fontSize:13, color:'rgba(240,235,227,0.4)', lineHeight:1.65, maxWidth:260 }}>
+              <p style={{ fontSize:13, color:'rgba(255,255,255,0.4)', lineHeight:1.65, maxWidth:260 }}>
                 Carnes a la brasa de leña de encina. Pedidos online para Zaragoza.
               </p>
             </div>
             <div>
               <p style={{ fontSize:11, letterSpacing:'2px', color:'#FFD43A', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Carta</p>
-              {['Carnes','Aves','Verduras','Salsas','Packs'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(240,235,227,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
+              {['Carnes','Aves','Verduras','Salsas','Packs'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(255,255,255,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
             </div>
             <div>
               <p style={{ fontSize:11, letterSpacing:'2px', color:'#FFD43A', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Info</p>
-              {['Sobre nosotros','Reparto','FAQ','Contacto'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(240,235,227,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
+              {['Sobre nosotros','Reparto','FAQ','Contacto'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(255,255,255,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
             </div>
             {!isMobile && (
               <div>
                 <p style={{ fontSize:11, letterSpacing:'2px', color:'#FFD43A', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Horario</p>
                 {Object.entries(restaurantInfo.hours).map(([day, h]) => (
                   <div key={day} style={{ marginBottom:6 }}>
-                    <p style={{ fontSize:11, color:'rgba(240,235,227,0.3)', margin:0 }}>{day}</p>
-                    <p style={{ fontSize:12, color:'rgba(240,235,227,0.6)', margin:'1px 0 0', fontWeight:500 }}>{h}</p>
+                    <p style={{ fontSize:11, color:'rgba(255,255,255,0.3)', margin:0 }}>{day}</p>
+                    <p style={{ fontSize:12, color:'rgba(255,255,255,0.6)', margin:'1px 0 0', fontWeight:500 }}>{h}</p>
                   </div>
                 ))}
               </div>
             )}
           </div>
           <div style={{ borderTop:'1px solid rgba(255,255,255,0.07)', paddingTop:20, display:'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent:'space-between', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 10 : 0 }}>
-            <p style={{ fontSize:12, color:'rgba(240,235,227,0.25)', margin:0 }}>© 2025 OhMyGrill Brasas · Zaragoza</p>
+            <p style={{ fontSize:12, color:'rgba(255,255,255,0.25)', margin:0 }}>© 2025 OhMyGrill Brasas · Zaragoza</p>
             <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
-              {['Privacidad','Cookies','Aviso legal'].map(l => <span key={l} style={{ fontSize:12, color:'rgba(240,235,227,0.25)', cursor:'pointer' }}>{l}</span>)}
+              {['Privacidad','Cookies','Aviso legal'].map(l => <span key={l} style={{ fontSize:12, color:'rgba(255,255,255,0.25)', cursor:'pointer' }}>{l}</span>)}
             </div>
           </div>
         </div>

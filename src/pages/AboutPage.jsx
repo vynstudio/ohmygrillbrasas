@@ -65,7 +65,7 @@ export default function AboutPage({ onNavigate }) {
             Más de diez años<br />
             <em style={{ color: '#FFD43A', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
           </h1>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(240,235,227,0.55)', lineHeight: 1.75, maxWidth: 580, margin: 0 }}>
+          <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, maxWidth: 580, margin: 0 }}>
             Producto aragonés de calidad, marinado honesto y paciencia sobre el carbón. Eso es OhMyGrill Brasas.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function AboutPage({ onNavigate }) {
                 { day: 'Domingo', hours: '13:00 – 21:00' },
               ].map(h => (
                 <div key={h.day} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                  <span style={{ fontSize: 13, color: 'rgba(240,235,227,0.5)' }}>{h.day}</span>
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)' }}>{h.day}</span>
                   <span style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF' }}>{h.hours}</span>
                 </div>
               ))}
@@ -251,7 +251,7 @@ export default function AboutPage({ onNavigate }) {
                     <div style={{ flex: 1, height: 1, background: '#2A1A00' }} />
                   </div>
 
-                  <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 14, background: '#25D366', color: '#fff', border: 'none', borderRadius: 14, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+                  <a href="https://wa.me/34600000000" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 14, background: '#1A1000', color: '#fff', border: 'none', borderRadius: 14, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
                     <span style={{ fontSize: 18 }}>📱</span> Escríbenos por WhatsApp
                   </a>
                 </>
@@ -266,7 +266,7 @@ export default function AboutPage({ onNavigate }) {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 32 : 48, alignItems: 'center' }}>
           <div>
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 26 : 34, fontWeight: 600, color: '#FFFFFF', margin: '0 0 16px' }}>Encuéntranos</h2>
-            <p style={{ fontSize: 15, color: 'rgba(240,235,227,0.5)', lineHeight: 1.75, margin: '0 0 28px' }}>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: '0 0 28px' }}>
               Estamos en el centro de Zaragoza. Si prefieres venir a recoger tu pedido, estaremos encantados de atenderte en el local.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -277,7 +277,7 @@ export default function AboutPage({ onNavigate }) {
               ].map(item => (
                 <div key={item.text} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <span style={{ fontSize: 16 }}>{item.icon}</span>
-                  <span style={{ fontSize: 14, color: 'rgba(240,235,227,0.55)' }}>{item.text}</span>
+                  <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)' }}>{item.text}</span>
                 </div>
               ))}
             </div>
@@ -289,8 +289,8 @@ export default function AboutPage({ onNavigate }) {
           {/* Map embed placeholder */}
           <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, overflow: 'hidden', height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 12 }}>
             <span style={{ fontSize: 40 }}>🗺️</span>
-            <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: 'rgba(240,235,227,0.4)', margin: 0 }}>Google Maps</p>
-            <p style={{ fontSize: 12, color: 'rgba(240,235,227,0.25)', margin: 0 }}>Integración pendiente de API key</p>
+            <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: 'rgba(255,255,255,0.4)', margin: 0 }}>Google Maps</p>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', margin: 0 }}>Integración pendiente de API key</p>
           </div>
         </div>
       </section>

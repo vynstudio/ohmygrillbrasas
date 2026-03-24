@@ -78,7 +78,7 @@ function ProgressBar({ stages, currentStatus }) {
               <div style={{
                 width: 44, height: 44, borderRadius: '50%',
                 background: done ? '#1A1000' : active ? '#0F0800' : '#1A1000',
-                border: `2px solid ${done ? '#1a7a4a' : active ? '#0F0800' : '#2A1A00'}`,
+                border: `2px solid ${done ? '#FFD43A' : active ? '#0F0800' : '#2A1A00'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: active ? 20 : 16,
                 transition: 'all 0.4s ease',
@@ -86,7 +86,7 @@ function ProgressBar({ stages, currentStatus }) {
                 position: 'relative',
               }}>
                 {done ? (
-                  <span style={{ color: '#1a7a4a', fontSize: 18 }}>✓</span>
+                  <span style={{ color: '#FFD43A', fontSize: 18 }}>✓</span>
                 ) : (
                   <span style={{ filter: upcoming ? 'grayscale(1) opacity(0.4)' : 'none' }}>{stage.icon}</span>
                 )}
@@ -101,7 +101,7 @@ function ProgressBar({ stages, currentStatus }) {
               {idx < stages.length - 1 && (
                 <div style={{
                   width: 2, flex: 1, minHeight: 32,
-                  background: done ? '#1a7a4a' : '#2A1A00',
+                  background: done ? '#FFD43A' : '#2A1A00',
                   margin: '4px 0',
                   transition: 'background 0.4s ease',
                 }} />
@@ -196,7 +196,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 32 : 44, fontWeight: 600, color: '#FFFFFF', margin: '0 0 10px', letterSpacing: '-1px' }}>
             Seguimiento de pedido
           </h1>
-          <p style={{ fontSize: 15, color: 'rgba(240,235,227,0.45)', margin: '0 0 28px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', margin: '0 0 28px', lineHeight: 1.6 }}>
             Introduce tu número de pedido para ver el estado en tiempo real.
           </p>
 
@@ -211,7 +211,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               onKeyDown={e => e.key === 'Enter' && handleSearch()}
               style={{
                 flex: 1, padding: '13px 16px',
-                background: 'rgba(255,255,255,0.08)',
+                background: '#1A1000',
                 border: '1.5px solid rgba(255,255,255,0.12)',
                 borderRadius: 12, color: '#FFFFFF',
                 fontFamily: "'Outfit', sans-serif",
@@ -238,11 +238,11 @@ export default function OrderTrackerPage({ onNavigate }) {
               ) : 'Buscar →'}
             </button>
           </div>
-          {error && <p style={{ fontSize: 13, color: '#fb923c', marginTop: 10 }}>⚠️ {error}</p>}
+          {error && <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', marginTop: 10 }}>⚠️ {error}</p>}
 
           {/* Demo hint */}
-          <p style={{ fontSize: 11, color: 'rgba(240,235,227,0.25)', marginTop: 12 }}>
-            Demo: prueba con <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(240,235,227,0.4)' }} onClick={() => { setOrderId('OMG-K4X9A'); handleSearch('OMG-K4X9A'); }}>OMG-K4X9A</span> o <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(240,235,227,0.4)' }} onClick={() => { setOrderId('OMG-R7L3C'); handleSearch('OMG-R7L3C'); }}>OMG-R7L3C</span>
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 12 }}>
+            Demo: prueba con <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(255,255,255,0.4)' }} onClick={() => { setOrderId('OMG-K4X9A'); handleSearch('OMG-K4X9A'); }}>OMG-K4X9A</span> o <span style={{ cursor: 'pointer', textDecoration: 'underline', color: 'rgba(255,255,255,0.4)' }} onClick={() => { setOrderId('OMG-R7L3C'); handleSearch('OMG-R7L3C'); }}>OMG-R7L3C</span>
           </p>
         </div>
       </div>
@@ -254,7 +254,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {/* Status hero card */}
           <div style={{
             background: isDelivered ? '#1A1000' : isReady ? '#1A1000' : '#fff',
-            border: `1px solid ${isDelivered ? '#1a7a4a' : isReady ? '#FFD43A' : '#2A1A00'}`,
+            border: `1px solid ${isDelivered ? '#FFD43A' : isReady ? '#FFD43A' : '#2A1A00'}`,
             borderRadius: 20, padding: '24px', marginBottom: 20,
             display: 'flex', alignItems: 'center', gap: 16,
           }}>
@@ -265,7 +265,7 @@ export default function OrderTrackerPage({ onNavigate }) {
               <p style={{ fontSize: 11, color: '#FFD43A', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', margin: '0 0 4px' }}>
                 {order.id}
               </p>
-              <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: isDelivered ? '#1a7a4a' : '#0F0800', margin: '0 0 4px' }}>
+              <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: isDelivered ? '#FFD43A' : '#0F0800', margin: '0 0 4px' }}>
                 {stages[currentStageIdx]?.label}
               </h2>
               <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: 0 }}>
@@ -300,7 +300,7 @@ export default function OrderTrackerPage({ onNavigate }) {
                 <p style={{ fontSize: 11, letterSpacing: '2px', color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 12px' }}>Artículos</p>
                 {order.items.map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0', borderBottom: i < order.items.length - 1 ? '1px solid #1A1000' : 'none' }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 8, background: 'linear-gradient(135deg,#2A1005,#7C2D0C)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17, flexShrink: 0 }}>{item.emoji}</div>
+                    <div style={{ width: 36, height: 36, borderRadius: 8, background: '#1A1000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 17, flexShrink: 0 }}>{item.emoji}</div>
                     <div style={{ flex: 1 }}>
                       <p style={{ fontSize: 13, fontWeight: 500, color: '#0F0800', margin: 0 }}>{item.qty}× {item.name}</p>
                     </div>
@@ -337,13 +337,13 @@ export default function OrderTrackerPage({ onNavigate }) {
           <div style={{ background: '#0F0800', borderRadius: 16, padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div>
               <p style={{ fontSize: 14, fontWeight: 500, color: '#FFFFFF', margin: '0 0 2px' }}>¿Tienes algún problema?</p>
-              <p style={{ fontSize: 12, color: 'rgba(240,235,227,0.4)', margin: 0 }}>Estamos disponibles durante el horario de reparto</p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', margin: 0 }}>Estamos disponibles durante el horario de reparto</p>
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.08)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#1A1000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 📞 Llamar
               </a>
-              <a href={`https://wa.me/34600000000`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#25D366', color: '#fff', border: 'none', borderRadius: 10, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+              <a href={`https://wa.me/34600000000`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#1A1000', color: '#fff', border: 'none', borderRadius: 10, padding: '9px 14px', fontFamily: "'Outfit', sans-serif", fontSize: 13, textDecoration: 'none', whiteSpace: 'nowrap' }}>
                 💬 WhatsApp
               </a>
             </div>

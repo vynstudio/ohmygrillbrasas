@@ -16,7 +16,7 @@ function Steps({ current }) {
             <div style={{ display:'flex', alignItems:'center', gap:8 }}>
               <div style={{
                 width:28, height:28, borderRadius:'50%',
-                background: done ? '#1a7a4a' : active ? '#FFD43A' : '#2A1A00',
+                background: done ? '#FFD43A' : active ? '#FFD43A' : '#2A1A00',
                 color: done || active ? '#0F0800' : 'rgba(255,255,255,0.45)',
                 display:'flex', alignItems:'center', justifyContent:'center',
                 fontSize:12, fontWeight:600, flexShrink:0, transition:'all 0.3s',
@@ -28,7 +28,7 @@ function Steps({ current }) {
               </span>
             </div>
             {i < steps.length - 1 && (
-              <div style={{ flex:1, height:1, background: done ? '#1a7a4a' : '#2A1A00', margin:'0 12px', transition:'background 0.3s' }} />
+              <div style={{ flex:1, height:1, background: done ? '#FFD43A' : '#2A1A00', margin:'0 12px', transition:'background 0.3s' }} />
             )}
           </div>
         );
@@ -49,7 +49,7 @@ function OrderSummary({ isMobile }) {
       <div style={{ padding:'16px 22px' }}>
         {items.map(item => (
           <div key={item.id} style={{ display:'flex', alignItems:'center', gap:12, padding:'10px 0', borderBottom:'1px solid #1A1000' }}>
-            <div style={{ width:40, height:40, borderRadius:8, background:'linear-gradient(135deg,#2A1005,#7C2D0C)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>
+            <div style={{ width:40, height:40, borderRadius:8, background:'#1A1000', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>
               {item.emoji}
             </div>
             <div style={{ flex:1, minWidth:0 }}>
@@ -72,7 +72,7 @@ function OrderSummary({ isMobile }) {
           </div>
           <div style={{ display:'flex', justifyContent:'space-between', marginBottom:12, paddingBottom:12, borderBottom:'1px solid #2A1A00' }}>
             <span style={{ fontSize:13, color:'rgba(255,255,255,0.45)' }}>Envío {deliveryType === 'pickup' ? '(recogida)' : deliveryZone ? `· ${deliveryZone.name}` : ''}</span>
-            <span style={{ fontSize:13, color: deliveryFee === 0 ? '#1a7a4a' : '#0F0800' }}>
+            <span style={{ fontSize:13, color: deliveryFee === 0 ? '#FFD43A' : '#0F0800' }}>
               {deliveryFee === 0 ? 'Gratis' : `€${deliveryFee.toFixed(2)}`}
             </span>
           </div>
@@ -134,7 +134,7 @@ function StepDelivery({ data, onChange, onNext }) {
               {deliveryZones.map(z => <option key={z.name} value={z.name}>{z.name} — {z.eta} · €{z.deliveryFee}</option>)}
             </select>
             {errors.zone && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{errors.zone}</p>}
-            {deliveryZone && <p style={{ fontSize:12, color:'#1a7a4a', marginTop:4 }}>✓ Entrega estimada: {deliveryZone.eta}</p>}
+            {deliveryZone && <p style={{ fontSize:12, color:'#FFD43A', marginTop:4 }}>✓ Entrega estimada: {deliveryZone.eta}</p>}
           </div>
 
           {/* Address */}
@@ -341,7 +341,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       <div style={{ background:'#1A1000', borderRadius:14, padding:'16px 20px', marginBottom:12 }}>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <div>
-            <p style={{ fontSize:12, color:'rgba(240,235,227,0.5)', margin:0 }}>Total a pagar</p>
+            <p style={{ fontSize:12, color:'rgba(255,255,255,0.5)', margin:0 }}>Total a pagar</p>
             <p style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#FFFFFF', margin:'2px 0 0' }}>€{total.toFixed(2)}</p>
           </div>
           <button onClick={handlePay} disabled={loading} style={{ background: loading ? '#2A1A00' : '#FFD43A', color:'#fff', border:'none', borderRadius:12, padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor: loading ? 'not-allowed' : 'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:8, minWidth:140, justifyContent:'center' }}>
@@ -423,7 +423,7 @@ export default function CheckoutPage({ onNavigate }) {
             </div>
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
               <span style={{ fontSize:13, color:'rgba(255,255,255,0.45)' }}>Tiempo estimado</span>
-              <span style={{ fontSize:13, color:'#1a7a4a', fontWeight:500 }}>~25–45 minutos</span>
+              <span style={{ fontSize:13, color:'#FFD43A', fontWeight:500 }}>~25–45 minutos</span>
             </div>
           </div>
 

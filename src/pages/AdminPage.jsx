@@ -13,8 +13,8 @@ const mockOrders = [
 
 const STATUS_CONFIG = {
   pending:   { label:'Nuevo',      color:'#EF9F27', bg:'#FAEEDA', next:'preparing', nextLabel:'Aceptar' },
-  preparing: { label:'Preparando', color:'#185FA5', bg:'#E6F1FB', next:'ready',     nextLabel:'Listo para entrega' },
-  ready:     { label:'Listo',      color:'#1a7a4a', bg:'#EDFBF3', next:'delivered', nextLabel:'Marcar entregado' },
+  preparing: { label:'Preparando', color:'#FFD43A', bg:'#E6F1FB', next:'ready',     nextLabel:'Listo para entrega' },
+  ready:     { label:'Listo',      color:'#FFD43A', bg:'#2A1A00', next:'delivered', nextLabel:'Marcar entregado' },
   delivered: { label:'Entregado',  color:'#888780', bg:'#F1EFE8', next:null,        nextLabel:null },
 };
 
@@ -47,18 +47,18 @@ function AdminLogin({ onLogin }) {
       <div style={{ background: '#0F0800', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 24, padding: '48px 40px', width: '100%', maxWidth: 380, textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 20 }}>🔥</div>
         <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: 28, fontWeight: 600, color: '#FFFFFF', margin: '0 0 6px' }}>Panel de administración</h1>
-        <p style={{ fontSize: 13, color: 'rgba(240,235,227,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
+        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', margin: '0 0 32px' }}>OhMyGrill Brasas · Zaragoza</p>
         <input
           type="password" placeholder="Contraseña"
           value={pw} onChange={e => setPw(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handle()}
-          style={{ width: '100%', padding: '13px 16px', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#FFFFFF', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
+          style={{ width: '100%', padding: '13px 16px', background: '#1A1000', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#FFFFFF', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
         <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
           Entrar →
         </button>
-        <p style={{ fontSize: 11, color: 'rgba(240,235,227,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
+        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
       </div>
     </div>
   );
@@ -138,10 +138,10 @@ function OrderCard({ order, onStatusChange }) {
                 {cfg.nextLabel} →
               </button>
             )}
-            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#EDFBF3', color: '#1a7a4a', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`tel:${order.phone}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#1A1000', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               📞 Llamar
             </a>
-            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#EDFBF3', color: '#1a7a4a', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
+            <a href={`https://wa.me/${order.phone.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, background: '#1A1000', color: '#FFD43A', border: 'none', borderRadius: 10, padding: '11px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: 'pointer', textDecoration: 'none' }}>
               💬 WA
             </a>
           </div>
@@ -223,7 +223,7 @@ function MenuEditor() {
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
-          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#1a7a4a' : '#FFD43A', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#FFD43A' : '#FFD43A', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
             {saving ? <><span style={{ width:14, height:14, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite', display:'inline-block' }} />Guardando...</> : saved ? '✓ Guardado en Supabase' : 'Guardar cambios'}
           </button>
         </div>
@@ -283,8 +283,8 @@ function StatsSection({ orders }) {
   const pending = orders.filter(o => o.status === 'pending').length;
 
   const stats = [
-    { icon: '📦', label: 'Pedidos hoy', value: today.length, sub: `${orders.length} en total`, color: '#185FA5' },
-    { icon: '💶', label: 'Ingresos hoy', value: `€${todayRevenue.toFixed(0)}`, sub: `€${totalRevenue.toFixed(0)} total`, color: '#1a7a4a' },
+    { icon: '📦', label: 'Pedidos hoy', value: today.length, sub: `${orders.length} en total`, color: '#FFD43A' },
+    { icon: '💶', label: 'Ingresos hoy', value: `€${todayRevenue.toFixed(0)}`, sub: `€${totalRevenue.toFixed(0)} total`, color: '#FFD43A' },
     { icon: '🧾', label: 'Ticket medio', value: `€${avgOrder.toFixed(0)}`, sub: 'Por pedido', color: '#FFD43A' },
     { icon: '🔔', label: 'Pendientes', value: pending, sub: 'Sin confirmar', color: pending > 0 ? '#EF9F27' : '#888780' },
   ];
@@ -400,7 +400,7 @@ export default function AdminPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 20 }}>🔥</span>
           <span style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontWeight: 600, color: '#FFFFFF' }}>OhMyGrill</span>
-          <span style={{ fontSize: 11, color: 'rgba(240,235,227,0.35)', background: 'rgba(255,255,255,0.08)', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
+          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', background: '#1A1000', padding: '2px 8px', borderRadius: 10 }}>Admin</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {pendingCount > 0 && (
@@ -408,7 +408,7 @@ export default function AdminPage() {
               {pendingCount} nuevo{pendingCount > 1 ? 's' : ''}
             </span>
           )}
-          <button onClick={handleLogout} style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(240,235,227,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
+          <button onClick={handleLogout} style={{ background: '#1A1000', color: 'rgba(255,255,255,0.6)', border: 'none', borderRadius: 8, padding: '6px 12px', cursor: 'pointer', fontFamily: "'Outfit', sans-serif", fontSize: 12 }}>
             Cerrar sesión
           </button>
         </div>

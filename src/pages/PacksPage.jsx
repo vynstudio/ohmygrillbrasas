@@ -39,11 +39,11 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
                 {pack.badge}
               </span>
               <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: 26, fontWeight: 600, color: '#FFFFFF', margin: 0, lineHeight: 1.1 }}>{pack.name}</h2>
-              <p style={{ fontSize: 13, color: 'rgba(240,235,227,0.45)', margin: '5px 0 0' }}>{pack.subtitle}</p>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: '5px 0 0' }}>{pack.subtitle}</p>
             </div>
             <span style={{ fontSize: 42 }}>{pack.emoji}</span>
           </div>
-          <p style={{ fontSize: 14, color: 'rgba(240,235,227,0.55)', lineHeight: 1.65, margin: 0 }}>{pack.description}</p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, margin: 0 }}>{pack.description}</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ function PackHero({ pack, idx, onAdd, added, isMobile }) {
         <button
           onClick={() => onAdd(pack)}
           style={{
-            width: '100%', background: added ? '#2A5C2A' : '#FFD43A',
+            width: '100%', background: added ? '#2A3A00' : '#FFD43A',
             color: '#0F0800', border: 'none', borderRadius: 14,
             padding: '14px', fontFamily: "'Outfit', sans-serif",
             fontSize: 15, fontWeight: 500, cursor: 'pointer',
@@ -169,7 +169,7 @@ export default function PacksPage({ onNavigate }) {
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 36 : 52, fontWeight: 600, color: '#FFFFFF', margin: '0 0 12px', letterSpacing: '-1px', lineHeight: 1.05 }}>
             Packs y promociones
           </h1>
-          <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(240,235,227,0.5)', maxWidth: 520, lineHeight: 1.7, margin: '0 0 32px' }}>
+          <p style={{ fontSize: isMobile ? 14 : 16, color: 'rgba(255,255,255,0.5)', maxWidth: 520, lineHeight: 1.7, margin: '0 0 32px' }}>
             Combina tus platos favoritos y ahorra. Pensados para compartir en buena compañía.
           </p>
           {/* Stats */}
@@ -177,7 +177,7 @@ export default function PacksPage({ onNavigate }) {
             {[{ num: '3 packs', label: 'disponibles' }, { num: 'Hasta €14', label: 'de ahorro' }, { num: '90 min', label: 'entrega Zaragoza' }].map(s => (
               <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: '#FFD43A' }}>{s.num}</span>
-                <span style={{ fontSize: 13, color: 'rgba(240,235,227,0.35)' }}>{s.label}</span>
+                <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)' }}>{s.label}</span>
               </div>
             ))}
           </div>
@@ -226,7 +226,7 @@ export default function PacksPage({ onNavigate }) {
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 24 : 32, fontWeight: 600, color: '#FFFFFF', margin: '0 0 10px', lineHeight: 1.1 }}>
               ¿Prefieres elegir tú mismo?
             </h2>
-            <p style={{ fontSize: 14, color: 'rgba(240,235,227,0.45)', lineHeight: 1.65, margin: 0 }}>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, margin: 0 }}>
               Explora la carta completa y monta tu pedido a tu gusto.
             </p>
           </div>

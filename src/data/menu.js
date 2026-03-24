@@ -41,7 +41,7 @@ export const products = [
     weight: '800 g',
     description: 'Cerdo ibérico puro de bellota. Adobo suave de pimentón y ajo, 4 horas de marinado.',
     badge: 'Más pedido',
-    badgeColor: '#1a7a4a',
+    badgeColor: '#FFD43A',
     allergens: [],
     available: true,
     emoji: '🍖',
