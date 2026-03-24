@@ -225,24 +225,18 @@ function StepPayment({ onBack, onSubmit, total, loading, stripeError }) {
   return (
     <div>
       <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:400, color:S.dark, marginBottom:6, letterSpacing:'-.5px' }}>Pago</h2>
-      <p style={{ fontSize:14, color:S.sub, marginBottom:24, lineHeight:1.6 }}>Pago seguro procesado por Stripe. No guardamos datos de tarjeta.</p>
+      <p style={{ fontSize:14, color:S.sub, marginBottom:20, lineHeight:1.6 }}>Elige tu método de pago. Procesado por Stripe — 100% seguro.</p>
 
-      <div style={{ display:'flex', gap:8, alignItems:'center', marginBottom:20 }}>
-        {['VISA','MSTR','AMEX'].map(c=><div key={c} style={{ background:S.surface, border:`1px solid ${S.border}`, borderRadius:5, padding:'3px 8px', fontSize:10, fontWeight:700, color:S.sub }}>{c}</div>)}
-        <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:5, fontSize:11, color:S.faint }}>
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(26,16,8,.3)" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          SSL 256-bit · Cifrado
+      {/* Stripe PaymentElement mounts here — shows Bizum, Apple Pay, Google Pay, card */}
+      <div id="stripe-payment-element" style={{ marginBottom:20 }} />
+
+      {stripeError && (
+        <div style={{ background:'#fef2f2', border:'1px solid #fecaca', borderRadius:10, padding:'10px 14px', marginBottom:16, fontSize:13, color:S.error }}>
+          {stripeError}
         </div>
-      </div>
+      )}
 
-      {/* Stripe Card Element mounts here */}
-      <div style={{ marginBottom:16 }}>
-        <Lbl>Datos de pago</Lbl>
-        <div id="stripe-card-element" style={{ padding:'14px 16px', border:`1.5px solid ${S.border}`, borderRadius:10, background:'#fff', minHeight:50, transition:'border-color .2s' }} />
-        {stripeError && <p style={{ fontSize:12, color:S.error, marginTop:6 }}>{stripeError}</p>}
-      </div>
-
-      <div style={{ background:S.surface, borderRadius:12, padding:'14px 16px', marginBottom:22, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+      <div style={{ background:S.surface, borderRadius:12, padding:'12px 16px', marginBottom:20, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
         <span style={{ fontSize:13, color:S.sub }}>Total a pagar</span>
         <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:S.dark }}>€{total.toFixed(2)}</span>
       </div>
@@ -260,7 +254,7 @@ function StepPayment({ onBack, onSubmit, total, loading, stripeError }) {
         </button>
       </div>
       <p style={{ fontSize:11, color:S.faint, textAlign:'center', marginTop:12 }}>
-        Procesado por Stripe · No guardamos datos de tarjeta
+        Bizum · Apple Pay · Google Pay · Tarjeta · Procesado por Stripe
       </p>
       <style>{`@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`}</style>
     </div>
@@ -289,7 +283,7 @@ export default function CheckoutPage({ onNavigate }) {
     return () => window.removeEventListener('resize', fn);
   }, []);
 
-  // Mount Stripe Elements when we reach step 2
+  // Mount Stripe PaymentElement when we reach step 2
   useEffect(() => {
     if (step !== 2) return;
     if (!window.Stripe) { setStripeError('Stripe no cargado. Recarga la página.'); return; }
@@ -300,31 +294,56 @@ export default function CheckoutPage({ onNavigate }) {
     const stripe = window.Stripe(pk);
     stripeRef.current = stripe;
 
-    const elements = stripe.elements({ locale: 'es' });
-    elementsRef.current = elements;
+    // Create a setup PaymentIntent first to get clientSecret for PaymentElement
+    fetch('/.netlify/functions/create-setup-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: Math.round(total * 100), currency: 'eur' }),
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) { setStripeError(data.error); return; }
 
-    const card = elements.create('card', {
-      style: {
-        base: {
-          fontFamily: "'Outfit', sans-serif",
-          fontSize: '15px',
-          color: '#1a1008',
-          '::placeholder': { color: 'rgba(26,16,8,.35)' },
+      const elements = stripe.elements({
+        clientSecret: data.clientSecret,
+        locale: 'es',
+        appearance: {
+          theme: 'flat',
+          variables: {
+            colorPrimary: '#1a1008',
+            colorBackground: '#ffffff',
+            colorText: '#1a1008',
+            colorDanger: '#c0392b',
+            fontFamily: 'Outfit, sans-serif',
+            borderRadius: '10px',
+            spacingUnit: '4px',
+          },
+          rules: {
+            '.Input': { border: '1.5px solid rgba(26,16,8,.1)', padding: '13px 16px' },
+            '.Input:focus': { border: '1.5px solid #1a1008' },
+            '.Tab': { border: '1.5px solid rgba(26,16,8,.1)', borderRadius: '10px' },
+            '.Tab--selected': { border: '1.5px solid #1a1008', boxShadow: '0 0 0 1px #1a1008' },
+            '.Tab:hover': { border: '1.5px solid rgba(26,16,8,.3)' },
+          },
         },
-        invalid: { color: '#c0392b' },
-      },
-      hidePostalCode: true,
-    });
+      });
+      elementsRef.current = elements;
 
-    card.mount('#stripe-card-element');
-    cardRef.current = card;
+      const paymentEl = elements.create('payment', {
+        layout: { type: 'tabs', defaultCollapsed: false },
+        wallets: { applePay: 'auto', googlePay: 'auto' },
+      });
+      paymentEl.mount('#stripe-payment-element');
+      cardRef.current = paymentEl;
 
-    card.on('change', e => {
-      setStripeError(e.error ? e.error.message : '');
-    });
+      paymentEl.on('change', e => {
+        setStripeError(e.error ? e.error.message : '');
+      });
+    })
+    .catch(err => setStripeError('Error al cargar el pago. Recarga la página.'));
 
-    return () => { try { card.unmount(); } catch(e) {} };
-  }, [step]);
+    return () => { try { if(cardRef.current) cardRef.current.unmount(); } catch(e) {} };
+  }, [step, total]);
 
   // ── Submit payment ──────────────────────────────────────────────────────────
   const handleSubmit = async () => {
@@ -351,12 +370,12 @@ export default function CheckoutPage({ onNavigate }) {
         return;
       }
 
-      // 2. Confirm card payment with Stripe.js
-      const { error: confirmError } = await stripeRef.current.confirmCardPayment(
-        data.clientSecret,
-        {
-          payment_method: {
-            card: cardRef.current,
+      // 2. Confirm payment with Stripe.js (works for all methods: Bizum, card, Apple Pay etc.)
+      const { error: confirmError } = await stripeRef.current.confirmPayment({
+        elements: elementsRef.current,
+        confirmParams: {
+          return_url: window.location.origin + '/#checkout-success',
+          payment_method_data: {
             billing_details: {
               name:  formData.name,
               email: formData.email,
@@ -364,8 +383,9 @@ export default function CheckoutPage({ onNavigate }) {
             },
           },
           receipt_email: formData.email,
-        }
-      );
+        },
+        redirect: 'if_required', // stay on page for card/Bizum, redirect for wallets if needed
+      });
 
       if (confirmError) {
         setStripeError(confirmError.message);
