@@ -30,7 +30,7 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
 
   return (
     <>
-      <div style={{ background:'#8B5E3C', color:'#FFF8DC', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:500, lineHeight:1.4 }}>
+      <div style={{ background:'#5C3317', color:'#FFF8DC', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:500, lineHeight:1.4 }}>
         🔥 ENVÍO GRATIS +€35 · ZARAGOZA · 90 MIN
       </div>
       <nav style={{ position:'sticky', top:0, zIndex:100, background: scrolled ? 'rgba(255,255,255,0.97)' : '#fff', backdropFilter: scrolled ? 'blur(12px)' : 'none', borderBottom:'1px solid #F0E4C8', transition:'all 0.2s ease', boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.06)' : 'none' }}>
@@ -74,7 +74,7 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
                 </button>
               ))}
               <div style={{ padding:'8px 24px 0' }}>
-                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#8B5E3C', color:'#FFF8DC', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#5C3317', color:'#FFF8DC', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
                   Pedir ahora →
                 </button>
               </div>
