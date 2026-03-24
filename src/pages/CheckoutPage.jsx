@@ -274,6 +274,7 @@ export default function CheckoutPage({ onNavigate }) {
   const stripeRef   = useRef(null); // Stripe instance
   const elementsRef = useRef(null); // Stripe Elements instance
   const cardRef     = useRef(null); // Card Element
+  const orderIdRef  = useRef('');   // Order ID from PI creation
 
   const onChange = (key, val) => setFormData(p => ({ ...p, [key]: val }));
 
@@ -284,6 +285,8 @@ export default function CheckoutPage({ onNavigate }) {
   }, []);
 
   // Mount Stripe PaymentElement when we reach step 2
+  // We call create-payment-intent NOW with full order details so the same
+  // PI is used for both mounting the element and confirming payment
   useEffect(() => {
     if (step !== 2) return;
     if (!window.Stripe) { setStripeError('Stripe no cargado. Recarga la página.'); return; }
@@ -294,15 +297,22 @@ export default function CheckoutPage({ onNavigate }) {
     const stripe = window.Stripe(pk);
     stripeRef.current = stripe;
 
-    // Create a setup PaymentIntent first to get clientSecret for PaymentElement
-    fetch('/.netlify/functions/create-setup-intent', {
+    // Create the REAL PaymentIntent with full order data
+    fetch('/.netlify/functions/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: Math.round(total * 100), currency: 'eur' }),
+      body: JSON.stringify({
+        items, deliveryType, deliveryZone, notes,
+        contact: { name: formData.name, phone: formData.phone, email: formData.email },
+        address: formData,
+      }),
     })
     .then(r => r.json())
     .then(data => {
       if (data.error) { setStripeError(data.error); return; }
+
+      // Store orderId for success screen
+      orderIdRef.current = data.orderId;
 
       const elements = stripe.elements({
         clientSecret: data.clientSecret,
@@ -334,60 +344,33 @@ export default function CheckoutPage({ onNavigate }) {
       elementsRef.current = elements;
 
       const paymentEl = elements.create('payment', {
-        layout: {
-          type: 'tabs',
-          defaultCollapsed: false,
-          radios: false,
-          spacedAccordionItems: false,
-        },
-        defaultValues: {
-          billingDetails: { address: { country: 'ES' } }
-        },
+        layout: { type: 'tabs', defaultCollapsed: false },
+        defaultValues: { billingDetails: { address: { country: 'ES' } } },
         wallets: { applePay: 'auto', googlePay: 'auto' },
         fields: { billingDetails: { address: { country: 'never' } } },
       });
       paymentEl.mount('#stripe-payment-element');
       cardRef.current = paymentEl;
-
-      paymentEl.on('change', e => {
-        setStripeError(e.error ? e.error.message : '');
-      });
+      paymentEl.on('change', e => setStripeError(e.error ? e.error.message : ''));
     })
-    .catch(err => setStripeError('Error al cargar el pago. Recarga la página.'));
+    .catch(() => setStripeError('Error al cargar el pago. Recarga la página.'));
 
     return () => { try { if(cardRef.current) cardRef.current.unmount(); } catch(e) {} };
-  }, [step, total]);
+  }, [step]);
 
   // ── Submit payment ──────────────────────────────────────────────────────────
+  // PI was already created when step 2 mounted — just confirm it now
   const handleSubmit = async () => {
+    if (!stripeRef.current || !elementsRef.current) {
+      setStripeError('El formulario de pago no está listo. Espera un momento.');
+      return;
+    }
     setLoading(true);
     setStripeError('');
 
     try {
-      // 1. Create PaymentIntent on server
-      const res = await fetch('/.netlify/functions/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items, deliveryType, deliveryZone, notes,
-          contact: { name: formData.name, phone: formData.phone, email: formData.email },
-          address: formData,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || data.error) {
-        setStripeError(data.error || 'Error al crear el pedido. Inténtalo de nuevo.');
-        setLoading(false);
-        return;
-      }
-
-      // 2. Confirm the real PaymentIntent using its clientSecret
-      // We pass clientSecret directly so Stripe uses the correct PI (not the setup one)
       const { error: confirmError } = await stripeRef.current.confirmPayment({
         elements: elementsRef.current,
-        clientSecret: data.clientSecret,
         confirmParams: {
           return_url: window.location.origin + '/#checkout-success',
           payment_method_data: {
@@ -408,14 +391,14 @@ export default function CheckoutPage({ onNavigate }) {
         return;
       }
 
-      // 3. Success
-      setOrderId(data.orderId);
+      // Success
+      setOrderId(orderIdRef.current || 'OMG-' + Date.now().toString(36).toUpperCase());
       setSuccess(true);
       clearCart();
 
     } catch (e) {
       console.error('Payment error:', e);
-      setStripeError('Error de conexión. Comprueba tu red e inténtalo de nuevo.');
+      setStripeError('Error al procesar el pago. Inténtalo de nuevo.');
     }
 
     setLoading(false);
