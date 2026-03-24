@@ -22,7 +22,7 @@ exports.handler = async (event) => {
 
     // ── Calculate amount server-side. Never trust the client. ──────────────
     const subtotalCents     = Math.round(items.reduce((s, i) => s + i.price * i.qty, 0) * 100);
-    const deliveryFeeCents  = deliveryType === 'pickup' ? 0 : Math.round((deliveryZone?.deliveryFee ?? 0) * 100);
+    const deliveryFeeCents  = deliveryType === 'pickup' ? 0 : subtotalCents >= 3500 ? 0 : Math.round((deliveryZone?.deliveryFee ?? 0) * 100);
     const totalCents        = subtotalCents + deliveryFeeCents;
 
     if (totalCents < 100) {
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
     const piParams = {
       amount:   totalCents,
       currency: 'eur',
-      automatic_payment_methods: { enabled: true, allow_redirects: 'never' },
+      payment_method_types: ['card', 'link'],
       metadata: {
         order_id:           orderId,
         contact_name:       contact?.name    || '',
