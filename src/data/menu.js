@@ -16,7 +16,7 @@ export const products = [
     weight: '1 kg',
     description: 'Madurado 45 días en cámara propia. Brasa lenta con sal Maldon y aceite de oliva virgen.',
     badge: 'Estrella de la casa',
-    badgeColor: '#E4AC21',
+    badgeColor: '#F5C518',
     allergens: ['gluten'],
     available: true,
     emoji: '🥩',

@@ -122,11 +122,11 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
                   {[{ id: 'delivery', label: '🛵 A domicilio' }, { id: 'pickup', label: '🏪 Recogida' }].map(opt => (
                     <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{
                       padding: '10px 12px', border: '1.5px solid',
-                      borderColor: deliveryType === opt.id ? '#E4AC21' : '#D4CFC9',
+                      borderColor: deliveryType === opt.id ? '#F5C518' : '#D4CFC9',
                       borderRadius: 10, background: deliveryType === opt.id ? '#FEF3EE' : '#fff',
                       cursor: 'pointer', fontFamily: "'Outfit', sans-serif",
                       fontSize: 13, fontWeight: deliveryType === opt.id ? 500 : 400,
-                      color: deliveryType === opt.id ? '#E4AC21' : '#7A6E63',
+                      color: deliveryType === opt.id ? '#F5C518' : '#7A6E63',
                       transition: 'all 0.15s ease',
                     }}>
                       {opt.label}
@@ -202,7 +202,7 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
               ))}
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid #EDE9E3', marginTop: 6 }}>
                 <span style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#1C1A14' }}>Total</span>
-                <span style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#E4AC21' }}>
+                <span style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, color: '#F5C518' }}>
                   €{(deliveryType === 'delivery' && deliveryZone ? total : subtotal).toFixed(2)}
                 </span>
               </div>
@@ -221,7 +221,7 @@ export default function CartDrawer({ open, onClose, onCheckout }) {
               Ir al pago → €{(deliveryType === 'delivery' && deliveryZone ? total : subtotal).toFixed(2)}
             </button>
             {deliveryType === 'delivery' && !deliveryZone && (
-              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 11, color: '#E4AC21', textAlign: 'center', marginTop: 8 }}>
+              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: 11, color: '#F5C518', textAlign: 'center', marginTop: 8 }}>
                 Selecciona tu zona para continuar
               </p>
             )}

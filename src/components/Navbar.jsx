@@ -30,20 +30,20 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
 
   return (
     <>
-      <div style={{ background:'#E4AC21', color:'#fff', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:500, lineHeight:1.4 }}>
+      <div style={{ background:'#F5C518', color:'#fff', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:500, lineHeight:1.4 }}>
         🔥 ENVÍO GRATIS +€35 · ZARAGOZA · 90 MIN
       </div>
       <nav style={{ position:'sticky', top:0, zIndex:100, background: scrolled ? 'rgba(255,255,255,0.97)' : '#fff', backdropFilter: scrolled ? 'blur(12px)' : 'none', borderBottom:'1px solid #EDE9E3', transition:'all 0.2s ease', boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.06)' : 'none' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 20px', display:'flex', alignItems:'center', justifyContent:'space-between', height:60 }}>
           <button onClick={() => handleNav('home')} style={{ background:'none', border:'none', cursor:'pointer', padding:0, display:'flex', alignItems:'center', gap:8 }}>
             <img src="/logo.png" alt="OhMyGrill Brasas" style={{ height: isMobile ? 44 : 50, width: 'auto', objectFit:'contain' }} />
-            {!isMobile && <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C1A14', letterSpacing:'-0.3px' }}>Oh<em style={{ color:'#E4AC21', fontStyle:'italic' }}>My</em>Grill <span style={{ fontSize:12, fontWeight:300, color:'#9A8F85', fontFamily:"'Outfit',sans-serif" }}>Brasas</span></span>}
+            {!isMobile && <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C1A14', letterSpacing:'-0.3px' }}>Oh<em style={{ color:'#F5C518', fontStyle:'italic' }}>My</em>Grill <span style={{ fontSize:12, fontWeight:300, color:'#9A8F85', fontFamily:"'Outfit',sans-serif" }}>Brasas</span></span>}
           </button>
 
           {!isMobile && (
             <div style={{ display:'flex', gap:28, alignItems:'center' }}>
               {links.map(l => (
-                <button key={l.id} onClick={() => handleNav(l.id)} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#E4AC21' : '#7A6E63', padding:'4px 0', borderBottom: activePage===l.id ? '2px solid #E4AC21' : '2px solid transparent', transition:'all 0.15s' }}>
+                <button key={l.id} onClick={() => handleNav(l.id)} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#F5C518' : '#7A6E63', padding:'4px 0', borderBottom: activePage===l.id ? '2px solid #F5C518' : '2px solid transparent', transition:'all 0.15s' }}>
                   {l.label}
                 </button>
               ))}
@@ -69,12 +69,12 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
           <div style={{ maxHeight: mobileOpen ? 400 : 0, overflow:'hidden', transition:'max-height 0.35s cubic-bezier(0.4,0,0.2,1)', borderTop: mobileOpen ? '1px solid #EDE9E3' : 'none', background:'#fff' }}>
             <div style={{ padding:'8px 0 16px' }}>
               {links.map(l => (
-                <button key={l.id} onClick={() => handleNav(l.id)} style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', cursor:'pointer', padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:16, fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#E4AC21' : '#1C1A14', borderLeft: activePage===l.id ? '3px solid #E4AC21' : '3px solid transparent' }}>
+                <button key={l.id} onClick={() => handleNav(l.id)} style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', cursor:'pointer', padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:16, fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#F5C518' : '#1C1A14', borderLeft: activePage===l.id ? '3px solid #F5C518' : '3px solid transparent' }}>
                   {l.label}
                 </button>
               ))}
               <div style={{ padding:'8px 24px 0' }}>
-                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#E4AC21', color:'#fff', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#F5C518', color:'#fff', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
                   Pedir ahora →
                 </button>
               </div>

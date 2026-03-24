@@ -58,12 +58,12 @@ export default function AboutPage({ onNavigate }) {
       <section style={{ background: '#1C1A14', padding: isMobile ? '56px 20px 48px' : '80px 0 72px', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', bottom: -40, right: -20, fontFamily: "'Fraunces', serif", fontSize: 200, fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none' }}>OMG</div>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0' : '0 24px', position: 'relative', zIndex: 1 }}>
-          <span style={{ display: 'inline-block', background: 'rgba(232,88,32,0.2)', border: '1px solid rgba(232,88,32,0.3)', color: '#E4AC21', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 20, marginBottom: 20, textTransform: 'uppercase' }}>
+          <span style={{ display: 'inline-block', background: 'rgba(232,88,32,0.2)', border: '1px solid rgba(232,88,32,0.3)', color: '#F5C518', fontSize: 11, letterSpacing: '2px', fontWeight: 600, padding: '5px 14px', borderRadius: 20, marginBottom: 20, textTransform: 'uppercase' }}>
             Nuestra historia
           </span>
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: isMobile ? 38 : 58, fontWeight: 600, color: '#F0EBE3', margin: '0 0 20px', lineHeight: 1.0, letterSpacing: '-1px' }}>
             Más de diez años<br />
-            <em style={{ color: '#E4AC21', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
+            <em style={{ color: '#F5C518', fontStyle: 'italic' }}>demostrando que un buen<br />pollo necesita pocas cosas.</em>
           </h1>
           <p style={{ fontSize: isMobile ? 15 : 17, color: 'rgba(240,235,227,0.55)', lineHeight: 1.75, maxWidth: 580, margin: 0 }}>
             Producto aragonés de calidad, marinado honesto y paciencia sobre el carbón. Eso es OhMyGrill Brasas.
@@ -97,7 +97,7 @@ export default function AboutPage({ onNavigate }) {
               { num: '4.9★', label: 'Google Maps', sub: 'Más de 200 reseñas' },
             ].map(s => (
               <div key={s.label} style={{ background: '#FAFAF5', border: '1px solid #EDE9E3', borderRadius: 16, padding: '22px 18px' }}>
-                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontWeight: 600, color: '#E4AC21', margin: '0 0 4px', lineHeight: 1 }}>{s.num}</p>
+                <p style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontWeight: 600, color: '#F5C518', margin: '0 0 4px', lineHeight: 1 }}>{s.num}</p>
                 <p style={{ fontSize: 13, fontWeight: 500, color: '#1C1A14', margin: '0 0 3px' }}>{s.label}</p>
                 <p style={{ fontSize: 11, color: '#9A8F85', margin: 0 }}>{s.sub}</p>
               </div>
@@ -133,7 +133,7 @@ export default function AboutPage({ onNavigate }) {
               <div key={member.name} style={{ background: '#FAFAF5', border: '1px solid #EDE9E3', borderRadius: 20, padding: '28px 24px', textAlign: 'center' }}>
                 <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#1C1A14', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px' }}>{member.emoji}</div>
                 <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 19, fontWeight: 600, color: '#1C1A14', margin: '0 0 4px' }}>{member.name}</h3>
-                <p style={{ fontSize: 13, color: '#E4AC21', fontWeight: 500, margin: '0 0 6px' }}>{member.role}</p>
+                <p style={{ fontSize: 13, color: '#F5C518', fontWeight: 500, margin: '0 0 6px' }}>{member.role}</p>
                 <p style={{ fontSize: 12, color: '#9A8F85', margin: 0 }}>{member.years}</p>
               </div>
             ))}
@@ -175,7 +175,7 @@ export default function AboutPage({ onNavigate }) {
 
             {/* Hours */}
             <div style={{ background: '#1C1A14', borderRadius: 16, padding: '22px 20px', marginTop: 20 }}>
-              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#E4AC21', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 14px' }}>Horario de pedidos</p>
+              <p style={{ fontSize: 11, letterSpacing: '2px', color: '#F5C518', fontWeight: 600, textTransform: 'uppercase', margin: '0 0 14px' }}>Horario de pedidos</p>
               {[
                 { day: 'Lunes – Jueves', hours: '13:00 – 22:00' },
                 { day: 'Viernes – Sábado', hours: '13:00 – 23:00' },
@@ -197,7 +197,7 @@ export default function AboutPage({ onNavigate }) {
                   <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#EDFBF3', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>✅</div>
                   <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#1C1A14', margin: '0 0 10px' }}>¡Mensaje enviado!</h3>
                   <p style={{ fontSize: 14, color: '#7A6E63', lineHeight: 1.65, margin: '0 0 24px' }}>Te responderemos en menos de 24 horas. También puedes contactarnos por WhatsApp para una respuesta más rápida.</p>
-                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#E4AC21', color: '#fff', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#F5C518', color: '#fff', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
                     Enviar otro mensaje
                   </button>
                 </div>
@@ -211,14 +211,14 @@ export default function AboutPage({ onNavigate }) {
                       <label style={{ fontSize: 13, fontWeight: 500, color: '#1C1A14', display: 'block', marginBottom: 6 }}>Nombre *</label>
                       <input type="text" placeholder="Tu nombre" value={formData.name} onChange={e => setFormData(d => ({ ...d, name: e.target.value }))}
                         style={inputStyle(errors.name)}
-                        onFocus={e => e.target.style.borderColor = '#E4AC21'} onBlur={e => e.target.style.borderColor = errors.name ? '#E24B4A' : '#EDE9E3'} />
+                        onFocus={e => e.target.style.borderColor = '#F5C518'} onBlur={e => e.target.style.borderColor = errors.name ? '#E24B4A' : '#EDE9E3'} />
                       {errors.name && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.name}</p>}
                     </div>
                     <div>
                       <label style={{ fontSize: 13, fontWeight: 500, color: '#1C1A14', display: 'block', marginBottom: 6 }}>Teléfono</label>
                       <input type="tel" placeholder="+34 600..." value={formData.phone} onChange={e => setFormData(d => ({ ...d, phone: e.target.value }))}
                         style={inputStyle(false)}
-                        onFocus={e => e.target.style.borderColor = '#E4AC21'} onBlur={e => e.target.style.borderColor = '#EDE9E3'} />
+                        onFocus={e => e.target.style.borderColor = '#F5C518'} onBlur={e => e.target.style.borderColor = '#EDE9E3'} />
                     </div>
                   </div>
 
@@ -226,7 +226,7 @@ export default function AboutPage({ onNavigate }) {
                     <label style={{ fontSize: 13, fontWeight: 500, color: '#1C1A14', display: 'block', marginBottom: 6 }}>Email *</label>
                     <input type="email" placeholder="tu@email.com" value={formData.email} onChange={e => setFormData(d => ({ ...d, email: e.target.value }))}
                       style={inputStyle(errors.email)}
-                      onFocus={e => e.target.style.borderColor = '#E4AC21'} onBlur={e => e.target.style.borderColor = errors.email ? '#E24B4A' : '#EDE9E3'} />
+                      onFocus={e => e.target.style.borderColor = '#F5C518'} onBlur={e => e.target.style.borderColor = errors.email ? '#E24B4A' : '#EDE9E3'} />
                     {errors.email && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.email}</p>}
                   </div>
 
@@ -234,11 +234,11 @@ export default function AboutPage({ onNavigate }) {
                     <label style={{ fontSize: 13, fontWeight: 500, color: '#1C1A14', display: 'block', marginBottom: 6 }}>Mensaje *</label>
                     <textarea placeholder="¿En qué podemos ayudarte?" value={formData.message} onChange={e => setFormData(d => ({ ...d, message: e.target.value }))} rows={5}
                       style={{ ...inputStyle(errors.message), resize: 'vertical' }}
-                      onFocus={e => e.target.style.borderColor = '#E4AC21'} onBlur={e => e.target.style.borderColor = errors.message ? '#E24B4A' : '#EDE9E3'} />
+                      onFocus={e => e.target.style.borderColor = '#F5C518'} onBlur={e => e.target.style.borderColor = errors.message ? '#E24B4A' : '#EDE9E3'} />
                     {errors.message && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.message}</p>}
                   </div>
 
-                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: formState === 'sending' ? '#9A8F85' : '#E4AC21', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: formState === 'sending' ? '#9A8F85' : '#F5C518', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                     {formState === 'sending' ? (
                       <><span style={{ display: 'inline-block', width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />Enviando...</>
                     ) : 'Enviar mensaje →'}
@@ -281,7 +281,7 @@ export default function AboutPage({ onNavigate }) {
                 </div>
               ))}
             </div>
-            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#E4AC21', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#F5C518', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
               Pedir ahora →
             </button>
           </div>

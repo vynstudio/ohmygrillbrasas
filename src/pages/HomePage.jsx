@@ -52,7 +52,7 @@ export default function HomePage({ onNavigate }) {
 
             <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 52 : isDesktop ? 72 : 60, fontWeight:600, lineHeight:0.95, color:'#F5EFE6', margin:`0 0 ${isMobile ? 20 : 24}px`, letterSpacing:'-2px' }}>
               A la brasa,<br />
-              <em style={{ color:'#E4AC21', fontStyle:'italic' }}>como tiene<br />que ser.</em>
+              <em style={{ color:'#F5C518', fontStyle:'italic' }}>como tiene<br />que ser.</em>
             </h1>
 
             <p style={{ fontSize: isMobile ? 15 : 17, color:'rgba(245,239,230,0.60)', lineHeight:1.75, maxWidth:440, margin:`0 0 ${isMobile ? 28 : 40}px` }}>
@@ -60,7 +60,7 @@ export default function HomePage({ onNavigate }) {
             </p>
 
             <div style={{ display:'flex', gap:12, flexDirection: isMobile ? 'column' : 'row' }}>
-              <button onClick={() => onNavigate('menu')} style={{ background:'#E4AC21', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', boxShadow:'0 4px 28px rgba(232,88,32,0.45)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background:'#F5C518', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', boxShadow:'0 4px 28px rgba(232,88,32,0.45)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
                 Ver la carta →
               </button>
               <button onClick={() => onNavigate('packs')} style={{ background:'rgba(255,255,255,0.08)', color:'rgba(245,239,230,0.85)', border:'1px solid rgba(255,255,255,0.18)', borderRadius:32, padding: isMobile ? '16px 24px' : '15px 32px', fontSize:15, fontWeight:500, cursor:'pointer', backdropFilter:'blur(8px)', transition:'all 0.2s', fontFamily:"'Outfit',sans-serif", textAlign:'center' }}>
@@ -82,7 +82,7 @@ export default function HomePage({ onNavigate }) {
           {isDesktop && (
             <div style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? 'translateY(0)' : 'translateY(32px)', transition:'all 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s' }}>
               <div style={{ background:'rgba(20,16,10,0.75)', backdropFilter:'blur(24px)', border:'1px solid rgba(255,255,255,0.10)', borderRadius:24, padding:28, boxShadow:'0 32px 80px rgba(0,0,0,0.5)' }}>
-                <p style={{ fontSize:11, letterSpacing:'2.5px', color:'#E4AC21', marginBottom:18, fontWeight:600, textTransform:'uppercase' }}>Especial del día</p>
+                <p style={{ fontSize:11, letterSpacing:'2.5px', color:'#F5C518', marginBottom:18, fontWeight:600, textTransform:'uppercase' }}>Especial del día</p>
                 <div style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:16, padding:'18px 20px', marginBottom:14 }}>
                   <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:14 }}>
                     <span style={{ fontSize:38 }}>🥩</span>
@@ -90,9 +90,9 @@ export default function HomePage({ onNavigate }) {
                       <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F5EFE6', margin:0 }}>Chuletón de buey</p>
                       <p style={{ fontSize:12, color:'rgba(245,239,230,0.40)', margin:'3px 0 0' }}>1 kg · Madurado 45 días · Sal Maldon</p>
                     </div>
-                    <span style={{ marginLeft:'auto', fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#E4AC21' }}>€48</span>
+                    <span style={{ marginLeft:'auto', fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#F5C518' }}>€48</span>
                   </div>
-                  <button onClick={() => addItem(products[0])} style={{ width:'100%', background:'#E4AC21', color:'#fff', border:'none', borderRadius:10, padding:'11px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
+                  <button onClick={() => addItem(products[0])} style={{ width:'100%', background:'#F5C518', color:'#fff', border:'none', borderRadius:10, padding:'11px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
                     Añadir al pedido
                   </button>
                 </div>
@@ -138,7 +138,7 @@ export default function HomePage({ onNavigate }) {
               <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1C1A14', margin:0 }}>Los más pedidos</h2>
               {!isMobile && <p style={{ fontSize:14, color:'#9A8F85', marginTop:6 }}>Los platos que hacen volver a nuestros clientes</p>}
             </div>
-            <button onClick={() => onNavigate('menu')} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#E4AC21', fontFamily:"'Outfit',sans-serif", fontWeight:500, textDecoration:'underline', textUnderlineOffset:3, whiteSpace:'nowrap' }}>
+            <button onClick={() => onNavigate('menu')} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#F5C518', fontFamily:"'Outfit',sans-serif", fontWeight:500, textDecoration:'underline', textUnderlineOffset:3, whiteSpace:'nowrap' }}>
               Ver todo →
             </button>
           </div>
@@ -160,7 +160,7 @@ export default function HomePage({ onNavigate }) {
               <div key={pack.id} style={{ background: idx===2 ? '#1C1A14' : '#fff', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: idx===2 ? 'none' : '1px solid #EDE9E3', position:'relative', overflow:'hidden' }}>
                 <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:14 }}>
                   <div>
-                    <span style={{ display:'inline-block', background: idx===2 ? '#E4AC21' : '#FEF3EE', color: idx===2 ? '#fff' : '#E4AC21', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
+                    <span style={{ display:'inline-block', background: idx===2 ? '#F5C518' : '#FEF3EE', color: idx===2 ? '#fff' : '#F5C518', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
                     <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color: idx===2 ? '#F0EBE3' : '#1C1A14', margin:0 }}>{pack.name}</h3>
                     <p style={{ fontSize:12, color: idx===2 ? 'rgba(240,235,227,0.5)' : '#9A8F85', marginTop:2 }}>{pack.subtitle}</p>
                   </div>
@@ -169,7 +169,7 @@ export default function HomePage({ onNavigate }) {
                 <ul style={{ margin:'0 0 16px', padding:0, listStyle:'none' }}>
                   {pack.items.map(item => (
                     <li key={item} style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.65)' : '#7A6E63', padding:'3px 0', display:'flex', alignItems:'center', gap:8 }}>
-                      <span style={{ color:'#E4AC21', fontSize:10 }}>●</span>{item}
+                      <span style={{ color:'#F5C518', fontSize:10 }}>●</span>{item}
                     </li>
                   ))}
                 </ul>
@@ -178,7 +178,7 @@ export default function HomePage({ onNavigate }) {
                     <span style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color: idx===2 ? '#F0EBE3' : '#1C1A14' }}>€{pack.price}</span>
                     <span style={{ fontSize:13, color: idx===2 ? 'rgba(240,235,227,0.4)' : '#9A8F85', marginLeft:8, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
                   </div>
-                  <button onClick={() => onNavigate('packs')} style={{ background: idx===2 ? '#E4AC21' : '#1C1A14', color:'#fff', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
+                  <button onClick={() => onNavigate('packs')} style={{ background: idx===2 ? '#F5C518' : '#1C1A14', color:'#fff', border:'none', borderRadius:24, padding:'10px 20px', fontSize:13, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif" }}>
                     Pedir pack
                   </button>
                 </div>
@@ -203,7 +203,7 @@ export default function HomePage({ onNavigate }) {
                   {s.icon}
                 </div>
                 <div>
-                  <span style={{ fontSize:11, letterSpacing:'2px', color:'#E4AC21', fontWeight:600, display:'block', marginBottom:4 }}>{s.step}</span>
+                  <span style={{ fontSize:11, letterSpacing:'2px', color:'#F5C518', fontWeight:600, display:'block', marginBottom:4 }}>{s.step}</span>
                   <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1C1A14', margin:'0 0 6px' }}>{s.title}</h3>
                   <p style={{ fontSize:14, color:'#7A6E63', lineHeight:1.6, margin:0 }}>{s.desc}</p>
                 </div>
@@ -218,12 +218,12 @@ export default function HomePage({ onNavigate }) {
         <div style={{ maxWidth:800, margin:'0 auto', textAlign:'center' }}>
           <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 32 : 44, fontWeight:600, color:'#F0EBE3', margin:`0 0 ${isMobile ? 12 : 16}px`, lineHeight:1.1 }}>
             ¿Listo para el mejor chuletón{' '}
-            <em style={{ color:'#E4AC21' }}>de Zaragoza?</em>
+            <em style={{ color:'#F5C518' }}>de Zaragoza?</em>
           </h2>
           <p style={{ fontSize: isMobile ? 14 : 15, color:'rgba(240,235,227,0.5)', lineHeight:1.65, marginBottom: isMobile ? 28 : 36 }}>
             Pedido mínimo €20 · Envío gratis +€35 · Toda Zaragoza
           </p>
-          <button onClick={() => onNavigate('menu')} style={{ background:'#E4AC21', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '15px 32px' : '16px 40px', fontSize: isMobile ? 15 : 16, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif", boxShadow:'0 4px 28px rgba(232,88,32,0.4)', width: isMobile ? '100%' : 'auto' }}>
+          <button onClick={() => onNavigate('menu')} style={{ background:'#F5C518', color:'#fff', border:'none', borderRadius:32, padding: isMobile ? '15px 32px' : '16px 40px', fontSize: isMobile ? 15 : 16, fontWeight:500, cursor:'pointer', fontFamily:"'Outfit',sans-serif", boxShadow:'0 4px 28px rgba(232,88,32,0.4)', width: isMobile ? '100%' : 'auto' }}>
             Pedir ahora →
           </button>
         </div>
@@ -235,23 +235,23 @@ export default function HomePage({ onNavigate }) {
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '2fr 1fr 1fr 1fr', gap: isMobile ? 28 : 40, marginBottom: isMobile ? 28 : 40 }}>
             <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
               <div style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#F0EBE3', marginBottom:10 }}>
-                Oh<em style={{ color:'#E4AC21' }}>My</em>Grill Brasas
+                Oh<em style={{ color:'#F5C518' }}>My</em>Grill Brasas
               </div>
               <p style={{ fontSize:13, color:'rgba(240,235,227,0.4)', lineHeight:1.65, maxWidth:260 }}>
                 Carnes a la brasa de leña de encina. Pedidos online para Zaragoza.
               </p>
             </div>
             <div>
-              <p style={{ fontSize:11, letterSpacing:'2px', color:'#E4AC21', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Carta</p>
+              <p style={{ fontSize:11, letterSpacing:'2px', color:'#F5C518', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Carta</p>
               {['Carnes','Aves','Verduras','Salsas','Packs'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(240,235,227,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
             </div>
             <div>
-              <p style={{ fontSize:11, letterSpacing:'2px', color:'#E4AC21', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Info</p>
+              <p style={{ fontSize:11, letterSpacing:'2px', color:'#F5C518', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Info</p>
               {['Sobre nosotros','Reparto','FAQ','Contacto'].map(l => <p key={l} style={{ fontSize:13, color:'rgba(240,235,227,0.45)', marginBottom:7, cursor:'pointer' }}>{l}</p>)}
             </div>
             {!isMobile && (
               <div>
-                <p style={{ fontSize:11, letterSpacing:'2px', color:'#E4AC21', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Horario</p>
+                <p style={{ fontSize:11, letterSpacing:'2px', color:'#F5C518', marginBottom:12, fontWeight:600, textTransform:'uppercase' }}>Horario</p>
                 {Object.entries(restaurantInfo.hours).map(([day, h]) => (
                   <div key={day} style={{ marginBottom:6 }}>
                     <p style={{ fontSize:11, color:'rgba(240,235,227,0.3)', margin:0 }}>{day}</p>
