@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
+import BottomNav from './components/BottomNav';
 import CartDrawer from './components/CartDrawer';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
@@ -11,13 +12,10 @@ import AdminPage from './pages/AdminPage';
 import OrderTrackerPage from './pages/OrderTrackerPage';
 
 function AppContent() {
-  const getInitialPage = () => {
-    const hash = window.location.hash.replace('#', '');
-    return hash || 'home';
-  };
-
+  const getInitialPage = () => window.location.hash.replace('#', '') || 'home';
   const [page, setPage] = useState(getInitialPage);
   const [cartOpen, setCartOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const navigate = (p) => {
     setPage(p);
@@ -26,34 +24,40 @@ function AppContent() {
   };
 
   useEffect(() => {
-    const onHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      setPage(hash || 'home');
-    };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onHash = () => setPage(window.location.hash.replace('#', '') || 'home');
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('hashchange', onHash);
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('hashchange', onHash); window.removeEventListener('resize', onResize); };
   }, []);
 
   if (page === 'admin') return <AdminPage onNavigate={navigate} />;
 
   const renderPage = () => {
     switch (page) {
-      case 'home':    return <HomePage onNavigate={navigate} />;
-      case 'menu':    return <MenuPage onNavigate={navigate} />;
-      case 'packs':   return <PacksPage onNavigate={navigate} />;
-      case 'checkout':return <CheckoutPage onNavigate={navigate} />;
-      case 'about':   return <AboutPage onNavigate={navigate} />;
-      case 'contact': return <AboutPage onNavigate={navigate} />;
-      case 'tracker': return <OrderTrackerPage onNavigate={navigate} />;
-      default:        return <HomePage onNavigate={navigate} />;
+      case 'home':     return <HomePage onNavigate={navigate} />;
+      case 'menu':     return <MenuPage onNavigate={navigate} />;
+      case 'packs':    return <PacksPage onNavigate={navigate} />;
+      case 'checkout': return <CheckoutPage onNavigate={navigate} />;
+      case 'about':    return <AboutPage onNavigate={navigate} />;
+      case 'contact':  return <AboutPage onNavigate={navigate} />;
+      case 'tracker':  return <OrderTrackerPage onNavigate={navigate} />;
+      default:         return <HomePage onNavigate={navigate} />;
     }
   };
 
   return (
     <div style={{ minHeight:'100vh', background:'#0F0800' }}>
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
-      <main>{renderPage()}</main>
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
+      <main style={{ paddingBottom: isMobile ? 120 : 0 }}>
+        {renderPage()}
+      </main>
+      {/* Web: slide-out cart drawer */}
+      {!isMobile && (
+        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
+      )}
+      {/* Mobile: sticky bottom tab bar */}
+      {isMobile && <BottomNav activePage={page} onNavigate={navigate} />}
     </div>
   );
 }

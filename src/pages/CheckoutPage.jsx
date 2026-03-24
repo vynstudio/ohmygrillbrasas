@@ -140,7 +140,7 @@ function StepDelivery({ data, onChange, onNext }) {
           {/* Address */}
           <div style={{ marginBottom:16 }}>
             <label style={{ fontSize:13, fontWeight:500, color:'rgba(255,255,255,0.6)', display:'block', marginBottom:6 }}>Dirección de entrega *</label>
-            <input type="text" placeholder="Calle, número, piso..." value={data.address || ''} onChange={e => onChange('address', e.target.value)} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.address ? '#E24B4A' : '#2A1A00'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFFFFF', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#FFD43A'} onBlur={e => e.target.style.borderColor= errors.address ? '#E24B4A' : '#2A1A00'} />
+            <input type="text" placeholder="Calle, número, piso..." value={data.address || ''} onChange={e => onChange('address', e.target.value)} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.address ? '#E24B4A' : '#2A1A00'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFFFFF', background:'#0F0800', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#FFD43A'} onBlur={e => e.target.style.borderColor= errors.address ? '#E24B4A' : '#2A1A00'} />
             {errors.address && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{errors.address}</p>}
           </div>
         </>
