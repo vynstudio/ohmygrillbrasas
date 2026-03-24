@@ -146,7 +146,7 @@ export default function ChatBot({ onNavigate }) {
         position:'fixed',
         ...(isMobile ? {
           left:0, right:0, height:'68dvh',
-          bottom: open ? TAB_H : '-100%',
+          bottom: TAB_H,
           borderRadius:'20px 20px 0 0',
         } : {
           bottom:108, left:32, width:360,
@@ -157,10 +157,10 @@ export default function ChatBot({ onNavigate }) {
         display:'flex', flexDirection:'column',
         boxShadow:'0 24px 80px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.08)',
         zIndex:198,
-        transform: open ? 'translateY(0)' : isMobile ? 'translateY(0)' : 'translateY(12px) scale(.97)',
-        opacity: open ? 1 : 0,
+        transform: open ? 'translateY(0)' : isMobile ? 'translateY(110%)' : 'translateY(12px) scale(.97)',
+        opacity: open ? 1 : isMobile ? 1 : 0,
         pointerEvents: open ? 'all' : 'none',
-        transition:'all .3s cubic-bezier(.4,0,.2,1)',
+        transition:'transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease',
         overflow:'hidden',
       }}>
         {/* Handle — mobile only */}

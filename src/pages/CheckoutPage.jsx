@@ -383,10 +383,8 @@ export default function CheckoutPage({ onNavigate }) {
         return;
       }
 
-      // 2. Update Elements with the real PaymentIntent clientSecret before confirming
-      // This binds the collected payment method to the actual charge
-      elementsRef.current.fetchUpdates();
-
+      // 2. Confirm the real PaymentIntent using its clientSecret
+      // We pass clientSecret directly so Stripe uses the correct PI (not the setup one)
       const { error: confirmError } = await stripeRef.current.confirmPayment({
         elements: elementsRef.current,
         clientSecret: data.clientSecret,
