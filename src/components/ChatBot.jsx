@@ -181,7 +181,7 @@ export default function ChatBot({ onNavigate, activePage }) {
           height:'70dvh',
           borderRadius:'20px 20px 0 0',
         } : {
-          bottom: 68, // sits just above navbar height so it feels anchored
+            bottom: 108,
           right: 32,
           width: 380,
           height: 560,
@@ -285,8 +285,9 @@ export default function ChatBot({ onNavigate, activePage }) {
       {!isMobile && (
         <button onClick={() => setOpen(o=>!o)} style={{
           position:'fixed',
-          top: 14, // inside the navbar band (68px tall, center it visually)
-          right: 180, // sits left of the cart/pedir ahora button in navbar
+          bottom: 32,
+          right: 32,
+          top: 'auto',
           display:'flex', alignItems:'center', gap:9,
           background: open ? S.surface : S.dark,
           border: `1.5px solid ${open ? S.border : S.dark}`,
