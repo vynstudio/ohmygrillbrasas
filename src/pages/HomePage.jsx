@@ -77,8 +77,10 @@ function MenuRow({ product }) {
   const handleAdd = () => { addItem(product); setAdded(true); setTimeout(()=>setAdded(false),1300); };
   return (
     <div style={{ display:'flex', alignItems:'center', gap:18, padding:'20px 0', borderBottom:`1px solid ${S.border}` }}>
-      <PhotoPlaceholder height={64} width={64} borderRadius={10} style={{ flexShrink:0, position:'relative' }} />
-      {inCart?.qty>0 && <span style={{ position:'absolute', top:-5, left:49, background:S.yellow, color:S.dark, fontSize:9, fontWeight:700, width:17, height:17, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{inCart.qty}</span>}
+      <div style={{ position:'relative', flexShrink:0 }}>
+        <PhotoPlaceholder height={64} width={64} borderRadius={10} />
+        {inCart?.qty>0 && <span style={{ position:'absolute', top:-5, right:-5, background:S.yellow, color:S.dark, fontSize:9, fontWeight:700, width:17, height:17, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center' }}>{inCart.qty}</span>}
+      </div>
       <div style={{ flex:1, minWidth:0 }}>
         <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap', marginBottom:4 }}>
           <span style={{ fontFamily:"'Fraunces',serif", fontSize:17, fontWeight:500, color:S.dark, letterSpacing:'-.2px' }}>{product.name}</span>
@@ -282,7 +284,7 @@ export default function HomePage({ onNavigate }) {
               <button key={id} onClick={()=>onNavigate(id)} style={{ background:'none', border:'none', fontSize:12, color:'rgba(255,255,255,.28)', cursor:'pointer', fontFamily:'inherit' }}>{id==='about'?'Nosotros':'Contacto'}</button>
             ))}
           </div>
-          <div style={{ fontSize:11, color:'rgba(255,255,255,.15)' }}>© 2025 OhMyGrill Brasas · Zaragoza</div>
+          <div style={{ fontSize:11, color:'rgba(255,255,255,.15)' }}>© 2026 OhMyGrill Brasas · Zaragoza</div>
         </footer>
       </div>
       <OrderPanel onNavigate={onNavigate} />

@@ -63,9 +63,8 @@ export function CartProvider({ children }) {
 
   const itemCount = state.items.reduce((s, i) => s + i.qty, 0);
   const subtotal = state.items.reduce((s, i) => s + i.price * i.qty, 0);
-  const subtotalForFee = state.items.reduce((s, i) => s + i.price * i.qty, 0);
   const deliveryFee = state.deliveryType === 'pickup' ? 0
-    : subtotalForFee >= 35 ? 0
+    : subtotal >= 35 ? 0
     : (state.deliveryZone?.deliveryFee ?? 0);
   const total = subtotal + deliveryFee;
 

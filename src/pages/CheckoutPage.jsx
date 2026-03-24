@@ -383,9 +383,13 @@ export default function CheckoutPage({ onNavigate }) {
         return;
       }
 
-      // 2. Confirm payment with Stripe.js (works for all methods: Bizum, card, Apple Pay etc.)
+      // 2. Update Elements with the real PaymentIntent clientSecret before confirming
+      // This binds the collected payment method to the actual charge
+      elementsRef.current.fetchUpdates();
+
       const { error: confirmError } = await stripeRef.current.confirmPayment({
         elements: elementsRef.current,
+        clientSecret: data.clientSecret,
         confirmParams: {
           return_url: window.location.origin + '/#checkout-success',
           payment_method_data: {
@@ -397,7 +401,7 @@ export default function CheckoutPage({ onNavigate }) {
           },
           receipt_email: formData.email,
         },
-        redirect: 'if_required', // stay on page for card/Bizum, redirect for wallets if needed
+        redirect: 'if_required',
       });
 
       if (confirmError) {

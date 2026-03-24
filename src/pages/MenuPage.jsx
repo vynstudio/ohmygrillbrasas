@@ -115,7 +115,7 @@ export default function MenuPage({ onNavigate }) {
 
   useEffect(()=>{
     db.getMenu().then(d=>{ if(d?.length>0) setProducts(d.map(r=>({...staticProducts.find(p=>p.id===r.id),...r,price:parseFloat(r.price)})).filter(Boolean)); })
-      .catch(()=>{ try{ const sv=JSON.parse(localStorage.getItem('omg_menu_v1')||'[]'); if(sv.length) setProducts(staticProducts.map(p=>{ const f=sv.find(i=>i.id===p.id); return f?{...p,price:f.price,available:f.available}:p; })); }catch(e){} });
+      .catch(()=>{ /* Supabase unavailable — use static menu data */ });
     const fn=()=>setIsMobile(window.innerWidth<768);
     window.addEventListener('resize',fn); return ()=>window.removeEventListener('resize',fn);
   },[]);

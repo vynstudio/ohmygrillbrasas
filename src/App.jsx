@@ -51,7 +51,7 @@ function AppContent() {
     <div style={{ minHeight:'100vh', background:'#FAF6EF' }}>
       {/* Desktop: sticky navbar. Mobile: null (BottomNav handles nav) */}
       <Navbar activePage={page} onNavigate={navigate} onCartOpen={() => setCartOpen(true)} />
-      <main style={{ paddingBottom: isMobile ? 168 : 0 }}>
+      <main style={{ paddingBottom: isMobile ? 140 : 0 }}>
         {renderPage()}
       </main>
       {!isMobile && (
