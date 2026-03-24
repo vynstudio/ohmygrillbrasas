@@ -55,7 +55,7 @@ function AdminLogin({ onLogin }) {
           style={{ width: '100%', padding: '13px 16px', background: '#1A1000', border: `1.5px solid ${error ? '#E24B4A' : 'rgba(255,255,255,0.1)'}`, borderRadius: 12, color: '#FFFFFF', fontFamily: "'Outfit', sans-serif", fontSize: 15, marginBottom: 12, boxSizing: 'border-box', outline: 'none', textAlign: 'center', letterSpacing: '4px' }}
         />
         {error && <p style={{ fontSize: 12, color: '#E24B4A', marginBottom: 12 }}>Contraseña incorrecta</p>}
-        <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+        <button onClick={handle} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 12, padding: '13px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
           Entrar →
         </button>
         <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginTop: 20 }}>Contraseña demo: omg2025</p>
@@ -72,12 +72,12 @@ function OrderCard({ order, onStatusChange }) {
   return (
     <div style={{ background: '#fff', border: `1px solid ${order.status === 'pending' ? '#EF9F27' : '#2A1A00'}`, borderRadius: 16, overflow: 'hidden', transition: 'box-shadow 0.2s', boxShadow: order.status === 'pending' ? '0 0 0 3px rgba(239,159,39,0.15)' : 'none' }}>
       {/* Header */}
-      <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid #F0EDE8' : 'none' }} onClick={() => setExpanded(!expanded)}>
+      <div style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderBottom: expanded ? '1px solid #2A1A00' : 'none' }} onClick={() => setExpanded(!expanded)}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <span style={{ fontFamily: "'Fraunces', serif", fontSize: 15, fontWeight: 600, color: '#0F0800' }}>{order.id}</span>
             <Badge status={order.status} />
-            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#FFD43A', color: '#fff', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
+            {order.status === 'pending' && <span style={{ fontSize: 10, background: '#FFD43A', color: '#0F0800', padding: '2px 6px', borderRadius: 10, fontWeight: 700 }}>NUEVO</span>}
           </div>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', margin: '3px 0 0' }}>{order.customer} · {timeAgo(order.createdAt)}</p>
         </div>
@@ -223,7 +223,7 @@ function MenuEditor() {
         </div>
 <div style={{ display:'flex', alignItems:'center', gap:10 }}>
           {saveError && <p style={{ fontSize:12, color:'#E24B4A', margin:0 }}>{saveError}</p>}
-          <button onClick={handleSave} disabled={saving} style={{ background: saved ? '#FFD43A' : '#FFD43A', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
+          <button onClick={handleSave} disabled={saving} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 10, padding: '10px 20px', fontFamily: "'Outfit', sans-serif", fontSize: 13, fontWeight: 500, cursor: saving ? 'not-allowed' : 'pointer', transition: 'background 0.2s', display:'flex', alignItems:'center', gap:6 }}>
             {saving ? <><span style={{ width:14, height:14, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite', display:'inline-block' }} />Guardando...</> : saved ? '✓ Guardado en Supabase' : 'Guardar cambios'}
           </button>
         </div>
@@ -404,7 +404,7 @@ export default function AdminPage() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           {pendingCount > 0 && (
-            <span style={{ background: '#FFD43A', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20 }}>
+            <span style={{ background: '#FFD43A', color: '#0F0800', fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 20 }}>
               {pendingCount} nuevo{pendingCount > 1 ? 's' : ''}
             </span>
           )}
@@ -419,7 +419,7 @@ export default function AdminPage() {
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '14px 16px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: tab === t.id ? 500 : 400, color: tab === t.id ? '#FFD43A' : 'rgba(255,255,255,0.45)', borderBottom: `2px solid ${tab === t.id ? '#FFD43A' : 'transparent'}`, display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
             {t.label}
-            {t.badge && <span style={{ background: '#FFD43A', color: '#fff', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
+            {t.badge && <span style={{ background: '#FFD43A', color: '#0F0800', fontSize: 10, fontWeight: 700, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{t.badge}</span>}
           </button>
         ))}
       </div>

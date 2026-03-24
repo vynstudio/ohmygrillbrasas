@@ -40,7 +40,7 @@ function ProductRow({ product }) {
         <span style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color:'#FFD43A' }}>
           €{product.price % 1 === 0 ? product.price : product.price.toFixed(2)}
         </span>
-        <button onClick={handleAdd} style={{ background: added ? '#FFD43A' : '#0F0800', color:'#0F0800', border:'none', borderRadius:24, padding:'7px 16px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:5, whiteSpace:'nowrap' }}>
+        <button onClick={handleAdd} style={{ background: added ? '#FFD43A' : '#1A1000', color: added ? '#0F0800' : '#FFFFFF', border:'none', borderRadius:24, padding:'7px 16px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:5, whiteSpace:'nowrap' }}>
           {added ? '✓ Añadido' : '+ Añadir'}
         </button>
       </div>

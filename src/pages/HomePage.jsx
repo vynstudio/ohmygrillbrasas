@@ -92,7 +92,7 @@ export default function HomePage({ onNavigate }) {
                     </div>
                     <span style={{ marginLeft:'auto', fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#FFD43A' }}>€48</span>
                   </div>
-                  <button onClick={() => addItem(products[0])} style={{ width:'100%', background:'#FFD43A', color:'#fff', border:'none', borderRadius:10, padding:'11px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
+                  <button onClick={() => addItem(products[0])} style={{ width:'100%', background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:10, padding:'11px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
                     Añadir al pedido
                   </button>
                 </div>
@@ -160,7 +160,7 @@ export default function HomePage({ onNavigate }) {
               <div key={pack.id} style={{ background: '#1A1000', borderRadius:20, padding: isMobile ? '22px 20px' : '28px 24px', border: '1px solid #2A1A00', position:'relative', overflow:'hidden' }}>
                 <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:14 }}>
                   <div>
-                    <span style={{ display:'inline-block', background: idx===2 ? '#FFD43A' : '#1A1000', color: idx===2 ? '#fff' : '#FFD43A', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
+                    <span style={{ display:'inline-block', background: '#FFD43A', color: '#0F0800', fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, marginBottom:8 }}>{pack.badge}</span>
                     <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:20, fontWeight:600, color: '#FFFFFF', margin:0 }}>{pack.name}</h3>
                     <p style={{ fontSize:12, color: 'rgba(255,255,255,0.45)', marginTop:2 }}>{pack.subtitle}</p>
                   </div>

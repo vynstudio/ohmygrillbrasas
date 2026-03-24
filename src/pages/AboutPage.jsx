@@ -197,7 +197,7 @@ export default function AboutPage({ onNavigate }) {
                   <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#1A1000', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: 32 }}>✅</div>
                   <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 600, color: '#0F0800', margin: '0 0 10px' }}>¡Mensaje enviado!</h3>
                   <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.65, margin: '0 0 24px' }}>Te responderemos en menos de 24 horas. También puedes contactarnos por WhatsApp para una respuesta más rápida.</p>
-                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+                  <button onClick={() => { setFormState('idle'); setFormData({ name:'', email:'', phone:'', message:'' }); }} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 12, padding: '12px 24px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
                     Enviar otro mensaje
                   </button>
                 </div>
@@ -238,7 +238,7 @@ export default function AboutPage({ onNavigate }) {
                     {errors.message && <p style={{ fontSize: 11, color: '#E24B4A', marginTop: 3 }}>{errors.message}</p>}
                   </div>
 
-                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                  <button onClick={handleSubmit} disabled={formState === 'sending'} style={{ width: '100%', background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: '14px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: formState === 'sending' ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
                     {formState === 'sending' ? (
                       <><span style={{ display: 'inline-block', width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />Enviando...</>
                     ) : 'Enviar mensaje →'}
@@ -281,7 +281,7 @@ export default function AboutPage({ onNavigate }) {
                 </div>
               ))}
             </div>
-            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+            <button onClick={() => onNavigate('menu')} style={{ marginTop: 28, background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
               Pedir ahora →
             </button>
           </div>

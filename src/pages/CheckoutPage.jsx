@@ -16,19 +16,19 @@ function Steps({ current }) {
             <div style={{ display:'flex', alignItems:'center', gap:8 }}>
               <div style={{
                 width:28, height:28, borderRadius:'50%',
-                background: done ? '#FFD43A' : active ? '#FFD43A' : '#2A1A00',
+                background: done ? '#2A1A00' : active ? '#FFD43A' : '#2A1A00',
                 color: done || active ? '#0F0800' : 'rgba(255,255,255,0.45)',
                 display:'flex', alignItems:'center', justifyContent:'center',
                 fontSize:12, fontWeight:600, flexShrink:0, transition:'all 0.3s',
               }}>
                 {done ? '✓' : i + 1}
               </div>
-              <span style={{ fontSize:13, fontWeight: active ? 500 : 400, color: active ? '#0F0800' : done ? '#FFD43A' : 'rgba(255,255,255,0.45)', transition:'all 0.3s', whiteSpace:'nowrap' }}>
+              <span style={{ fontSize:13, fontWeight: active ? 500 : 400, color: active ? '#0F0800' : done ? '#FFD43A' : 'rgba(255,255,255,0.35)', transition:'all 0.3s', whiteSpace:'nowrap' }}>
                 {s}
               </span>
             </div>
             {i < steps.length - 1 && (
-              <div style={{ flex:1, height:1, background: done ? '#FFD43A' : '#2A1A00', margin:'0 12px', transition:'background 0.3s' }} />
+              <div style={{ flex:1, height:1, background: done ? '#2A1A00' : '#2A1A00', margin:'0 12px', transition:'background 0.3s' }} />
             )}
           </div>
         );
@@ -72,7 +72,7 @@ function OrderSummary({ isMobile }) {
           </div>
           <div style={{ display:'flex', justifyContent:'space-between', marginBottom:12, paddingBottom:12, borderBottom:'1px solid #2A1A00' }}>
             <span style={{ fontSize:13, color:'rgba(255,255,255,0.45)' }}>Envío {deliveryType === 'pickup' ? '(recogida)' : deliveryZone ? `· ${deliveryZone.name}` : ''}</span>
-            <span style={{ fontSize:13, color: deliveryFee === 0 ? '#FFD43A' : '#0F0800' }}>
+            <span style={{ fontSize:13, color: deliveryFee === 0 ? '#FFD43A' : 'rgba(255,255,255,0.55)' }}>
               {deliveryFee === 0 ? 'Gratis' : `€${deliveryFee.toFixed(2)}`}
             </span>
           </div>
@@ -118,7 +118,7 @@ function StepDelivery({ data, onChange, onNext }) {
         {[{ id:'delivery', icon:'🛵', title:'A domicilio', desc:'Entrega en tu dirección' }, { id:'pickup', icon:'🏪', title:'Recogida', desc:'Recoge en el local' }].map(opt => (
           <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{ padding:'14px 16px', border:`2px solid ${deliveryType===opt.id ? '#FFD43A' : '#2A1A00'}`, borderRadius:14, background: deliveryType===opt.id ? '#FFD43A' : '#1A1000', cursor:'pointer', textAlign:'left', transition:'all 0.15s' }}>
             <div style={{ fontSize:22, marginBottom:6 }}>{opt.icon}</div>
-            <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight: deliveryType===opt.id ? 500 : 400, color: deliveryType===opt.id ? '#FFD43A' : '#0F0800', margin:'0 0 2px' }}>{opt.title}</p>
+            <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight: deliveryType===opt.id ? 500 : 400, color: deliveryType===opt.id ? '#0F0800' : 'rgba(255,255,255,0.55)', margin:'0 0 2px' }}>{opt.title}</p>
             <p style={{ fontSize:12, color:'rgba(255,255,255,0.45)', margin:0 }}>{opt.desc}</p>
           </button>
         ))}
@@ -157,10 +157,10 @@ function StepDelivery({ data, onChange, onNext }) {
       {/* Notes */}
       <div style={{ marginBottom:24 }}>
         <label style={{ fontSize:13, fontWeight:500, color:'rgba(255,255,255,0.6)', display:'block', marginBottom:6 }}>Notas del pedido <span style={{ color:'rgba(255,255,255,0.45)', fontWeight:400 }}>(opcional)</span></label>
-        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #E8E2D8', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFFFFF', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#FFD43A'} onBlur={e => e.target.style.borderColor='#2A1A00'} />
+        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #2A1A00', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFFFFF', background:'#1A1000', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#FFD43A'} onBlur={e => { e.target.style.borderColor='#2A1A00'; }} />
       </div>
 
-      <button onClick={() => { if (validate()) onNext(); }} style={{ width:'100%', background:'#FFD43A', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', transition:'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity='0.9'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
+      <button onClick={() => { if (validate()) onNext(); }} style={{ width:'100%', background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', transition:'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity='0.9'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
         Continuar → Datos de contacto
       </button>
     </div>
@@ -214,7 +214,7 @@ function StepContact({ data, onChange, onNext, onBack }) {
         <button onClick={onBack} style={{ background:'transparent', color:'rgba(255,255,255,0.45)', border:'1.5px solid #2A1A00', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
           ← Atrás
         </button>
-        <button onClick={() => { if (validate()) onNext(); }} style={{ background:'#FFD43A', color:'#fff', border:'none', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+        <button onClick={() => { if (validate()) onNext(); }} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:14, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
           Continuar → Pago
         </button>
       </div>
@@ -325,7 +325,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       {/* Stripe Elements card */}
       <div style={{ background:'#0F0800', border:'1px solid #2A1A00', borderRadius:16, padding:'20px', marginBottom:20 }}>
         <label style={{ fontSize:13, fontWeight:500, color:'rgba(255,255,255,0.6)', display:'block', marginBottom:10 }}>Datos de tarjeta</label>
-        <div ref={cardElementRef} style={{ background:'#1A1000', border:'1.5px solid #E8E2D8', borderRadius:12, padding:'13px 14px', minHeight:44 }} />
+        <div ref={cardElementRef} style={{ background:'#1A1000', border:'1.5px solid #2A1A00', borderRadius:12, padding:'13px 14px', minHeight:44 }} />
         {!cardReady && <p style={{ fontSize:12, color:'rgba(255,255,255,0.45)', marginTop:6 }}>Cargando formulario seguro...</p>}
       </div>
 
@@ -344,7 +344,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
             <p style={{ fontSize:12, color:'rgba(255,255,255,0.5)', margin:0 }}>Total a pagar</p>
             <p style={{ fontFamily:"'Fraunces',serif", fontSize:24, fontWeight:600, color:'#FFFFFF', margin:'2px 0 0' }}>€{total.toFixed(2)}</p>
           </div>
-          <button onClick={handlePay} disabled={loading} style={{ background: loading ? '#2A1A00' : '#FFD43A', color:'#fff', border:'none', borderRadius:12, padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor: loading ? 'not-allowed' : 'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:8, minWidth:140, justifyContent:'center' }}>
+          <button onClick={handlePay} disabled={loading} style={{ background: loading ? '#2A1A00' : '#FFD43A', color:'#0F0800', border:'none', borderRadius:12, padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor: loading ? 'not-allowed' : 'pointer', transition:'all 0.2s', display:'flex', alignItems:'center', gap:8, minWidth:140, justifyContent:'center' }}>
             {loading ? (
               <>
                 <span style={{ display:'inline-block', width:16, height:16, border:'2px solid rgba(255,255,255,0.3)', borderTopColor:'#fff', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
@@ -393,7 +393,7 @@ export default function CheckoutPage({ onNavigate }) {
         <div style={{ fontSize:52 }}>🛒</div>
         <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:26, fontWeight:600, color:'#FFFFFF', margin:0 }}>Tu carrito está vacío</h2>
         <p style={{ fontSize:14, color:'rgba(255,255,255,0.45)' }}>Añade platos de la carta antes de pagar.</p>
-        <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#fff', border:'none', borderRadius:24, padding:'13px 28px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
+        <button onClick={() => onNavigate('menu')} style={{ background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:24, padding:'13px 28px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
           Ver la carta →
         </button>
       </div>
@@ -434,7 +434,7 @@ export default function CheckoutPage({ onNavigate }) {
             </p>
           </div>
 
-          <button onClick={() => onNavigate('tracker')} style={{ width:'100%', background:'#FFD43A', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', marginBottom:10 }}>
+          <button onClick={() => onNavigate('tracker')} style={{ width:'100%', background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', marginBottom:10 }}>
             🛵 Seguir mi pedido en tiempo real
           </button>
           <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'rgba(255,255,255,0.45)', border:'none', padding:'12px', fontFamily:"'Outfit',sans-serif", fontSize:14, cursor:'pointer' }}>

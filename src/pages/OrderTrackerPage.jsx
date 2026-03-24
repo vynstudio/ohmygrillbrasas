@@ -353,7 +353,7 @@ export default function OrderTrackerPage({ onNavigate }) {
           {isDelivered && (
             <div style={{ marginTop: 20, textAlign: 'center' }}>
               <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 12 }}>¿Te ha gustado? ¡Repite!</p>
-              <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#fff', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
+              <button onClick={() => onNavigate('menu')} style={{ background: '#FFD43A', color: '#0F0800', border: 'none', borderRadius: 14, padding: '13px 28px', fontFamily: "'Outfit', sans-serif", fontSize: 15, fontWeight: 500, cursor: 'pointer' }}>
                 Hacer otro pedido →
               </button>
             </div>
