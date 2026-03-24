@@ -10,6 +10,7 @@ import CheckoutPage from './pages/CheckoutPage';
 import AboutPage from './pages/AboutPage';
 import AdminPage from './pages/AdminPage';
 import OrderTrackerPage from './pages/OrderTrackerPage';
+import ChatBot from './components/ChatBot';
 
 function AppContent() {
   const getPage = () => window.location.hash.replace('#','') || 'home';
@@ -58,6 +59,7 @@ function AppContent() {
           onCheckout={() => { setCartOpen(false); navigate('checkout'); }} />
       )}
       {isMobile && <BottomNav activePage={page} onNavigate={navigate} />}
+      {page !== 'checkout' && page !== 'admin' && <ChatBot onNavigate={navigate} />}
     </div>
   );
 }
