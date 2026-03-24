@@ -16,7 +16,7 @@ function ProductRow({ product }) {
   };
 
   return (
-    <div style={{ display:'flex', alignItems:'center', gap:16, padding:'16px 0', borderBottom:'1px solid #F0EDE8', transition:'background 0.15s' }}>
+    <div style={{ display:'flex', alignItems:'center', gap:16, padding:'16px 0', borderBottom:'1px solid #E8E2D8', transition:'background 0.15s' }}>
       {/* Emoji thumb */}
       <div style={{ width:56, height:56, borderRadius:12, background:'linear-gradient(135deg,#2A1005,#7C2D0C)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:26, flexShrink:0, position:'relative' }}>
         {product.emoji}
@@ -27,7 +27,7 @@ function ProductRow({ product }) {
       {/* Info */}
       <div style={{ flex:1, minWidth:0 }}>
         <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
-          <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#FFF8DC', margin:0 }}>{product.name}</h3>
+          <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#FAF6EF', margin:0 }}>{product.name}</h3>
           {product.badge && (
             <span style={{ background: product.badgeColor || '#0F0800', color:'#fff', fontSize:10, fontWeight:600, padding:'2px 8px', borderRadius:20 }}>{product.badge}</span>
           )}
@@ -160,10 +160,10 @@ export default function MenuPage({ onNavigate }) {
   const categoryLabels = { carnes:'Carnes', aves:'Aves y volatería', verduras:'Verduras y guarniciones', salsas:'Salsas y extras' };
 
   return (
-    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#0F0800', minHeight:'100vh' }}>
+    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FAF6EF', minHeight:'100vh' }}>
 
       {/* Page header */}
-      <div style={{ background:'#1A1000', borderBottom:'1px solid #2A1A00', padding: isMobile ? '28px 20px 0' : '40px 0 0' }}>
+      <div style={{ background:'#0F0800', borderBottom:'1px solid #2A1A00', padding: isMobile ? '28px 20px 0' : '40px 0 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding: isMobile ? '0' : '0 24px' }}>
           <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 30 : 40, fontWeight:600, color:'#FFF8DC', margin:'0 0 4px' }}>
             La carta
@@ -182,7 +182,7 @@ export default function MenuPage({ onNavigate }) {
               placeholder="Buscar plato..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #2A1A00', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFF8DC', background:'#0F0800', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
+              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #2A1A00', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFF8DC', background:'#FAF6EF', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
               onFocus={e => e.target.style.borderColor = '#ffd43a'}
               onBlur={e => e.target.style.borderColor = '#2A1A00'}
             />
@@ -194,7 +194,7 @@ export default function MenuPage({ onNavigate }) {
           {/* Category tabs */}
           <div style={{ display:'flex', gap:4, overflowX:'auto', paddingBottom:0, scrollbarWidth:'none' }}>
             {categories.map(cat => (
-              <button key={cat.id} onClick={() => { setActiveCategory(cat.id); setSearch(''); }} style={{ background: activeCategory===cat.id ? '#0F0800' : 'transparent', color: activeCategory===cat.id ? '#fff' : '#C8860A', border: activeCategory===cat.id ? 'none' : '1px solid #2A1A00', borderRadius:'12px 12px 0 0', padding:'9px 18px', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activeCategory===cat.id ? 500 : 400, cursor:'pointer', whiteSpace:'nowrap', transition:'all 0.15s', flexShrink:0 }}>
+              <button key={cat.id} onClick={() => { setActiveCategory(cat.id); setSearch(''); }} style={{ background: activeCategory===cat.id ? '#1A0F00' : 'transparent', color: activeCategory===cat.id ? '#FFD43A' : '#C8860A', border: activeCategory===cat.id ? 'none' : '1px solid #2A1A00', borderRadius:'12px 12px 0 0', padding:'9px 18px', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activeCategory===cat.id ? 500 : 400, cursor:'pointer', whiteSpace:'nowrap', transition:'all 0.15s', flexShrink:0 }}>
                 {cat.label}
               </button>
             ))}
@@ -265,8 +265,8 @@ export default function MenuPage({ onNavigate }) {
         {/* Right — sticky order summary */}
         {!isMobile && (
           <div style={{ position:'sticky', top:80 }}>
-            <div style={{ background:'#1A1000', border:'1px solid #2A1A00', borderRadius:20, overflow:'hidden' }}>
-              <div style={{ background:'#0F0800', padding:'20px 24px' }}>
+            <div style={{ background:'#FFFFFF', border:'1px solid #E8E2D8', borderRadius:20, overflow:'hidden' }}>
+              <div style={{ background:'#1A0F00', padding:'20px 24px' }}>
                 <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', margin:0 }}>Tu pedido</p>
                 {itemCount > 0 && <p style={{ fontSize:12, color:'rgba(240,235,227,0.45)', margin:'3px 0 0' }}>{itemCount} {itemCount===1?'artículo':'artículos'}</p>}
               </div>
@@ -279,7 +279,7 @@ export default function MenuPage({ onNavigate }) {
                 </div>
               ) : (
                 <div style={{ padding:'16px 24px' }}>
-                  <div style={{ display:'flex', justifyContent:'space-between', padding:'10px 0', borderBottom:'1px solid #F0EDE8' }}>
+                  <div style={{ display:'flex', justifyContent:'space-between', padding:'10px 0', borderBottom:'1px solid #E8E2D8' }}>
                     <span style={{ fontSize:13, color:'#C8860A' }}>Subtotal</span>
                     <span style={{ fontSize:13, fontWeight:500, color:'#FFF8DC' }}>€{subtotal.toFixed(2)}</span>
                   </div>
@@ -316,7 +316,7 @@ export default function MenuPage({ onNavigate }) {
 
       {/* Mobile floating cart bar */}
       {isMobile && itemCount > 0 && (
-        <div style={{ position:'fixed', bottom:0, left:0, right:0, padding:'12px 16px', background:'#1A1000', borderTop:'1px solid #2A1A00', zIndex:50, boxShadow:'0 -4px 20px rgba(0,0,0,0.08)' }}>
+        <div style={{ position:'fixed', bottom:0, left:0, right:0, padding:'12px 16px', background:'#1A0F00', borderTop:'1px solid #2A1A00', zIndex:50, boxShadow:'0 -4px 20px rgba(0,0,0,0.08)' }}>
           <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
             <span>🛒 {itemCount} {itemCount===1?'artículo':'artículos'}</span>
             <span>Ver pedido · €{subtotal.toFixed(2)} →</span>

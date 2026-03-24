@@ -30,20 +30,23 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
 
   return (
     <>
-      <div style={{ background:'#0F0800', color:'#FFF8DC', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:500, lineHeight:1.4 }}>
+      {/* Announcement bar */}
+      <div style={{ background:'#FFD43A', color:'#0F0800', textAlign:'center', fontSize: isMobile ? 11 : 12, letterSpacing:'1px', padding: isMobile ? '7px 12px' : '8px 16px', fontFamily:"'Outfit',sans-serif", fontWeight:600, lineHeight:1.4 }}>
         🔥 ENVÍO GRATIS +€35 · ZARAGOZA · 90 MIN
       </div>
-      <nav style={{ position:'sticky', top:0, zIndex:100, background: scrolled ? 'rgba(255,255,255,0.97)' : '#fff', backdropFilter: scrolled ? 'blur(12px)' : 'none', borderBottom:'1px solid #2A1A00', transition:'all 0.2s ease', boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.06)' : 'none' }}>
+
+      {/* Main nav — always dark */}
+      <nav style={{ position:'sticky', top:0, zIndex:100, background:'#0F0800', borderBottom:'1px solid #2A1A00', transition:'box-shadow 0.2s ease', boxShadow: scrolled ? '0 2px 24px rgba(0,0,0,0.4)' : 'none' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:'0 20px', display:'flex', alignItems:'center', justifyContent:'space-between', height:60 }}>
           <button onClick={() => handleNav('home')} style={{ background:'none', border:'none', cursor:'pointer', padding:0, display:'flex', alignItems:'center', gap:8 }}>
-            <img src="/logo.png" alt="OhMyGrill Brasas" style={{ height: isMobile ? 44 : 50, width: 'auto', objectFit:'contain' }} />
-            {!isMobile && <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', letterSpacing:'-0.3px' }}>Oh<em style={{ color:'#ffd43a', fontStyle:'italic' }}>My</em>Grill <span style={{ fontSize:12, fontWeight:300, color:'#C8860A', fontFamily:"'Outfit',sans-serif" }}>Brasas</span></span>}
+            <img src="/logo.png" alt="OhMyGrill Brasas" style={{ height: isMobile ? 44 : 50, width:'auto', objectFit:'contain' }} />
+            {!isMobile && <span style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', letterSpacing:'-0.3px' }}>Oh<em style={{ color:'#FFD43A', fontStyle:'italic' }}>My</em>Grill <span style={{ fontSize:12, fontWeight:300, color:'#C8860A', fontFamily:"'Outfit',sans-serif" }}>Brasas</span></span>}
           </button>
 
           {!isMobile && (
             <div style={{ display:'flex', gap:28, alignItems:'center' }}>
               {links.map(l => (
-                <button key={l.id} onClick={() => handleNav(l.id)} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#ffd43a' : '#C8860A', padding:'4px 0', borderBottom: activePage===l.id ? '2px solid #ffd43a' : '2px solid transparent', transition:'all 0.15s' }}>
+                <button key={l.id} onClick={() => handleNav(l.id)} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#FFD43A' : '#C8860A', padding:'4px 0', borderBottom: activePage===l.id ? '2px solid #FFD43A' : '2px solid transparent', transition:'all 0.15s' }}>
                   {l.label}
                 </button>
               ))}
@@ -51,30 +54,31 @@ export default function Navbar({ activePage, onNavigate, onCartOpen }) {
           )}
 
           <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-            <button onClick={onCartOpen} style={{ display:'flex', alignItems:'center', gap:6, background: itemCount>0 ? '#0F0800' : 'transparent', border:'1.5px solid', borderColor: itemCount>0 ? '#0F0800' : '#D4CFC9', color: itemCount>0 ? '#fff' : '#C8860A', borderRadius:24, padding: isMobile ? '7px 14px' : '8px 16px', cursor:'pointer', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:500, transition:'all 0.2s' }}>
+            <button onClick={onCartOpen} style={{ display:'flex', alignItems:'center', gap:6, background: itemCount>0 ? '#FFD43A' : 'transparent', border:'1.5px solid', borderColor: itemCount>0 ? '#FFD43A' : '#2A1A00', color: itemCount>0 ? '#0F0800' : '#C8860A', borderRadius:24, padding: isMobile ? '7px 14px' : '8px 16px', cursor:'pointer', fontFamily:"'Outfit',sans-serif", fontSize:13, fontWeight:500, transition:'all 0.2s' }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               {itemCount > 0 ? itemCount : (!isMobile ? 'Carrito' : '')}
             </button>
             {isMobile && (
               <button onClick={() => setMobileOpen(!mobileOpen)} style={{ background:'none', border:'none', cursor:'pointer', padding:6, display:'flex', flexDirection:'column', gap:5, alignItems:'center' }}>
-                <span style={{ display:'block', width:22, height:2, background:'#0F0800', borderRadius:2, transform: mobileOpen ? 'rotate(45deg) translate(5px,5px)' : 'none', transition:'all 0.2s' }} />
-                <span style={{ display:'block', width:22, height:2, background:'#0F0800', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'all 0.2s' }} />
-                <span style={{ display:'block', width:22, height:2, background:'#0F0800', borderRadius:2, transform: mobileOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none', transition:'all 0.2s' }} />
+                <span style={{ display:'block', width:22, height:2, background:'#FFF8DC', borderRadius:2, transform: mobileOpen ? 'rotate(45deg) translate(5px,5px)' : 'none', transition:'all 0.2s' }} />
+                <span style={{ display:'block', width:22, height:2, background:'#FFF8DC', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'all 0.2s' }} />
+                <span style={{ display:'block', width:22, height:2, background:'#FFF8DC', borderRadius:2, transform: mobileOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none', transition:'all 0.2s' }} />
               </button>
             )}
           </div>
         </div>
 
+        {/* Mobile menu */}
         {isMobile && (
           <div style={{ maxHeight: mobileOpen ? 400 : 0, overflow:'hidden', transition:'max-height 0.35s cubic-bezier(0.4,0,0.2,1)', borderTop: mobileOpen ? '1px solid #2A1A00' : 'none', background:'#1A1000' }}>
             <div style={{ padding:'8px 0 16px' }}>
               {links.map(l => (
-                <button key={l.id} onClick={() => handleNav(l.id)} style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', cursor:'pointer', padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:16, fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#ffd43a' : '#0F0800', borderLeft: activePage===l.id ? '3px solid #ffd43a' : '3px solid transparent' }}>
+                <button key={l.id} onClick={() => handleNav(l.id)} style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', cursor:'pointer', padding:'13px 24px', fontFamily:"'Outfit',sans-serif", fontSize:16, fontWeight: activePage===l.id ? 500 : 400, color: activePage===l.id ? '#FFD43A' : '#FFF8DC', borderLeft: activePage===l.id ? '3px solid #FFD43A' : '3px solid transparent' }}>
                   {l.label}
                 </button>
               ))}
               <div style={{ padding:'8px 24px 0' }}>
-                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#0F0800', color:'#FFF8DC', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer' }}>
+                <button onClick={() => handleNav('menu')} style={{ width:'100%', background:'#FFD43A', color:'#0F0800', border:'none', borderRadius:12, padding:'14px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:600, cursor:'pointer' }}>
                   Pedir ahora →
                 </button>
               </div>

@@ -42,8 +42,8 @@ function OrderSummary({ isMobile }) {
   const { items, subtotal, deliveryFee, total, deliveryType, deliveryZone, updateQty } = useCart();
 
   return (
-    <div style={{ background:'#1A1000', border:'1px solid #2A1A00', borderRadius:20, overflow:'hidden' }}>
-      <div style={{ background:'#0F0800', padding:'18px 22px' }}>
+    <div style={{ background:'#FFFFFF', border:'1px solid #E8E2D8', borderRadius:20, overflow:'hidden' }}>
+      <div style={{ background:'#1A0F00', padding:'18px 22px' }}>
         <p style={{ fontFamily:"'Fraunces',serif", fontSize:17, fontWeight:600, color:'#FFF8DC', margin:0 }}>Resumen del pedido</p>
       </div>
       <div style={{ padding:'16px 22px' }}>
@@ -111,12 +111,12 @@ function StepDelivery({ data, onChange, onNext }) {
 
   return (
     <div>
-      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#FFF8DC', margin:'0 0 20px' }}>¿Cómo quieres recibir tu pedido?</h2>
+      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1A0F00', margin:'0 0 20px' }}>¿Cómo quieres recibir tu pedido?</h2>
 
       {/* Delivery type toggle */}
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:24 }}>
         {[{ id:'delivery', icon:'🛵', title:'A domicilio', desc:'Entrega en tu dirección' }, { id:'pickup', icon:'🏪', title:'Recogida', desc:'Recoge en el local' }].map(opt => (
-          <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{ padding:'14px 16px', border:`2px solid ${deliveryType===opt.id ? '#ffd43a' : '#2A1A00'}`, borderRadius:14, background: deliveryType===opt.id ? '#FEF3EE' : '#fff', cursor:'pointer', textAlign:'left', transition:'all 0.15s' }}>
+          <button key={opt.id} onClick={() => setDeliveryType(opt.id)} style={{ padding:'14px 16px', border:`2px solid ${deliveryType===opt.id ? '#ffd43a' : '#2A1A00'}`, borderRadius:14, background: deliveryType===opt.id ? '#1A0F00' : '#FFFFFF', cursor:'pointer', textAlign:'left', transition:'all 0.15s' }}>
             <div style={{ fontSize:22, marginBottom:6 }}>{opt.icon}</div>
             <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight: deliveryType===opt.id ? 500 : 400, color: deliveryType===opt.id ? '#ffd43a' : '#0F0800', margin:'0 0 2px' }}>{opt.title}</p>
             <p style={{ fontSize:12, color:'#C8860A', margin:0 }}>{opt.desc}</p>
@@ -128,7 +128,7 @@ function StepDelivery({ data, onChange, onNext }) {
         <>
           {/* Zone selector */}
           <div style={{ marginBottom:16 }}>
-            <label style={{ fontSize:13, fontWeight:500, color:'#FFF8DC', display:'block', marginBottom:6 }}>Zona de Zaragoza *</label>
+            <label style={{ fontSize:13, fontWeight:500, color:'#1A0F00', display:'block', marginBottom:6 }}>Zona de Zaragoza *</label>
             <select value={deliveryZone?.name || ''} onChange={e => { const z = deliveryZones.find(z => z.name === e.target.value); setDeliveryZone(z || null); }} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.zone ? '#E24B4A' : '#2A1A00'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFF8DC', background:'#1A1000', cursor:'pointer' }}>
               <option value="">Selecciona tu zona...</option>
               {deliveryZones.map(z => <option key={z.name} value={z.name}>{z.name} — {z.eta} · €{z.deliveryFee}</option>)}
@@ -139,7 +139,7 @@ function StepDelivery({ data, onChange, onNext }) {
 
           {/* Address */}
           <div style={{ marginBottom:16 }}>
-            <label style={{ fontSize:13, fontWeight:500, color:'#FFF8DC', display:'block', marginBottom:6 }}>Dirección de entrega *</label>
+            <label style={{ fontSize:13, fontWeight:500, color:'#1A0F00', display:'block', marginBottom:6 }}>Dirección de entrega *</label>
             <input type="text" placeholder="Calle, número, piso..." value={data.address || ''} onChange={e => onChange('address', e.target.value)} style={{ width:'100%', padding:'11px 14px', border:`1.5px solid ${errors.address ? '#E24B4A' : '#2A1A00'}`, borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFF8DC', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor= errors.address ? '#E24B4A' : '#2A1A00'} />
             {errors.address && <p style={{ fontSize:12, color:'#E24B4A', marginTop:4 }}>{errors.address}</p>}
           </div>
@@ -156,8 +156,8 @@ function StepDelivery({ data, onChange, onNext }) {
 
       {/* Notes */}
       <div style={{ marginBottom:24 }}>
-        <label style={{ fontSize:13, fontWeight:500, color:'#FFF8DC', display:'block', marginBottom:6 }}>Notas del pedido <span style={{ color:'#C8860A', fontWeight:400 }}>(opcional)</span></label>
-        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #2A1A00', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#FFF8DC', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor='#2A1A00'} />
+        <label style={{ fontSize:13, fontWeight:500, color:'#1A0F00', display:'block', marginBottom:6 }}>Notas del pedido <span style={{ color:'#C8860A', fontWeight:400 }}>(opcional)</span></label>
+        <textarea placeholder="Punto de la carne, alergias, instrucciones especiales..." value={notes} onChange={e => setNotes(e.target.value)} rows={3} style={{ width:'100%', padding:'11px 14px', border:'1.5px solid #E8E2D8', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1A0F00', resize:'vertical', boxSizing:'border-box', outline:'none' }} onFocus={e => e.target.style.borderColor='#ffd43a'} onBlur={e => e.target.style.borderColor='#2A1A00'} />
       </div>
 
       <button onClick={() => { if (validate()) onNext(); }} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', transition:'opacity 0.2s' }} onMouseEnter={e => e.currentTarget.style.opacity='0.9'} onMouseLeave={e => e.currentTarget.style.opacity='1'}>
@@ -190,12 +190,12 @@ function StepContact({ data, onChange, onNext, onBack }) {
 
   return (
     <div>
-      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#FFF8DC', margin:'0 0 6px' }}>Datos de contacto</h2>
+      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1A0F00', margin:'0 0 6px' }}>Datos de contacto</h2>
       <p style={{ fontSize:13, color:'#C8860A', margin:'0 0 24px' }}>Te enviaremos la confirmación por email y te avisaremos cuando salga tu pedido.</p>
 
       {fields.map(f => (
         <div key={f.key} style={{ marginBottom:16 }}>
-          <label style={{ fontSize:13, fontWeight:500, color:'#FFF8DC', display:'block', marginBottom:6 }}>
+          <label style={{ fontSize:13, fontWeight:500, color:'#1A0F00', display:'block', marginBottom:6 }}>
             {f.label} {f.required && <span style={{ color:'#ffd43a' }}>*</span>}
           </label>
           <input type={f.type} placeholder={f.placeholder} value={data[f.key] || ''} onChange={e => onChange(f.key, e.target.value)}
@@ -234,7 +234,9 @@ function StepPayment({ contactData, onBack, onSuccess }) {
 
   useEffect(() => {
     // Initialize Stripe Elements
-    const stripe = window.Stripe('pk_live_51TAdsM2MGngch1SFzn2tfwUFA5BTsXggXzDnLed5h25MrtrM4EkrnPgjvFC0YCmSQcbDR63ztB5WKC79dTGmbZGi00nyqC2obZ');
+    const stripeKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
+    if (!stripeKey) { setError('Error de configuración: clave Stripe no encontrada.'); return; }
+    const stripe = window.Stripe(stripeKey);
     stripeRef.current = stripe;
     const elements = stripe.elements();
     elementsRef.current = elements;
@@ -309,7 +311,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
 
   return (
     <div>
-      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#FFF8DC', margin:'0 0 6px' }}>Pago seguro</h2>
+      <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1A0F00', margin:'0 0 6px' }}>Pago seguro</h2>
       <p style={{ fontSize:13, color:'#C8860A', margin:'0 0 24px' }}>Procesado por Stripe · Cifrado SSL · No almacenamos datos de tarjeta</p>
 
       {/* Accepted cards */}
@@ -321,9 +323,9 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       </div>
 
       {/* Stripe Elements card */}
-      <div style={{ background:'#0F0800', border:'1px solid #2A1A00', borderRadius:16, padding:'20px', marginBottom:20 }}>
-        <label style={{ fontSize:13, fontWeight:500, color:'#FFF8DC', display:'block', marginBottom:10 }}>Datos de tarjeta</label>
-        <div ref={cardElementRef} style={{ background:'#1A1000', border:'1.5px solid #2A1A00', borderRadius:12, padding:'13px 14px', minHeight:44 }} />
+      <div style={{ background:'#FAF6EF', border:'1px solid #E8E2D8', borderRadius:16, padding:'20px', marginBottom:20 }}>
+        <label style={{ fontSize:13, fontWeight:500, color:'#1A0F00', display:'block', marginBottom:10 }}>Datos de tarjeta</label>
+        <div ref={cardElementRef} style={{ background:'#FFFFFF', border:'1.5px solid #E8E2D8', borderRadius:12, padding:'13px 14px', minHeight:44 }} />
         {!cardReady && <p style={{ fontSize:12, color:'#C8860A', marginTop:6 }}>Cargando formulario seguro...</p>}
       </div>
 
@@ -336,7 +338,7 @@ function StepPayment({ contactData, onBack, onSuccess }) {
       )}
 
       {/* Total + pay button */}
-      <div style={{ background:'#0F0800', borderRadius:14, padding:'16px 20px', marginBottom:12 }}>
+      <div style={{ background:'#1A0F00', borderRadius:14, padding:'16px 20px', marginBottom:12 }}>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
           <div>
             <p style={{ fontSize:12, color:'rgba(240,235,227,0.5)', margin:0 }}>Total a pagar</p>
@@ -444,14 +446,14 @@ export default function CheckoutPage({ onNavigate }) {
   }
 
   return (
-    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#0F0800', minHeight:'100vh' }}>
+    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FAF6EF', minHeight:'100vh' }}>
       {/* Header */}
-      <div style={{ background:'#1A1000', borderBottom:'1px solid #2A1A00', padding: isMobile ? '24px 20px 20px' : '32px 0 24px' }}>
+      <div style={{ background:'#0F0800', borderBottom:'1px solid #2A1A00', padding: isMobile ? '24px 20px 20px' : '32px 0 24px' }}>
         <div style={{ maxWidth:1100, margin:'0 auto', padding: isMobile ? '0' : '0 24px' }}>
           <button onClick={() => step === 0 ? onNavigate('menu') : setStep(s => s - 1)} style={{ background:'none', border:'none', cursor:'pointer', fontSize:13, color:'#C8860A', fontFamily:"'Outfit',sans-serif", padding:'0 0 12px', display:'flex', alignItems:'center', gap:6 }}>
             ← {step === 0 ? 'Volver a la carta' : 'Paso anterior'}
           </button>
-          <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFF8DC', margin:'0 0 20px' }}>Finalizar pedido</h1>
+          <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1A0F00', margin:'0 0 20px' }}>Finalizar pedido</h1>
           <Steps current={step} />
         </div>
       </div>
@@ -460,7 +462,7 @@ export default function CheckoutPage({ onNavigate }) {
       <div style={{ maxWidth:1100, margin:'0 auto', padding: isMobile ? '24px 20px' : '32px 24px', display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 360px', gap:32, alignItems:'start' }}>
 
         {/* Left — step form */}
-        <div style={{ background:'#1A1000', borderRadius:20, border:'1px solid #2A1A00', padding: isMobile ? '24px 20px' : '32px' }}>
+        <div style={{ background:'#FFFFFF', borderRadius:20, border:'1px solid #E8E2D8', padding: isMobile ? '24px 20px' : '32px' }}>
           {step === 0 && (
             <StepDelivery data={deliveryData} onChange={(k,v) => setDeliveryData(d => ({ ...d, [k]:v }))} onNext={() => setStep(1)} />
           )}
