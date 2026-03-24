@@ -353,7 +353,7 @@ export default function CheckoutPage({ onNavigate }) {
       cardRef.current = paymentEl;
       paymentEl.on('change', e => setStripeError(e.error ? e.error.message : ''));
     })
-    .catch(() => setStripeError('Error al cargar el pago. Recarga la página.'));
+    .catch(err => setStripeError('Error al cargar: ' + (err?.message || 'Recarga la página.')));
 
     return () => { try { if(cardRef.current) cardRef.current.unmount(); } catch(e) {} };
   }, [step]);
