@@ -301,23 +301,23 @@ export default function ChatBot({ onNavigate, activePage }) {
           transition:'all .2s',
           fontFamily:'inherit',
         }}
-          onMouseEnter={e=>{if(!open){e.currentTarget.style.transform='translateY(-1px)';e.currentTarget.style.boxShadow='0 6px 20px rgba(0,0,0,.22)'}}}
-          onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow=open?'none':'0 4px 16px rgba(0,0,0,.18)'}}>
+          onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow=open?'0 6px 24px rgba(0,0,0,.3)':'0 6px 28px rgba(245,200,66,.55)'}}
+          onMouseLeave={e=>{e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow=open?'0 4px 20px rgba(0,0,0,.25)':'0 4px 20px rgba(245,200,66,.4)'}}>
 
           {/* Avatar */}
-          <div style={{ width:28, height:28, borderRadius:'50%', overflow:'hidden', border:`1.5px solid ${open?S.border:'rgba(245,200,66,.4)'}`, flexShrink:0, background:S.yellow }}>
+          <div style={{ width:30, height:30, borderRadius:'50%', overflow:'hidden', border:`2px solid ${open?'rgba(245,200,66,.3)':'rgba(26,16,8,.2)'}`, flexShrink:0, background: open?S.yellow:S.dark }}>
             <img src="/logo.png" alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }}
               onError={e=>e.target.style.display='none'} />
           </div>
 
           {/* Label */}
-          <span style={{ fontSize:13, fontWeight:600, color: open?S.sub:S.yellow, whiteSpace:'nowrap' }}>
+          <span style={{ fontSize:13, fontWeight:700, color: open?S.yellow:S.dark, whiteSpace:'nowrap', letterSpacing:'-.1px' }}>
             {open ? 'Cerrar chat' : '¿Qué pedimos?'}
           </span>
 
           {/* Unread badge */}
           {unread > 0 && !open && (
-            <div style={{ width:17, height:17, background:S.yellow, color:S.dark, fontSize:9, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', marginLeft:-4 }}>
+            <div style={{ width:17, height:17, background:S.dark, color:S.yellow, fontSize:9, fontWeight:800, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', marginLeft:-4 }}>
               {unread}
             </div>
           )}
