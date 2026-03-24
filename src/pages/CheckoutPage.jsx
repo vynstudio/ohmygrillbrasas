@@ -64,7 +64,7 @@ function OrderSummary() {
           </div>
           <div style={{ display:'flex', justifyContent:'space-between', marginBottom:12, paddingBottom:12, borderBottom:`1px solid ${S.border}`, fontSize:13, color:S.sub }}>
             <span>Envío {deliveryType==='pickup'?'(recogida)':deliveryZone?`· ${deliveryZone.name}`:''}</span>
-            <span style={{ fontWeight:600, color:S.dark }}>{deliveryType==='pickup'?'Gratis':deliveryZone?`€${deliveryFee.toFixed(2)}`:'—'}</span>
+            <span style={{ fontWeight:600, color:deliveryFee===0?'#27ae60':S.dark }}>{deliveryType==='pickup'?'Gratis (recogida)':deliveryFee===0?'Gratis':deliveryZone?`€${deliveryFee.toFixed(2)}`:'—'}</span>
           </div>
           <div style={{ display:'flex', justifyContent:'space-between' }}>
             <span style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:S.dark }}>Total</span>
@@ -141,7 +141,13 @@ function StepDelivery({ data, onChange, onNext }) {
               {deliveryZones.map(z => <option key={z.name} value={z.name}>{z.name} — {z.eta} · €{z.deliveryFee}</option>)}
             </select>
             <Err msg={errors.zone} />
-            {deliveryZone && <p style={{ fontSize:12, color:'#27ae60', marginTop:4, display:'flex', alignItems:'center', gap:4 }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27ae60" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>Entrega estimada: <strong>{deliveryZone.eta}</strong></p>}
+            {deliveryZone && (
+              <p style={{ fontSize:12, color:'#27ae60', marginTop:4, display:'flex', alignItems:'center', gap:4 }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#27ae60" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Entrega estimada: <strong>{deliveryZone.eta}</strong>
+                {subtotal >= 35 && <span style={{ marginLeft:6, background:'#27ae60', color:'#fff', fontSize:10, fontWeight:700, padding:'1px 7px', borderRadius:10 }}>Envío gratis</span>}
+              </p>
+            )}
           </div>
           <div style={{ marginBottom:16 }}>
             <Lbl>Dirección <span style={{ color:S.error }}>*</span></Lbl>
