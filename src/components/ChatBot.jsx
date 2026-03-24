@@ -96,7 +96,9 @@ export default function ChatBot({ onNavigate, activePage }) {
     if (t.includes('chuletón'))        return ['Añadir chuletón al pedido','+ Pan de cristal','+ Chimichurri artesano'];
     if (t.includes('costilla'))        return ['Añadir costillas al pedido','+ Mojo picón','¿Para cuántos somos?'];
     if (t.includes('entrecot'))        return ['Añadir entrecot al pedido','+ Patatas a las brasas','+ Salsa'];
-    if (t.includes('entrega') || t.includes('zona') || t.includes('domicilio')) return ['Quiero hacer un pedido','¿Cuánto tarda Centro?','¿Hacéis recogida?'];
+    if (t.includes('1.') || t.includes('2.') || t.includes('elige tu número') || t.includes('elige tu numero') || (t.includes('zona') && t.includes('€')))
+      return ['1. Centro','2. Delicias','3. Oliver','4. Las Fuentes','5. Torrero','6. Casablanca','Recogida en local'];
+    if (t.includes('entrega') || t.includes('zona') || t.includes('domicilio')) return ['¿Cuánto cuesta el envío?','¿Hacéis recogida?','Quiero hacer un pedido'];
     if (t.includes('horario') || t.includes('abierto'))  return ['Hacer un pedido ahora','Ver la carta'];
     if (t.includes('resumen') || t.includes('pedido'))   return ['Confirmar pedido','Añadir algo más','Cambiar algo'];
     return [];

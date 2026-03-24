@@ -184,12 +184,12 @@ export const packs = [
 ];
 
 export const deliveryZones = [
-  { name: 'Centro / Casco Histórico', minOrder: 20, deliveryFee: 2.5, eta: '30–45 min' },
-  { name: 'Delicias / Arrabal', minOrder: 25, deliveryFee: 3, eta: '35–50 min' },
-  { name: 'Oliver / Valdefierro', minOrder: 25, deliveryFee: 3, eta: '40–55 min' },
-  { name: 'Las Fuentes / San José', minOrder: 25, deliveryFee: 3.5, eta: '40–55 min' },
-  { name: 'Torrero / La Paz', minOrder: 30, deliveryFee: 3.5, eta: '45–60 min' },
-  { name: 'Miralbueno / Casablanca', minOrder: 30, deliveryFee: 4, eta: '50–65 min' },
+  { name: 'Centro / Casco Histórico', minOrder: 20, deliveryFee: 3,   eta: '30–45 min' },
+  { name: 'Delicias / Arrabal',        minOrder: 25, deliveryFee: 3.5, eta: '35–50 min' },
+  { name: 'Oliver / Valdefierro',      minOrder: 25, deliveryFee: 3.5, eta: '40–55 min' },
+  { name: 'Las Fuentes / San José',    minOrder: 25, deliveryFee: 4,   eta: '40–55 min' },
+  { name: 'Torrero / La Paz',          minOrder: 30, deliveryFee: 4,   eta: '45–60 min' },
+  { name: 'Miralbueno / Casablanca',   minOrder: 30, deliveryFee: 4.5, eta: '50–65 min' },
 ];
 
 export const restaurantInfo = {
