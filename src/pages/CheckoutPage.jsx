@@ -281,6 +281,12 @@ export default function CheckoutPage({ onNavigate }) {
   useEffect(() => {
     const fn = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', fn);
+    // Handle Stripe redirect return (Apple Pay / 3DS)
+    if (window.location.hash.includes('checkout-success')) {
+      setSuccess(true);
+      clearCart();
+      window.location.hash = 'checkout';
+    }
     return () => window.removeEventListener('resize', fn);
   }, []);
 
