@@ -191,7 +191,7 @@ export default function HomePage({ onNavigate }) {
       {/* ── HOW IT WORKS ── */}
       <section style={{ background:'#2A1800', padding: isMobile ? '48px 0' : '72px 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding:`0 ${isMobile ? 20 : 24}px` }}>
-          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#1A1500', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
+          <h2 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 26 : 34, fontWeight:600, color:'#FFD43A', textAlign:'center', margin:`0 0 ${isMobile ? 32 : 52}px` }}>Pide en 3 pasos</h2>
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? 28 : 40 }}>
             {[
               {step:'01',icon:'📋',title:'Elige tu plato',desc:'Explora la carta, elige tus cortes favoritos y personaliza tu pedido con notas especiales.'},
@@ -199,12 +199,12 @@ export default function HomePage({ onNavigate }) {
               {step:'03',icon:'🛵',title:'Lo recibes caliente',desc:'Preparamos y enviamos tu pedido. Seguimiento en tiempo real hasta tu puerta en Zaragoza.'},
             ].map(s => (
               <div key={s.step} style={{ display:'flex', flexDirection: isMobile ? 'row' : 'column', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 16 : 0, textAlign: isMobile ? 'left' : 'center' }}>
-                <div style={{ width:56, height:56, borderRadius:'50%', background:'#FEF3EE', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontSize:24, marginBottom: isMobile ? 0 : 16 }}>
+                <div style={{ width:56, height:56, borderRadius:'50%', background:'#3D2200', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontSize:24, marginBottom: isMobile ? 0 : 16 }}>
                   {s.icon}
                 </div>
                 <div>
                   <span style={{ fontSize:11, letterSpacing:'2px', color:'#ffd43a', fontWeight:600, display:'block', marginBottom:4 }}>{s.step}</span>
-                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1A1500', margin:'0 0 6px' }}>{s.title}</h3>
+                  <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F5DFA0', margin:'0 0 6px' }}>{s.title}</h3>
                   <p style={{ fontSize:14, color:'#C4A265', lineHeight:1.6, margin:0 }}>{s.desc}</p>
                 </div>
               </div>
