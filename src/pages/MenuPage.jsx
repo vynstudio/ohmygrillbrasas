@@ -32,8 +32,8 @@ function ProductRow({ product }) {
             <span style={{ background: product.badgeColor || '#1A1500', color:'#fff', fontSize:10, fontWeight:600, padding:'2px 8px', borderRadius:20 }}>{product.badge}</span>
           )}
         </div>
-        <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:12.5, color:'#8B7355', margin:'3px 0 0', lineHeight:1.5 }}>{product.description}</p>
-        <span style={{ fontFamily:"'Outfit',sans-serif", fontSize:11, color:'#C4A265', background:'#FFF8E7', padding:'2px 8px', borderRadius:10, display:'inline-block', marginTop:5 }}>{product.weight}</span>
+        <p style={{ fontFamily:"'Outfit',sans-serif", fontSize:12.5, color:'#C4A265', margin:'3px 0 0', lineHeight:1.5 }}>{product.description}</p>
+        <span style={{ fontFamily:"'Outfit',sans-serif", fontSize:11, color:'#C4A265', background:'#2A1800', padding:'2px 8px', borderRadius:10, display:'inline-block', marginTop:5 }}>{product.weight}</span>
       </div>
       {/* Price + add */}
       <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:8, flexShrink:0 }}>
@@ -65,7 +65,7 @@ function PackCard({ pack, onNavigate }) {
         <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:12 }}>
           <div>
             <span style={{ background:'#ffd43a', color:'#fff', fontSize:10, fontWeight:600, padding:'2px 10px', borderRadius:20, display:'inline-block', marginBottom:8 }}>{pack.badge}</span>
-            <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', margin:0 }}>{pack.name}</h3>
+            <h3 style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F5DFA0', margin:0 }}>{pack.name}</h3>
             <p style={{ fontSize:12, color:'rgba(240,235,227,0.45)', marginTop:2 }}>{pack.subtitle}</p>
           </div>
           <span style={{ fontSize:28 }}>{pack.emoji}</span>
@@ -79,7 +79,7 @@ function PackCard({ pack, onNavigate }) {
         </ul>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
           <div>
-            <span style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#FFF8DC' }}>€{pack.price}</span>
+            <span style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#F5DFA0' }}>€{pack.price}</span>
             <span style={{ fontSize:12, color:'rgba(240,235,227,0.3)', marginLeft:7, textDecoration:'line-through' }}>€{pack.originalPrice}</span>
           </div>
           <button onClick={handleAdd} style={{ background: added ? '#1a7a4a' : '#ffd43a', color:'#fff', border:'none', borderRadius:24, padding:'9px 18px', fontSize:12, fontFamily:"'Outfit',sans-serif", fontWeight:500, cursor:'pointer', transition:'all 0.2s' }}>
@@ -160,15 +160,15 @@ export default function MenuPage({ onNavigate }) {
   const categoryLabels = { carnes:'Carnes', aves:'Aves y volatería', verduras:'Verduras y guarniciones', salsas:'Salsas y extras' };
 
   return (
-    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#FFFBEE', minHeight:'100vh' }}>
+    <div style={{ fontFamily:"'Outfit',sans-serif", background:'#1C0F00', minHeight:'100vh' }}>
 
       {/* Page header */}
-      <div style={{ background:'#fff', borderBottom:'1px solid #F0E4C8', padding: isMobile ? '28px 20px 0' : '40px 0 0' }}>
+      <div style={{ background:'#2A1800', borderBottom:'1px solid #3D2200', padding: isMobile ? '28px 20px 0' : '40px 0 0' }}>
         <div style={{ maxWidth:1200, margin:'0 auto', padding: isMobile ? '0' : '0 24px' }}>
           <h1 style={{ fontFamily:"'Fraunces',serif", fontSize: isMobile ? 30 : 40, fontWeight:600, color:'#1A1500', margin:'0 0 4px' }}>
             La carta
           </h1>
-          <p style={{ fontSize:14, color:'#8B7355', margin:'0 0 20px' }}>
+          <p style={{ fontSize:14, color:'#C4A265', margin:'0 0 20px' }}>
             Brasa de leña de encina · Zaragoza
           </p>
 
@@ -182,9 +182,9 @@ export default function MenuPage({ onNavigate }) {
               placeholder="Buscar plato..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #F0E4C8', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1A1500', background:'#FFFBEE', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
+              style={{ width:'100%', padding:'10px 14px 10px 40px', border:'1.5px solid #3D2200', borderRadius:12, fontFamily:"'Outfit',sans-serif", fontSize:14, color:'#1A1500', background:'#1C0F00', boxSizing:'border-box', outline:'none', transition:'border-color 0.15s' }}
               onFocus={e => e.target.style.borderColor = '#ffd43a'}
-              onBlur={e => e.target.style.borderColor = '#F0E4C8'}
+              onBlur={e => e.target.style.borderColor = '#3D2200'}
             />
             {search && (
               <button onClick={() => setSearch('')} style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'#C4A265', fontSize:18, lineHeight:1, padding:0 }}>×</button>
@@ -194,7 +194,7 @@ export default function MenuPage({ onNavigate }) {
           {/* Category tabs */}
           <div style={{ display:'flex', gap:4, overflowX:'auto', paddingBottom:0, scrollbarWidth:'none' }}>
             {categories.map(cat => (
-              <button key={cat.id} onClick={() => { setActiveCategory(cat.id); setSearch(''); }} style={{ background: activeCategory===cat.id ? '#1A1500' : 'transparent', color: activeCategory===cat.id ? '#fff' : '#7A6030', border: activeCategory===cat.id ? 'none' : '1px solid #F0E4C8', borderRadius:'12px 12px 0 0', padding:'9px 18px', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activeCategory===cat.id ? 500 : 400, cursor:'pointer', whiteSpace:'nowrap', transition:'all 0.15s', flexShrink:0 }}>
+              <button key={cat.id} onClick={() => { setActiveCategory(cat.id); setSearch(''); }} style={{ background: activeCategory===cat.id ? '#1A1500' : 'transparent', color: activeCategory===cat.id ? '#fff' : '#C4A265', border: activeCategory===cat.id ? 'none' : '1px solid #3D2200', borderRadius:'12px 12px 0 0', padding:'9px 18px', fontSize:13, fontFamily:"'Outfit',sans-serif", fontWeight: activeCategory===cat.id ? 500 : 400, cursor:'pointer', whiteSpace:'nowrap', transition:'all 0.15s', flexShrink:0 }}>
                 {cat.label}
               </button>
             ))}
@@ -208,7 +208,7 @@ export default function MenuPage({ onNavigate }) {
         {/* Left — product list */}
         <div>
           {search && (
-            <p style={{ fontSize:13, color:'#8B7355', marginBottom:16 }}>
+            <p style={{ fontSize:13, color:'#C4A265', marginBottom:16 }}>
               {filtered.length} resultado{filtered.length !== 1 ? 's' : ''} para "<strong style={{ color:'#1A1500' }}>{search}</strong>"
             </p>
           )}
@@ -218,7 +218,7 @@ export default function MenuPage({ onNavigate }) {
             <div key={cat} style={{ marginBottom:36 }}>
               <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:4 }}>
                 <h2 style={{ fontFamily:"'Fraunces',serif", fontSize:22, fontWeight:600, color:'#1A1500', margin:0 }}>{categoryLabels[cat] || cat}</h2>
-                <span style={{ fontSize:12, color:'#C4A265', background:'#FFF8E7', padding:'2px 10px', borderRadius:20 }}>{items.length}</span>
+                <span style={{ fontSize:12, color:'#C4A265', background:'#2A1800', padding:'2px 10px', borderRadius:20 }}>{items.length}</span>
               </div>
               <div style={{ borderTop:'2px solid #ffd43a', width:40, marginBottom:16 }} />
               {items.map(p => <ProductRow key={p.id} product={p} />)}
@@ -237,7 +237,7 @@ export default function MenuPage({ onNavigate }) {
                 </div>
               )}
               {filtered.length === 0 ? (
-                <div style={{ textAlign:'center', padding:'60px 20px', color:'#8B7355' }}>
+                <div style={{ textAlign:'center', padding:'60px 20px', color:'#C4A265' }}>
                   <div style={{ fontSize:40, marginBottom:12 }}>🔍</div>
                   <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#1A1500', marginBottom:6 }}>Sin resultados</p>
                   <p style={{ fontSize:14 }}>Prueba con otro término</p>
@@ -265,9 +265,9 @@ export default function MenuPage({ onNavigate }) {
         {/* Right — sticky order summary */}
         {!isMobile && (
           <div style={{ position:'sticky', top:80 }}>
-            <div style={{ background:'#fff', border:'1px solid #F0E4C8', borderRadius:20, overflow:'hidden' }}>
+            <div style={{ background:'#2A1800', border:'1px solid #3D2200', borderRadius:20, overflow:'hidden' }}>
               <div style={{ background:'#1A1500', padding:'20px 24px' }}>
-                <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#FFF8DC', margin:0 }}>Tu pedido</p>
+                <p style={{ fontFamily:"'Fraunces',serif", fontSize:18, fontWeight:600, color:'#F5DFA0', margin:0 }}>Tu pedido</p>
                 {itemCount > 0 && <p style={{ fontSize:12, color:'rgba(240,235,227,0.45)', margin:'3px 0 0' }}>{itemCount} {itemCount===1?'artículo':'artículos'}</p>}
               </div>
 
@@ -275,12 +275,12 @@ export default function MenuPage({ onNavigate }) {
                 <div style={{ padding:'40px 24px', textAlign:'center' }}>
                   <div style={{ fontSize:36, marginBottom:10 }}>🛒</div>
                   <p style={{ fontFamily:"'Fraunces',serif", fontSize:16, fontWeight:600, color:'#1A1500', marginBottom:6 }}>Carrito vacío</p>
-                  <p style={{ fontSize:13, color:'#8B7355', lineHeight:1.5 }}>Añade platos de la carta para empezar tu pedido.</p>
+                  <p style={{ fontSize:13, color:'#C4A265', lineHeight:1.5 }}>Añade platos de la carta para empezar tu pedido.</p>
                 </div>
               ) : (
                 <div style={{ padding:'16px 24px' }}>
                   <div style={{ display:'flex', justifyContent:'space-between', padding:'10px 0', borderBottom:'1px solid #F0EDE8' }}>
-                    <span style={{ fontSize:13, color:'#7A6030' }}>Subtotal</span>
+                    <span style={{ fontSize:13, color:'#C4A265' }}>Subtotal</span>
                     <span style={{ fontSize:13, fontWeight:500, color:'#1A1500' }}>€{subtotal.toFixed(2)}</span>
                   </div>
                   <div style={{ display:'flex', justifyContent:'space-between', padding:'10px 0 16px' }}>
@@ -290,14 +290,14 @@ export default function MenuPage({ onNavigate }) {
                   <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:12, padding:'13px', fontFamily:"'Outfit',sans-serif", fontSize:14, fontWeight:500, cursor:'pointer' }}>
                     Ir al pago →
                   </button>
-                  <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'#8B7355', border:'none', padding:'10px', fontFamily:"'Outfit',sans-serif", fontSize:12, cursor:'pointer', marginTop:4 }}>
+                  <button onClick={() => onNavigate('home')} style={{ width:'100%', background:'transparent', color:'#C4A265', border:'none', padding:'10px', fontFamily:"'Outfit',sans-serif", fontSize:12, cursor:'pointer', marginTop:4 }}>
                     ← Seguir comprando
                   </button>
                 </div>
               )}
 
               {/* Delivery info */}
-              <div style={{ borderTop:'1px solid #F0EDE8', padding:'14px 24px', background:'#FFFBEE' }}>
+              <div style={{ borderTop:'1px solid #F0EDE8', padding:'14px 24px', background:'#1C0F00' }}>
                 {[
                   { icon:'🛵', text:'Envío gratis en pedidos +€35' },
                   { icon:'⏱', text:'Entrega en 90 min · Zaragoza' },
@@ -305,7 +305,7 @@ export default function MenuPage({ onNavigate }) {
                 ].map(item => (
                   <div key={item.text} style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
                     <span style={{ fontSize:14 }}>{item.icon}</span>
-                    <span style={{ fontSize:12, color:'#7A6030' }}>{item.text}</span>
+                    <span style={{ fontSize:12, color:'#C4A265' }}>{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -316,7 +316,7 @@ export default function MenuPage({ onNavigate }) {
 
       {/* Mobile floating cart bar */}
       {isMobile && itemCount > 0 && (
-        <div style={{ position:'fixed', bottom:0, left:0, right:0, padding:'12px 16px', background:'#fff', borderTop:'1px solid #F0E4C8', zIndex:50, boxShadow:'0 -4px 20px rgba(0,0,0,0.08)' }}>
+        <div style={{ position:'fixed', bottom:0, left:0, right:0, padding:'12px 16px', background:'#2A1800', borderTop:'1px solid #3D2200', zIndex:50, boxShadow:'0 -4px 20px rgba(0,0,0,0.08)' }}>
           <button onClick={() => onNavigate('checkout')} style={{ width:'100%', background:'#ffd43a', color:'#fff', border:'none', borderRadius:14, padding:'15px', fontFamily:"'Outfit',sans-serif", fontSize:15, fontWeight:500, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
             <span>🛒 {itemCount} {itemCount===1?'artículo':'artículos'}</span>
             <span>Ver pedido · €{subtotal.toFixed(2)} →</span>

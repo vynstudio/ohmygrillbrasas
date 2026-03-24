@@ -20,7 +20,7 @@ export default function ProductCard({ product, size = 'normal' }) {
     <div style={{
       background: '#fff',
       borderRadius: 16,
-      border: '1px solid #F0E4C8',
+      border: '1px solid #3D2200',
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
@@ -103,8 +103,8 @@ export default function ProductCard({ product, size = 'normal' }) {
             <span style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: 11,
-              color: '#8B7355',
-              background: '#FFF8E7',
+              color: '#C4A265',
+              background: '#2A1800',
               padding: '2px 8px',
               borderRadius: 10,
               whiteSpace: 'nowrap',
@@ -117,7 +117,7 @@ export default function ProductCard({ product, size = 'normal' }) {
             <p style={{
               fontFamily: "'Outfit', sans-serif",
               fontSize: 12.5,
-              color: '#7A6030',
+              color: '#C4A265',
               lineHeight: 1.55,
               margin: '0 0 14px 0',
             }}>
