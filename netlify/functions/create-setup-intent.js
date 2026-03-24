@@ -23,7 +23,7 @@ exports.handler = async (event) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: finalAmount,
       currency,
-      automatic_payment_methods: { enabled: true },
+      payment_method_types: ['card', 'klarna', 'link'],
       capture_method: 'automatic',
     });
 
