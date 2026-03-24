@@ -100,7 +100,7 @@ const Err = ({ msg }) => msg ? <p style={{ fontSize:12, color:S.error, marginTop
 
 // ── Step 1: Delivery ──────────────────────────────────────────────────────────
 function StepDelivery({ data, onChange, onNext }) {
-  const { deliveryType, setDeliveryType, setDeliveryZone, deliveryZone, notes, setNotes } = useCart();
+  const { deliveryType, setDeliveryType, setDeliveryZone, deliveryZone, notes, setNotes, subtotal } = useCart();
   const [errors, setErrors] = useState({});
 
   const validate = () => {
